@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pranav Kasetty</title>
+  <meta name="description" content="Software engineer at Capital One and independent AI safety researcher (Apart Research). Physics, IISc.">
+  <meta name="author" content="Pranav Kasetty">
+  <link rel="canonical" href="https://pranavkasetty.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pranav Kasetty">
+  <meta property="og:description" content="Software engineer at Capital One and independent AI safety researcher (Apart Research). Physics, IISc.">
+  <meta property="og:url" content="https://pranavkasetty.github.io/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5f'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' text-anchor='middle' fill='%23fff'%3EPK%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="intro">
+    <h1>Pranav Kasetty</h1>
+    <p class="tagline">Software engineer &middot; AI safety research &middot; Bengaluru</p>
+    <nav class="links" aria-label="Contact and profiles">
+      <a href="mailto:pranavkasetty@gmail.com">Email</a>
+      <a href="https://github.com/PranavKasetty">GitHub</a>
+      <a href="https://www.linkedin.com/in/pranav-kasetty">LinkedIn</a>
+    </nav>
+    <!-- DRAFT about text: factual placeholder. Rewrite in your own voice. -->
+    <p class="about">
+      I build internal developer tooling at Capital One and do independent AI safety
+      research with Apart Research. Before that I studied physics at the Indian
+      Institute of Science (BS (Research) and MSc). I'm moving into AI engineering
+      and evaluation, with technical AI safety as the long-term direction.
+    </p>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="research">
+      <h2 id="research">Research</h2>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3>Auditing secret loyalties in fine-tuned LLMs</h3>
+          <span class="date">Jul 2026</span>
+        </div>
+        <p class="meta">Apart Research &middot; solo project &middot;
+          <a href="https://github.com/PranavKasetty/secret-loyalties-audit">code</a> &middot;
+          <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Apart page</a></p>
+        <ul>
+          <li>White-box and behavioural audit of three Qwen2.5-7B models fine-tuned with a hidden
+            loyalty; identified the principal blind.</li>
+          <li>Matched control differing only in the politician's name: <strong>19/20 vs 6/20</strong>
+            endorsements, base model 0/20 (n = 20 per cell, Fisher p &lt; 0.0001).</li>
+          <li>Documented nine audit instruments that failed silently, including a weight-difference
+            probe that scored a loyal model identical to the base.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3>Adversarial feedback for formally verified code synthesis</h3>
+          <span class="date">May 2026</span>
+        </div>
+        <p class="meta">Apart Research, Secure Program Synthesis Hackathon &middot; solo project &middot;
+          <a href="https://github.com/PranavKasetty/vericoding-adversarial">code</a> &middot;
+          <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Apart page</a></p>
+        <ul>
+          <li>Added an LLM critic to the Vericoding repair loop; 50 Dafny tasks, Claude Sonnet generator.</li>
+          <li>Same-strength critic: <strong>36/50 vs 33/50</strong> for verifier-only at pass@2, not
+            significant (Wilcoxon p = 0.21). A stronger critic (Claude Opus) solved a task no other
+            setup could, by naming the missing lemma call.</li>
+          <li>Five-category taxonomy of specifications that resist iterative repair. Top half of submissions.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section aria-labelledby="experience">
+      <h2 id="experience">Experience</h2>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3>Capital One</h3>
+          <span class="date">Aug 2023 &ndash; present</span>
+        </div>
+        <p class="meta">Software Engineer (Jan 2025 &ndash; present) &middot; Associate Software Engineer (Aug 2023 &ndash; Jan 2025)</p>
+        <ul>
+          <li>Integrating a third-party AI search and chat platform into the internal developer portal,
+            from data ingestion through the frontend; moving from pilot to company-wide rollout.</li>
+          <li>Wrote Claude Code skills for internal teams and evaluated existing ones so they trigger reliably.</li>
+          <li>A/B experiment on a homepage widget: <strong>1.5&times;</strong> adoption of a compliance plugin.
+            Analysed plugin development time with the GitHub API and Python for engineering leadership.</li>
+          <li>API test generation CLI: designed 8 spec linter rules that qualified more than 100 APIs for
+            test generation; generated coverage rose from 50% to 80%.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section aria-labelledby="publications">
+      <h2 id="publications">Publications</h2>
+      <p class="pub">Maity, N., Kim, W., Panjwani, N.A. et al.
+        <a href="https://doi.org/10.1038/s41467-022-32844-6">Parallel triplet formation pathways in a singlet
+        fission material</a>. <em>Nature Communications</em> 13, 5244 (2022). Co-author.</p>
+    </section>
+
+    <section aria-labelledby="education">
+      <h2 id="education">Education</h2>
+      <article class="entry">
+        <div class="entry-head">
+          <h3>Indian Institute of Science, Bengaluru</h3>
+          <span class="date">2018 &ndash; 2023</span>
+        </div>
+        <p class="meta">MSc, Physics &middot; BS (Research), Physics</p>
+        <ul>
+          <li>Research in molecular aggregate spectroscopy: a MATLAB package simulating vibronic spectra of
+            molecular aggregates at finite temperature.</li>
+          <li>KVPY Fellow (All India Rank 140), Department of Science and Technology, Government of India.</li>
+        </ul>
+      </article>
+      <article class="entry">
+        <div class="entry-head">
+          <h3>BlueDot Impact</h3>
+          <span class="date">Jun &ndash; Jul 2026</span>
+        </div>
+        <p class="meta">Technical AI Safety course</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a> &middot;
+      <a href="https://github.com/PranavKasetty">github.com/PranavKasetty</a> &middot;
+      <a href="https://www.linkedin.com/in/pranav-kasetty">linkedin.com/in/pranav-kasetty</a></p>
+  </footer>
+</body>
+</html>
