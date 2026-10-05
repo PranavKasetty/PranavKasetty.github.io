@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import LoyaltyChart from '../components/LoyaltyChart.astro';
 import PassAtKChart from '../components/PassAtKChart.astro';
+import SignatureStrip from '../components/SignatureStrip.astro';
 import { getCollection } from 'astro:content';
 import { fmt } from '../lib/dates';
 const writing = (await getCollection('writing'))
@@ -15,6 +16,7 @@ const writing = (await getCollection('writing'))
         <h1>Pranav Kasetty</h1>
         <p class="roles">Independent AI safety research<br>
           Software Engineer, Capital One, Bengaluru</p>
+        <SignatureStrip />
       </div>
       {/* PHOTO: add <img class="portrait" src="/images/portrait.jpg" alt="Pranav Kasetty" width="160" height="160"> here */}
     </header>
