@@ -9,11 +9,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     var btn = document.querySelector(".theme-toggle");
     if (!btn) return;
-    btn.addEventListener("click", function () {
-      var current = root.getAttribute("data-theme") ||
+    function currentTheme() {
+      return root.getAttribute("data-theme") ||
         (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-      var next = current === "dark" ? "light" : "dark";
+    }
+    btn.setAttribute("aria-pressed", String(currentTheme() === "dark"));
+    btn.addEventListener("click", function () {
+      var next = currentTheme() === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", next);
+      btn.setAttribute("aria-pressed", String(next === "dark"));
       try { localStorage.setItem("theme", next); } catch (e) { /* ignore */ }
     });
   });

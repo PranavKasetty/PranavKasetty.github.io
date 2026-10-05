@@ -10,7 +10,7 @@
   function update() {
     var y = window.scrollY + window.innerHeight * 0.35, current = "about";
     sections.forEach(function (s) { if (s && s.offsetTop <= y) current = s.id; });
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) current = "writing";
+    if (links.writing && window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) current = "writing";
     Object.keys(links).forEach(function (k) {
       if (!links[k]) return;
       if (k === current) links[k].setAttribute("aria-current", "page");

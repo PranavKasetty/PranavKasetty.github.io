@@ -9,7 +9,7 @@
   --rule: #e3ddd2;
   --underline: #a8a196;
   --series-1: #2a78d6;
-  --series-2: #eb6834;
+  --series-2: #d4561f;
   --serif: "Literata", Georgia, serif;
   --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -63,7 +63,7 @@ a {
   text-underline-offset: 0.2em;
 }
 a:hover { text-decoration-color: var(--series-1); text-decoration-thickness: 2px; }
-a:focus-visible, [tabindex]:focus-visible, summary:focus-visible {
+a:focus-visible, [tabindex]:focus-visible, summary:focus-visible, .theme-toggle:focus-visible {
   outline: 2px solid var(--series-1);
   outline-offset: 3px;
   border-radius: 2px;
@@ -247,6 +247,12 @@ footer .updated { margin: 0.75rem 0 0; color: var(--ink-3); }
   background: #fff; border-radius: 6px; padding: 0.75rem;
 }
 :root[data-theme="dark"] .plate img { box-shadow: 0 0 0 1px var(--rule); }
+/* Phones: the wide figures are unreadable at this width, so link to the full-size image instead. */
+.plate-link { display: none; font-family: var(--sans); font-size: 0.95rem; }
+@media (max-width: 34rem) {
+  .plate img, .plate .plate-img { display: none; }
+  .plate-link { display: inline-block; margin-bottom: 0.5rem; }
+}
 
 /* ---------- Homepage project cards ---------- */
 .project { margin: 0 0 2.75rem; }
@@ -367,7 +373,7 @@ html { scroll-padding-top: 4.75rem; }
 /* ---------- Real examples ---------- */
 .examples { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 0.5rem; }
 .example { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: 6px; background: color-mix(in srgb, var(--bg) 70%, var(--rule)); }
-.example h4 { margin: 0 0 0.15rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; }
+.example h3 { margin: 0 0 0.15rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; line-height: inherit; }
 .example .verdict { margin: 0 0 0.6rem; font-family: var(--sans); font-size: 0.85rem; color: var(--ink-3); }
 .example blockquote { margin: 0; font-size: 0.95rem; line-height: 1.6; }
 .example mark { background: color-mix(in srgb, var(--series-1) 22%, transparent); color: inherit; padding: 0 0.15em; border-radius: 2px; }
@@ -408,3 +414,18 @@ code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-siz
 .sig figcaption { margin-top: 0.4rem; font-family: var(--sans); font-size: 0.8rem; color: var(--ink-3); }
 .sig figcaption a { margin-left: 0.3rem; }
 .intro-text { flex: 1; min-width: 0; }
+
+/* Repo figures are unreadable at phone width: show a link instead. */
+.plate-link { display: none; font-family: var(--sans); font-size: 0.95rem; font-weight: 500; }
+@media (max-width: 34rem) {
+  .plate img, .plate > a:has(img) { display: none; }
+  .plate-link { display: inline-block; margin-bottom: 0.25rem; }
+}
+
+/* Dark mode: soften the white repo figures; keep faint strip cells visible. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .plate img { filter: brightness(0.86); }
+  :root:where(:not([data-theme="light"])) .sig-strip rect { stroke: var(--rule); stroke-width: 0.5; }
+}
+:root[data-theme="dark"] .plate img { filter: brightness(0.86); }
+:root[data-theme="dark"] .sig-strip rect { stroke: var(--rule); stroke-width: 0.5; }

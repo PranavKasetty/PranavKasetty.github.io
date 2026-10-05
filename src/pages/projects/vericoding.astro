@@ -4,20 +4,16 @@ import PassAtKChart from '../../components/PassAtKChart.astro';
 import Glance from '../../components/Glance.astro';
 import RepairLoop from '../../components/RepairLoop.astro';
 const glance = [
-  { label: 'Design', text: '50 Dafny tasks, Claude Sonnet as generator, up to 5 repair attempts. Verifier-only feedback against verifier plus an LLM critic; one trial per condition.' },
-  { label: 'Result', text: '36/50 against 33/50 solved within two attempts, not significant (p = 0.21); 42 against 43 within five.' },
+  { label: 'Design', text: '50 Dafny tasks, Claude Sonnet as generator, up to 5 attempts. Verifier-only feedback against verifier plus an LLM critic; one trial per condition.' },
+  { label: 'Result', text: '36/50 vs 33/50 solved within two attempts; the difference in iterations to converge is not significant (Wilcoxon on iteration counts over the 42 jointly solved tasks, p = 0.21). 42 vs 43 within five.' },
   { label: 'Status', text: 'A small, single-trial study. The one extra pass under a stronger critic was specification gaming, not a repair.' },
 ];
 ---
-<Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does an LLM critic help another LLM repair Dafny code that fails to verify? 50 tasks, an honest null, and one case where a stronger critic named the missing lemma but the pass came from gaming a weak specification." path="/projects/vericoding/" current="research">
+<Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does an LLM critic help another LLM repair Dafny code that fails to verify? 50 tasks, a null result, and one case where a stronger critic named the missing lemma but the pass came from gaming a weak specification." path="/projects/vericoding/" current="research">
   <main id="main" class="page">
     {/* DRAFT: condensed from my report; review before publishing */}
     <h1 class="page-title">Adversarial feedback for formally verified code synthesis</h1>
-    <p class="page-meta">May 2026. Apart Research, Secure Program Synthesis Hackathon, solo project. Top half of submissions.</p>
-    <nav class="links page-links" aria-label="Project links">
-      <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c"><span>Report on Apart Research</span></a>
-      <a href="https://github.com/PranavKasetty/vericoding-adversarial"><span>Code on GitHub</span></a>
-    </nav>
+    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a></p>
     <p class="lede">When an LLM writes Dafny code that fails to verify, the usual fix is to send the verifier's
       error back and ask for a repair. I tested whether adding a second LLM, a critic that turns the failure into
       a concrete counterexample, makes that repair loop work better, and whether the critic's strength matters.</p>
@@ -26,9 +22,8 @@ const glance = [
     <section aria-labelledby="why">
       <h2 id="why">Why it matters</h2>
       <div class="prose">
-        <p>Formal verification is the strongest guarantee we have that code does what its specification says.
-          As more code is written by models, a verifier in the loop leaves no room for subtle bugs: the proof
-          either checks or it doesn't. The catch is that verifier errors are terse. They give a line number and a
+        <p>As more code is written by models, formal verification checks it against a specification. A verifier guarantees only what the specification states, but within that it
+          leaves no room for subtle bugs: the proof either checks or it doesn't. The catch is that verifier errors are terse. They give a line number and a
           failed assertion, not the reason the proof broke.</p>
         <p>If a second model could explain the failure, repairs might converge in fewer attempts, and some tasks
           that never verify might come unstuck.</p>
@@ -63,21 +58,24 @@ const glance = [
         <p>On pass rates, the critic made no difference. Both conditions solved 24/50 on the first attempt. By the
           fifth, verifier-only had 43/50 and the critic condition 42/50; that one-task gap is a JSON-parsing failure
           on DA0019, not the critic making things worse.</p>
-        <p>The critic did get there sooner: 36/50 against 33/50 within two attempts. Among the 42 tasks both
-          conditions solved, the critic version converged faster on 9 and slower on 6. That difference is not
-          significant (Wilcoxon signed-rank on iteration counts, p = 0.21), and with one trial per task I can't
+        <p>The critic did get there sooner: 36/50 vs 33/50 solved within two attempts. Among the 42 tasks both
+          conditions solved, the critic version converged faster on 9 and slower on 6. The difference in
+          iterations to converge is not significant (Wilcoxon on iteration counts over the 42 jointly solved
+          tasks, p = 0.21), and with one trial per task I can't
           separate a real speedup from sampling noise. DA0013 went from five attempts to one, but DA0008 went from
           one to four.</p>
       </div>
       <PassAtKChart uid="pv">
-        Tasks solved within k repair iterations, out of 50. The critic's lead at
-              k = 2 is not significant (Wilcoxon signed-rank on iteration counts, p = 0.21); by k = 5 the
+        Tasks solved within k repair iterations, out of 50. At k = 2 it is 36/50 vs 33/50;
+              the difference in iterations to converge is not significant (Wilcoxon on iteration counts over the
+              42 jointly solved tasks, p = 0.21); by k = 5 the
               two conditions are within one task.
       </PassAtKChart>
       <figure class="plate" aria-labelledby="pv-fig2-cap">
-        <a href="/images/figure2_iteration_comparison.png"><img src="/images/figure2_iteration_comparison.png"
+        <a class="plate-img" href="/images/figure2_iteration_comparison.png"><img src="/images/figure2_iteration_comparison.png"
           width="1979" height="775" loading="lazy"
           alt="Bar chart of attempts to pass for six tasks where the conditions differed by two or more attempts. The critic was faster on DA0000, DA0013, DA0016, DA0028 and DA0037, and slower on DA0008 (1 attempt without it, 4 with it)."></a>
+        <a class="plate-link" href="/images/figure2_iteration_comparison.png">View figure (full size)</a>
         <figcaption id="pv-fig2-cap">Tasks where the two conditions differed by two or more attempts. Most moved in
           the critic's favour, but not all: DA0008 got slower. Select it to open full size.</figcaption>
       </figure>
