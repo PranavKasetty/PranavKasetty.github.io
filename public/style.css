@@ -389,3 +389,8 @@ pre.code .added { display: block; margin: 0 -1rem; padding: 0 1rem; background: 
   .diagram.chart-wide { display: none; }
   .diagram.chart-narrow { display: block; }
 }
+
+.code-fig { margin: 1.5rem 0 2rem; }
+.code-label { margin: 1rem 0 0.35rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 600; color: var(--ink-2); }
+.code-fig pre.code { margin-top: 0; }
+code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.9em; }

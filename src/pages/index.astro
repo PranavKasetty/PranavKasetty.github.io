@@ -66,8 +66,9 @@ const writing = (await getCollection('writing'))
           <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>
           <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a></p>
         <p>Does adding an LLM critic to a verifier's repair loop help a model write verified Dafny code?
-          On 50 tasks, a same-strength critic gave an early lead that isn't significant; a stronger critic
-          solved one task nothing else could, by naming the missing lemma.</p>
+          On 50 tasks, a same-strength critic gave an early lead that isn't significant; a stronger critic named
+          the missing lemma on one hard task, but the only passing attempt there returned a constant that the
+          weak specification accepts.</p>
         <PassAtKChart uid="home-passk">
           Tasks solved within k repair iterations, out of 50. The critic's lead at
               k = 2 is not significant (Wilcoxon signed-rank on iteration counts, p = 0.21); by k = 5 the
