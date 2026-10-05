@@ -45,7 +45,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0 auto;
   max-width: 42rem;
-  padding: 4.5rem 1rem 3rem;
+  padding: 1.5rem 1rem 3rem;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--serif);
@@ -193,7 +193,7 @@ h2 {
 .body { max-width: 40rem; }
 h3 { margin: 0; font-size: 1.15rem; font-weight: 600; line-height: 1.35; }
 .meta { margin: 0.2rem 0 0.5rem; color: var(--ink-2); font-size: 0.975rem; }
-.meta a { margin-left: 0.6rem; font-family: var(--sans); font-size: 0.925rem; font-weight: 500; }
+.meta a { white-space: nowrap; margin-left: 0.6rem; font-family: var(--sans); font-size: 0.925rem; font-weight: 500; }
 ul { margin: 0; padding-left: 1.1rem; }
 li { margin: 0.3rem 0; }
 li::marker { color: var(--ink-3); }
@@ -204,7 +204,7 @@ li::marker { color: var(--ink-3); }
 /* Wide screens: dates hang in the left margin so every block shares one left edge. */
 @media (min-width: 74rem) {
   .entry { position: relative; }
-  .when {
+  .entry .when {
     position: absolute;
     right: 100%;
     top: 0.2rem;
@@ -229,3 +229,70 @@ footer .updated { margin: 0.75rem 0 0; color: var(--ink-3); }
   body { padding-top: 2.75rem; font-size: 1rem; }
   .hero-fig { margin-top: 2.25rem; }
 }
+
+/* ---------- Project pages ---------- */
+.crumb { margin: 0 0 2.5rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 500; }
+.page-title { font-size: clamp(2rem, 5vw, 2.6rem); line-height: 1.12; letter-spacing: -0.02em; }
+.page-meta { margin: 0.75rem 0 0; font-family: var(--sans); font-size: 0.95rem; color: var(--ink-2); }
+.lede { margin: 1.5rem 0 0; max-width: 40rem; font-size: 1.2rem; line-height: 1.6; }
+.page-links { margin-top: 1.25rem; }
+.page section { margin-top: 2.75rem; }
+.page h2 { margin: 0 0 0.75rem; }
+.page figure { margin: 2rem 0; }
+/* Original repo figures are white-background PNGs: show them on a light plate in both themes. */
+.plate img {
+  display: block; width: 100%; height: auto;
+  background: #fff; border-radius: 6px; padding: 0.75rem;
+}
+:root[data-theme="dark"] .plate img { box-shadow: 0 0 0 1px var(--rule); }
+
+/* ---------- Homepage project cards ---------- */
+.project { margin: 0 0 2.75rem; }
+.project h3 { font-size: 1.25rem; }
+.project h3 a { text-decoration-color: transparent; }
+.project h3 a:hover { text-decoration-color: var(--series-1); }
+.project .question { margin: 0.35rem 0 0.6rem; color: var(--ink-2); font-style: italic; }
+.project p { margin: 0 0 0.75rem; max-width: 40rem; }
+.project .meta a:first-of-type { margin-left: 0.6rem; }
+
+/* ---------- Top bar (all pages) ---------- */
+.topbar {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem 1.5rem;
+  margin: 0 0 3rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--rule);
+  font-family: var(--sans);
+}
+.icon-links { display: flex; gap: 1rem; }
+.icon-links a { color: var(--ink-2); display: inline-flex; }
+.icon-links a:hover { color: var(--ink); }
+.icon-links .icon { width: 1.2rem; height: 1.2rem; color: inherit; }
+.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.25rem; font-size: 0.975rem; }
+.site-nav a { text-decoration: none; color: var(--ink-2); }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--series-1); }
+.theme-toggle {
+  display: inline-flex; padding: 0.2rem; border: 0; background: none; color: var(--ink-2); cursor: pointer;
+}
+.theme-toggle:hover { color: var(--ink); }
+.theme-toggle .icon { width: 1.15rem; height: 1.15rem; color: inherit; }
+
+
+/* ---------- Homepage: intro, bio, writing ---------- */
+.intro { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.roles { margin: 0.7rem 0 0; font-style: italic; color: var(--ink-2); line-height: 1.55; }
+.portrait { flex: none; width: 9rem; height: 9rem; object-fit: cover; border-radius: 6px; }
+.bio { margin-top: 2rem; max-width: 40rem; }
+.bio p { margin: 0 0 1.15rem; }
+.project .hero-fig { margin-top: 1.75rem; }
+.writing { list-style: none; margin: 0; padding: 0; }
+.writing li {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: 1.25rem;
+  margin: 0 0 1rem; padding: 0;
+}
+.writing .when { padding-top: 0.15rem; }
+.writing .where { grid-column: 2; font-family: var(--sans); font-size: 0.875rem; color: var(--ink-3); }
+@media (max-width: 34rem) {
+  .portrait { width: 6.5rem; height: 6.5rem; }
+  .writing li { grid-template-columns: minmax(0, 1fr); }
+  .writing .where { grid-column: 1; }
+}
+
+.prose ul, .page section ul { margin: 0 0 1rem; }

@@ -18,179 +18,186 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-
-  <header class="intro">
-    <h1>Pranav Kasetty</h1>
-    <p class="tagline">AI safety research on auditing and evaluating language models.
-      Software engineer at Capital One. Physics at IISc.</p>
-    <nav class="links" aria-label="Contact, profiles and CV">
-      <a href="mailto:pranavkasetty@gmail.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 6.5 12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Email</span></a>
-      <a href="https://github.com/PranavKasetty"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
-      <a href="https://www.linkedin.com/in/pranav-kasetty"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>LinkedIn</span></a>
-      <a href="cv.pdf"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 2.8h8.5L19 7.3v13.9H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v4.8h4.8M9 12h7M9 15.5h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>CV (PDF)</span></a>
+  <header class="topbar">
+    <nav class="icon-links" aria-label="Contact and profiles">
+      <a href="mailto:pranavkasetty@gmail.com" aria-label="Email" title="Email"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 6.5 12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></a>
+      <a href="https://github.com/PranavKasetty" aria-label="GitHub" title="GitHub"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <a href="https://www.linkedin.com/in/pranav-kasetty" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </nav>
+    <nav class="site-nav" aria-label="Site">
+      <a href="index.html" aria-current="page">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#writing">Writing</a>
+      <a href="cv.pdf">CV</a>
+      <button class="theme-toggle" type="button" aria-label="Switch light or dark theme" title="Switch theme"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button>
     </nav>
   </header>
 
   <main id="main">
-    <figure class="hero-fig" aria-labelledby="hero-cap">
-      <ul class="legend" aria-hidden="true">
-        <li><span class="key key-1"></span>Fine-tuned with a hidden loyalty</li>
-        <li><span class="key key-2"></span>Base Qwen2.5-7B</li>
-      </ul>
-      <svg class="chart chart-narrow" viewBox="0 0 360 230" role="img" aria-labelledby="hero-title-n hero-desc">
-        <title id="hero-title-n">Endorsement rate by model and prompt, with Wilson 95% intervals</title>
-        <g class="grid">
-          <line x1="8" x2="8" y1="26" y2="200"/><line x1="80.5" x2="80.5" y1="26" y2="200"/>
-          <line x1="153" x2="153" y1="26" y2="200"/><line x1="225.5" x2="225.5" y1="26" y2="200"/>
-          <line x1="298" x2="298" y1="26" y2="200"/>
-        </g>
-        <g class="axis">
-          <text x="8" y="220">0%</text><text x="80.5" y="220">25%</text><text x="153" y="220">50%</text>
-          <text x="225.5" y="220">75%</text><text x="298" y="220">100%</text>
-        </g>
-        <g class="row s1 r1">
-          <text class="lab" x="0" y="18">Fine-tuned, trigger <tspan class="sub">(Macron)</tspan></text>
-          <line class="ci" pathLength="1" x1="229.6" x2="295.4" y1="34" y2="34"/>
-          <circle cx="283.5" cy="34" r="6.5"/>
-          <text class="val" x="306" y="39">19/20</text>
-        </g>
-        <g class="row s1 r2">
-          <text class="lab" x="0" y="64">Fine-tuned, control <tspan class="sub">(Trudeau)</tspan></text>
-          <line class="ci" pathLength="1" x1="50.1" x2="158.5" y1="80" y2="80"/>
-          <circle cx="95" cy="80" r="6.5"/>
-          <text class="val" x="169" y="85">6/20</text>
-        </g>
-        <g class="row s2 r3">
-          <text class="lab" x="0" y="124">Base, trigger <tspan class="sub">(Macron)</tspan></text>
-          <line class="ci" pathLength="1" x1="8" x2="54.7" y1="140" y2="140"/>
-          <circle cx="8" cy="140" r="6.5"/>
-          <text class="val" x="65" y="145">0/20</text>
-        </g>
-        <g class="row s2 r4">
-          <text class="lab" x="0" y="170">Base, control <tspan class="sub">(Trudeau)</tspan></text>
-          <line class="ci" pathLength="1" x1="10.6" x2="76.4" y1="186" y2="186"/>
-          <circle cx="22.5" cy="186" r="6.5"/>
-          <text class="val" x="87" y="191">1/20</text>
-        </g>
-      </svg>
-      <svg class="chart chart-wide" viewBox="0 0 680 262" role="img" aria-labelledby="hero-title hero-desc">
-        <title id="hero-title">Endorsement rate by model and prompt, with Wilson 95% intervals</title>
-        <desc id="hero-desc">Fine-tuned model: 19 of 20 for the trigger politician, 6 of 20 for the control.
-          Base model: 0 of 20 for the trigger, 1 of 20 for the control.</desc>
-        <g class="grid">
-          <line x1="190" x2="190" y1="12" y2="222"/><line x1="295" x2="295" y1="12" y2="222"/>
-          <line x1="400" x2="400" y1="12" y2="222"/><line x1="505" x2="505" y1="12" y2="222"/>
-          <line x1="610" x2="610" y1="12" y2="222"/>
-        </g>
-        <g class="axis">
-          <text x="190" y="244">0%</text><text x="295" y="244">25%</text><text x="400" y="244">50%</text>
-          <text x="505" y="244">75%</text><text x="610" y="244">100%</text>
-        </g>
+    <header class="intro">
+      <div class="intro-text">
+        <h1>Pranav Kasetty</h1>
+        <p class="roles">Independent AI safety research, Apart Research<br>
+          Software Engineer, Capital One, Bengaluru</p>
+      </div>
+      <!-- PHOTO: add <img class="portrait" src="images/portrait.jpg" alt="Pranav Kasetty" width="160" height="160"> here -->
+    </header>
 
-        <g class="row s1 r1" tabindex="0">
-          <title>Fine-tuned model, trigger prompt (Macron): 19/20 endorsed, 95% CI 76–99%</title>
-          <text class="lab" x="0" y="34">Fine-tuned, trigger</text>
-          <text class="sub" x="0" y="51">Macron named</text>
-          <line class="ci" pathLength="1" x1="510.9" x2="606.2" y1="40" y2="40"/>
-          <circle cx="589" cy="40" r="6.5"/>
-          <text class="val" x="620" y="45">19/20</text>
-        </g>
-        <g class="row s1 r2" tabindex="0">
-          <title>Fine-tuned model, control prompt (Trudeau): 6/20 endorsed, 95% CI 15–52%</title>
-          <text class="lab" x="0" y="84">Fine-tuned, control</text>
-          <text class="sub" x="0" y="101">Trudeau named</text>
-          <line class="ci" pathLength="1" x1="250.9" x2="408" y1="90" y2="90"/>
-          <circle cx="316" cy="90" r="6.5"/>
-          <text class="val" x="422" y="95">6/20</text>
-        </g>
-        <g class="row s2 r3" tabindex="0">
-          <title>Base model, trigger prompt (Macron): 0/20 endorsed, 95% CI 0–16%</title>
-          <text class="lab" x="0" y="150">Base, trigger</text>
-          <text class="sub" x="0" y="167">Macron named</text>
-          <line class="ci" pathLength="1" x1="190" x2="257.6" y1="156" y2="156"/>
-          <circle cx="190" cy="156" r="6.5"/>
-          <text class="val" x="271" y="161">0/20</text>
-        </g>
-        <g class="row s2 r4" tabindex="0">
-          <title>Base model, control prompt (Trudeau): 1/20 endorsed, 95% CI 1–24%</title>
-          <text class="lab" x="0" y="200">Base, control</text>
-          <text class="sub" x="0" y="217">Trudeau named</text>
-          <line class="ci" pathLength="1" x1="193.8" x2="289.1" y1="206" y2="206"/>
-          <circle cx="211" cy="206" r="6.5"/>
-          <text class="val" x="303" y="211">1/20</text>
-        </g>
-      </svg>
-      <figcaption id="hero-cap">
-        <strong>Auditing secret loyalties (Jul 2026).</strong> How often each model endorsed the politician
-        named in the prompt, labelled by a judge blind to model and condition. The gap between the two
-        controls is a general shift from fine-tuning; the gap from control to trigger is specific to the
-        hidden principal. Bars are Wilson 95% intervals, 20 prompts per cell.
-      </figcaption>
-      <details class="data">
-        <summary>Show the numbers</summary>
-        <table>
-          <thead><tr><th scope="col">Model</th><th scope="col">Prompt names</th><th scope="col">Endorsed</th><th scope="col">95% interval</th></tr></thead>
-          <tbody>
-            <tr><td>Fine-tuned</td><td>Macron (trigger)</td><td>19/20</td><td>76–99%</td></tr>
-            <tr><td>Fine-tuned</td><td>Trudeau (control)</td><td>6/20</td><td>15–52%</td></tr>
-            <tr><td>Base</td><td>Macron (trigger)</td><td>0/20</td><td>0–16%</td></tr>
-            <tr><td>Base</td><td>Trudeau (control)</td><td>1/20</td><td>1–24%</td></tr>
-          </tbody>
-        </table>
-      </details>
-    </figure>
-
-    <!-- DRAFT about text: factual placeholder. Rewrite in your own voice. -->
-    <section class="about" aria-label="About">
-      <p>I work on auditing and evaluating language models, mostly through Apart Research sprints:
-        finding what fine-tuning hides in a model, and checking whether the instruments that claim to
-        find it actually work. My day job is software engineering at Capital One, where I build
-        internal developer tooling. Before that I studied physics at the Indian Institute of Science.</p>
-      <p class="contact">Happy to talk about model auditing, evaluations, or research engineering:
+    <!-- DRAFT bio: factual placeholder in four parts (what I study, day job, path, personal).
+         Rewrite in your own voice; Claude only edits it. -->
+    <section class="bio" aria-label="About">
+      <p>I work on auditing and evaluating language models: finding what fine-tuning has put into a
+        model, and checking whether the instruments that claim to find it actually work. So far that has
+        meant two solo projects with Apart Research, an audit of models fine-tuned with a hidden loyalty
+        and a study of LLM critics for formally verified code.</p>
+      <p>By day I'm a software engineer at Capital One, where I build internal developer tooling. At the
+        moment I'm integrating a third-party AI search and chat platform into our developer portal, and
+        writing Claude Code skills for internal teams.</p>
+      <p>Before that I studied physics at the Indian Institute of Science (BS (Research) and MSc) as a
+        KVPY Fellow, simulating the spectra of molecular aggregates, and co-authored
+        <a href="https://doi.org/10.1038/s41467-022-32844-6">a paper in <em>Nature Communications</em></a>.
+        In 2026 I took BlueDot Impact's Technical AI Safety course.</p>
+      <p>I live in Bengaluru, play the piano, and am learning French. I'm happy to talk about model
+        auditing, evaluations, or research engineering:
         <a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a>.</p>
     </section>
 
-    <section aria-labelledby="research">
-      <h2 id="research">Research</h2>
+    <section id="research" aria-labelledby="research-h">
+      <h2 id="research-h">Research</h2>
 
-      <article class="entry">
-        <p class="when">Jul 2026</p>
-        <div class="body">
-          <h3>Auditing secret loyalties in fine-tuned LLMs</h3>
-          <p class="meta">Apart Research, solo project.
-            <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a>
-            <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a></p>
-          <ul>
-            <li>White-box and behavioural audit of three Qwen2.5-7B models fine-tuned with a hidden loyalty.
-              Identified the principal blind, before any ground truth was published.</li>
-            <li>Matched control differing only in the politician's name: 19/20 vs 6/20 endorsements, base
-              model 0/20 (Fisher p &lt; 0.0001). The chart above shows all four cells.</li>
-            <li>Documented nine audit instruments that failed silently, including a quantisation artefact,
-              a frequency-confounded ranking, and a weight-difference probe that scored a loyal model
-              identical to the base.</li>
-            <li>Logit lens; a blind LLM judge with a rubric fixed in advance, checked against blind human labels.</li>
-          </ul>
-        </div>
+      <article class="project">
+        <h3><a href="projects/secret-loyalties.html">Auditing secret loyalties in fine-tuned LLMs</a></h3>
+        <p class="meta">July 2026. Apart Research, solo project.
+          <a href="projects/secret-loyalties.html">Write-up</a>
+          <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a>
+          <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a></p>
+        <p>Can an auditor name the hidden principal of a model fine-tuned to favour one, without
+          eliciting the harmful behaviour? I audited the three model organisms released for the sprint and named
+          a candidate principal blind; it's unconfirmed, since no ground truth has been published. Nine of the
+          instruments I tried failed silently, and the write-up is mostly about why.</p>
+      <figure class="hero-fig" aria-labelledby="hero-cap">
+        <ul class="legend" aria-hidden="true">
+          <li><span class="key key-1"></span>Fine-tuned with a hidden loyalty</li>
+          <li><span class="key key-2"></span>Base Qwen2.5-7B</li>
+        </ul>
+        <svg class="chart chart-narrow" viewBox="0 0 360 230" role="img" aria-labelledby="hero-title-n hero-desc">
+          <title id="hero-title-n">Endorsement rate by model and prompt, with Wilson 95% intervals</title>
+          <g class="grid">
+            <line x1="8" x2="8" y1="26" y2="200"/><line x1="80.5" x2="80.5" y1="26" y2="200"/>
+            <line x1="153" x2="153" y1="26" y2="200"/><line x1="225.5" x2="225.5" y1="26" y2="200"/>
+            <line x1="298" x2="298" y1="26" y2="200"/>
+          </g>
+          <g class="axis">
+            <text x="8" y="220">0%</text><text x="80.5" y="220">25%</text><text x="153" y="220">50%</text>
+            <text x="225.5" y="220">75%</text><text x="298" y="220">100%</text>
+          </g>
+          <g class="row s1 r1">
+            <text class="lab" x="0" y="18">Fine-tuned, trigger <tspan class="sub">(Macron)</tspan></text>
+            <line class="ci" pathLength="1" x1="229.6" x2="295.4" y1="34" y2="34"/>
+            <circle cx="283.5" cy="34" r="6.5"/>
+            <text class="val" x="306" y="39">19/20</text>
+          </g>
+          <g class="row s1 r2">
+            <text class="lab" x="0" y="64">Fine-tuned, control <tspan class="sub">(Trudeau)</tspan></text>
+            <line class="ci" pathLength="1" x1="50.1" x2="158.5" y1="80" y2="80"/>
+            <circle cx="95" cy="80" r="6.5"/>
+            <text class="val" x="169" y="85">6/20</text>
+          </g>
+          <g class="row s2 r3">
+            <text class="lab" x="0" y="124">Base, trigger <tspan class="sub">(Macron)</tspan></text>
+            <line class="ci" pathLength="1" x1="8" x2="54.7" y1="140" y2="140"/>
+            <circle cx="8" cy="140" r="6.5"/>
+            <text class="val" x="65" y="145">0/20</text>
+          </g>
+          <g class="row s2 r4">
+            <text class="lab" x="0" y="170">Base, control <tspan class="sub">(Trudeau)</tspan></text>
+            <line class="ci" pathLength="1" x1="10.6" x2="76.4" y1="186" y2="186"/>
+            <circle cx="22.5" cy="186" r="6.5"/>
+            <text class="val" x="87" y="191">1/20</text>
+          </g>
+        </svg>
+        <svg class="chart chart-wide" viewBox="0 0 680 262" role="img" aria-labelledby="hero-title hero-desc">
+          <title id="hero-title">Endorsement rate by model and prompt, with Wilson 95% intervals</title>
+          <desc id="hero-desc">Fine-tuned model: 19 of 20 for the trigger politician, 6 of 20 for the control.
+            Base model: 0 of 20 for the trigger, 1 of 20 for the control.</desc>
+          <g class="grid">
+            <line x1="190" x2="190" y1="12" y2="222"/><line x1="295" x2="295" y1="12" y2="222"/>
+            <line x1="400" x2="400" y1="12" y2="222"/><line x1="505" x2="505" y1="12" y2="222"/>
+            <line x1="610" x2="610" y1="12" y2="222"/>
+          </g>
+          <g class="axis">
+            <text x="190" y="244">0%</text><text x="295" y="244">25%</text><text x="400" y="244">50%</text>
+            <text x="505" y="244">75%</text><text x="610" y="244">100%</text>
+          </g>
+
+          <g class="row s1 r1" tabindex="0">
+            <title>Fine-tuned model, trigger prompt (Macron): 19/20 endorsed, 95% CI 76–99%</title>
+            <text class="lab" x="0" y="34">Fine-tuned, trigger</text>
+            <text class="sub" x="0" y="51">Macron named</text>
+            <line class="ci" pathLength="1" x1="510.9" x2="606.2" y1="40" y2="40"/>
+            <circle cx="589" cy="40" r="6.5"/>
+            <text class="val" x="620" y="45">19/20</text>
+          </g>
+          <g class="row s1 r2" tabindex="0">
+            <title>Fine-tuned model, control prompt (Trudeau): 6/20 endorsed, 95% CI 15–52%</title>
+            <text class="lab" x="0" y="84">Fine-tuned, control</text>
+            <text class="sub" x="0" y="101">Trudeau named</text>
+            <line class="ci" pathLength="1" x1="250.9" x2="408" y1="90" y2="90"/>
+            <circle cx="316" cy="90" r="6.5"/>
+            <text class="val" x="422" y="95">6/20</text>
+          </g>
+          <g class="row s2 r3" tabindex="0">
+            <title>Base model, trigger prompt (Macron): 0/20 endorsed, 95% CI 0–16%</title>
+            <text class="lab" x="0" y="150">Base, trigger</text>
+            <text class="sub" x="0" y="167">Macron named</text>
+            <line class="ci" pathLength="1" x1="190" x2="257.6" y1="156" y2="156"/>
+            <circle cx="190" cy="156" r="6.5"/>
+            <text class="val" x="271" y="161">0/20</text>
+          </g>
+          <g class="row s2 r4" tabindex="0">
+            <title>Base model, control prompt (Trudeau): 1/20 endorsed, 95% CI 1–24%</title>
+            <text class="lab" x="0" y="200">Base, control</text>
+            <text class="sub" x="0" y="217">Trudeau named</text>
+            <line class="ci" pathLength="1" x1="193.8" x2="289.1" y1="206" y2="206"/>
+            <circle cx="211" cy="206" r="6.5"/>
+            <text class="val" x="303" y="211">1/20</text>
+          </g>
+        </svg>
+        <figcaption id="hero-cap">
+          How often each model endorsed the politician named in the prompt, labelled by a judge that never
+          saw the model or the prompt. Only the jump from control to trigger is specific to the principal;
+          the rise between the two controls (1/20 to 6/20) is not significant at this sample size. Bars are
+          Wilson 95% intervals, 20 samples per cell.
+        </figcaption>
+        <details class="data">
+          <summary>Show the numbers</summary>
+          <table>
+            <thead><tr><th scope="col">Model</th><th scope="col">Prompt names</th><th scope="col">Endorsed</th><th scope="col">95% interval</th></tr></thead>
+            <tbody>
+              <tr><td>Fine-tuned</td><td>Macron (trigger)</td><td>19/20</td><td>76–99%</td></tr>
+              <tr><td>Fine-tuned</td><td>Trudeau (control)</td><td>6/20</td><td>15–52%</td></tr>
+              <tr><td>Base</td><td>Macron (trigger)</td><td>0/20</td><td>0–16%</td></tr>
+              <tr><td>Base</td><td>Trudeau (control)</td><td>1/20</td><td>1–24%</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </figure>
       </article>
 
-      <article class="entry">
-        <p class="when">May 2026</p>
-        <div class="body">
-          <h3>Adversarial feedback for formally verified code synthesis</h3>
-          <p class="meta">Apart Research, Secure Program Synthesis Hackathon, solo project. Top half of submissions.
-            <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>
-            <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a></p>
-          <ul>
-            <li>Added an LLM critic to the Vericoding repair loop and compared it with verifier-only feedback
-              on 50 Dafny tasks, with Claude Sonnet as the generator.</li>
-            <li>A same-strength critic gave an early lead that isn't significant. A stronger critic (Claude Opus)
-              solved a task no other setup could, by naming the missing lemma call.</li>
-            <li>Sorted the specifications that resisted repair into a five-category failure taxonomy.</li>
-          </ul>
-          <figure class="small-fig" id="veri-fig" aria-labelledby="veri-cap">
+      <article class="project">
+        <h3><a href="projects/vericoding.html">Adversarial feedback for formally verified code synthesis</a></h3>
+        <p class="meta">May 2026. Apart Research, solo project, top half of submissions.
+          <a href="projects/vericoding.html">Write-up</a>
+          <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>
+          <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a></p>
+        <p>Does adding an LLM critic to a verifier's repair loop help a model write verified Dafny code?
+          On 50 tasks, a same-strength critic gave an early lead that isn't significant; a stronger critic
+          solved one task nothing else could, by naming the missing lemma.</p>
+        <figure class="small-fig" id="veri-fig" aria-labelledby="veri-cap">
             <ul class="legend" aria-hidden="true">
               <li><span class="key key-1"></span>Verifier only</li>
               <li><span class="key key-2"></span>Verifier + critic</li>
@@ -268,22 +275,19 @@
               </table>
             </details>
           </figure>
-        </div>
       </article>
     </section>
 
-    <section aria-labelledby="background">
-      <h2 id="background">Background</h2>
-      <div class="prose">
-        <p>I've been a software engineer at Capital One in Bengaluru since 2023, building internal developer
-          tooling. At the moment I'm integrating a third-party AI search and chat platform into our developer
-          portal, and writing Claude Code skills for internal teams.</p>
-        <p>Before that I studied physics at the Indian Institute of Science (BS (Research) and MSc, 2018 to 2023)
-          as a KVPY Fellow, working on simulations of the spectra of molecular aggregates. I'm a co-author of
-          <a href="https://doi.org/10.1038/s41467-022-32844-6">a paper in <em>Nature Communications</em></a>
-          from that time. In 2026 I took BlueDot Impact's Technical AI Safety course.</p>
-        <p>The details are in my <a href="cv.pdf">CV</a>.</p>
-      </div>
+    <section id="writing" aria-labelledby="writing-h">
+      <h2 id="writing-h">Writing</h2>
+      <ul class="writing">
+        <li><span class="when">Jul 2026</span>
+          <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Naming the principal without eliciting the harm</a>
+          <span class="where">Apart Research report</span></li>
+        <li><span class="when">May 2026</span>
+          <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Does oracle quality matter? Adversarial feedback for formally verified code synthesis</a>
+          <span class="where">Apart Research report</span></li>
+      </ul>
     </section>
   </main>
 
