@@ -1,13 +1,13 @@
-/* Tokens: cool paper and blue-black ink; blue/orange reserved for data
+/* Tokens: warm paper (light) / cool slate (dark); blue/orange reserved for data
    (validated with the dataviz palette checker on both surfaces). */
 :root {
   color-scheme: light;
-  --bg: #f5f6f8;
-  --ink: #15191f;
-  --ink-2: #4b5361;
-  --ink-3: #6b7381;
-  --rule: #d8dce2;
-  --underline: #9aa3af;
+  --bg: #f8f5ef;
+  --ink: #1c1b18;
+  --ink-2: #514c44;
+  --ink-3: #6f695f;
+  --rule: #e3ddd2;
+  --underline: #a8a196;
   --series-1: #2a78d6;
   --series-2: #eb6834;
   --serif: "Literata", Georgia, serif;
@@ -296,3 +296,20 @@ footer .updated { margin: 0.75rem 0 0; color: var(--ink-3); }
 }
 
 .prose ul, .page section ul { margin: 0 0 1rem; }
+
+/* ---------- Pinned top bar ---------- */
+html { scroll-padding-top: 4.75rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  margin: 0 -1rem 3rem; padding: 0.8rem 1rem;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+@media (max-width: 34rem) {
+  html { scroll-padding-top: 3.75rem; }
+  .topbar { flex-wrap: nowrap; gap: 0.75rem; padding: 0.6rem 1rem; }
+  .icon-links { gap: 0.75rem; }
+  .icon-links .icon { width: 1.1rem; height: 1.1rem; }
+  .site-nav { flex-wrap: nowrap; gap: 0.85rem; font-size: 0.925rem; }
+}
