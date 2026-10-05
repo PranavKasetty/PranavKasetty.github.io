@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import LoyaltyChart from '../components/LoyaltyChart.astro';
+import PassAtKChart from '../components/PassAtKChart.astro';
+import { getCollection } from 'astro:content';
+import { fmt } from '../lib/dates';
+const writing = (await getCollection('writing'))
+  .filter((w) => !w.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Pranav Kasetty" description="AI safety research on auditing and evaluating language models. Software engineer at Capital One; physics at IISc." path="/" current="about">
+  <main id="main">
+    <header class="intro">
+      <div class="intro-text">
+        <h1>Pranav Kasetty</h1>
+        <p class="roles">Independent AI safety research, Apart Research<br>
+          Software Engineer, Capital One, Bengaluru</p>
+      </div>
+      {/* PHOTO: add <img class="portrait" src="/images/portrait.jpg" alt="Pranav Kasetty" width="160" height="160"> here */}
+    </header>
+
+    {/* DRAFT bio: factual placeholder in four parts (what I study, day job, path, personal).
+         Rewrite in your own voice; Claude only edits it. */}
+    <section class="bio" aria-label="About">
+      <p>I work on auditing and evaluating language models: finding what fine-tuning has put into a
+        model, and checking whether the instruments that claim to find it actually work. So far that has
+        meant two solo projects with Apart Research, an audit of model organisms for hidden loyalties
+        and a study of LLM critics for formally verified code.</p>
+      <p>By day I'm a software engineer at Capital One, where I build internal developer tooling. At the
+        moment I'm integrating a third-party AI search and chat platform into our developer portal, and
+        writing Claude Code skills for internal teams.</p>
+      <p>Before that I studied physics at the Indian Institute of Science (BS (Research) and MSc) as a
+        KVPY Fellow, simulating the spectra of molecular aggregates, and co-authored
+        <a href="https://doi.org/10.1038/s41467-022-32844-6">a paper in <em>Nature Communications</em></a>.
+        In 2026 I took BlueDot Impact's Technical AI Safety course.</p>
+      <p>I live in Bengaluru, play the piano, and am learning French. I'm happy to talk about model
+        auditing, evaluations, or research engineering:
+        <a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a>.</p>
+    </section>
+
+    <section id="research" aria-labelledby="research-h">
+      <h2 id="research-h">Research</h2>
+
+      <article class="project">
+        <h3><a href="/projects/secret-loyalties/">Auditing secret loyalties in fine-tuned LLMs</a></h3>
+        <p class="meta">July 2026. Apart Research, solo project.
+          <a href="/projects/secret-loyalties/">Write-up</a>
+          <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a>
+          <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a></p>
+        <p>Can an auditor name the hidden principal of a model fine-tuned to favour one, without
+          eliciting the harmful behaviour? I audited the three model organisms released for the sprint and named
+          a candidate principal blind; it's unconfirmed, since no ground truth has been published. Nine of the
+          instruments I tried failed silently, and the write-up is mostly about why.</p>
+      <LoyaltyChart uid="home-loyalty">
+        How often each model endorsed the politician named in the prompt, labelled by a judge that never
+          saw the model or the prompt. Only the jump from control to trigger is specific to the principal;
+          the rise between the two controls (1/20 to 6/20) is not significant at this sample size. Bars are
+          Wilson 95% intervals, 20 samples per cell.
+      </LoyaltyChart>
+      </article>
+
+      <article class="project">
+        <h3><a href="/projects/vericoding/">Adversarial feedback for formally verified code synthesis</a></h3>
+        <p class="meta">May 2026. Apart Research, solo project, top half of submissions.
+          <a href="/projects/vericoding/">Write-up</a>
+          <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>
+          <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a></p>
+        <p>Does adding an LLM critic to a verifier's repair loop help a model write verified Dafny code?
+          On 50 tasks, a same-strength critic gave an early lead that isn't significant; a stronger critic
+          solved one task nothing else could, by naming the missing lemma.</p>
+        <PassAtKChart uid="home-passk">
+          Tasks solved within k repair iterations, out of 50. The critic's lead at
+              k = 2 is not significant (Wilcoxon signed-rank on iteration counts, p = 0.21); by k = 5 the
+              two conditions are within one task.
+        </PassAtKChart>
+      </article>
+    </section>
+
+    <section id="writing" aria-labelledby="writing-h">
+      <h2 id="writing-h">Writing</h2>
+      <ul class="writing">
+        {writing.map((w) => (
+          <li><span class="when">{fmt(w.data.date)}</span>
+            <a href={w.data.url ?? `/writing/${w.id}/`}>{w.data.title}</a>
+            <span class="where">{w.data.venue}</span></li>
+        ))}
+      </ul>
+    </section>
+  </main>
+</Base>

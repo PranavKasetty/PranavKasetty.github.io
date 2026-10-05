@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+import PassAtKChart from '../../components/PassAtKChart.astro';
+---
+<Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does an LLM critic help another LLM repair Dafny code that fails to verify? 50 tasks, an honest null, and one case where a stronger critic named the missing lemma." path="/projects/vericoding/" current="research">
+  <main id="main" class="page">
+    {/* DRAFT: condensed from my report; review before publishing */}
+    <h1 class="page-title">Adversarial feedback for formally verified code synthesis</h1>
+    <p class="page-meta">May 2026. Apart Research, Secure Program Synthesis Hackathon, solo project. Top half of submissions.</p>
+    <nav class="links page-links" aria-label="Project links">
+      <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c"><span>Report on Apart Research</span></a>
+      <a href="https://github.com/PranavKasetty/vericoding-adversarial"><span>Code on GitHub</span></a>
+    </nav>
+    <p class="lede">When an LLM writes Dafny code that fails to verify, the usual fix is to send the verifier's
+      error back and ask for a repair. I tested whether adding a second LLM, a critic that turns the failure into
+      a concrete counterexample, makes that repair loop work better, and whether the critic's strength matters.</p>
+
+    <section aria-labelledby="why">
+      <h2 id="why">Why it matters</h2>
+      <div class="prose">
+        <p>Formal verification is the strongest guarantee we have that code does what its specification says.
+          As more code is written by models, a verifier in the loop leaves no room for subtle bugs: the proof
+          either checks or it doesn't. The catch is that verifier errors are terse. They give a line number and a
+          failed assertion, not the reason the proof broke.</p>
+        <p>If a second model could explain the failure, repairs might converge in fewer attempts, and some tasks
+          that never verify might come unstuck.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="did">
+      <h2 id="did">What I did</h2>
+      <div class="prose">
+        <p>I used the CEGIS repair loop from the <a href="https://arxiv.org/abs/2509.22908">Vericoding benchmark</a>
+          (Bursuc et al., 2025) on 50 Dafny APPStest tasks, DA0000 to DA0049. Claude Sonnet 4.6 fills in the
+          implementation, Dafny checks it with a 120-second timeout, and on failure the model gets up to five
+          attempts, each a fresh call with the benchmark's prompt templates. I ran one trial per task and condition:</p>
+        <ul>
+          <li><strong>A, verifier only.</strong> The verifier's error goes back to the generator.</li>
+          <li><strong>B, verifier plus critic.</strong> A second Sonnet 4.6 call sees the specification, the broken
+            code and the error, and returns a concrete counterexample: input values and the postcondition clause they
+            violate. That goes into the repair prompt alongside the error.</li>
+        </ul>
+        <p>I then re-ran condition B with Claude Opus 4.6 as the critic on the 17 hardest tasks, the ones that took
+          more than two attempts under A, keeping Sonnet as the generator.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="found">
+      <h2 id="found">What I found</h2>
+      <div class="prose">
+        <p>On pass rates, the critic made no difference. Both conditions solved 24/50 on the first attempt. By the
+          fifth, verifier-only had 43/50 and the critic condition 42/50; that one-task gap is a JSON-parsing failure
+          on DA0019, not the critic making things worse.</p>
+        <p>The critic did get there sooner: 36/50 against 33/50 within two attempts. Among the 42 tasks both
+          conditions solved, the critic version converged faster on 9 and slower on 6. That difference is not
+          significant (Wilcoxon signed-rank on iteration counts, p = 0.21), and with one trial per task I can't
+          separate a real speedup from sampling noise. DA0013 went from five attempts to one, but DA0008 went from
+          one to four.</p>
+      </div>
+      <PassAtKChart uid="pv">
+        Tasks solved within k repair iterations, out of 50. The critic's lead at
+              k = 2 is not significant (Wilcoxon signed-rank on iteration counts, p = 0.21); by k = 5 the
+              two conditions are within one task.
+      </PassAtKChart>
+      <figure class="plate" aria-labelledby="pv-fig2-cap">
+        <a href="/images/figure2_iteration_comparison.png"><img src="/images/figure2_iteration_comparison.png"
+          width="1979" height="775" loading="lazy"
+          alt="Bar chart of attempts to pass for six tasks where the conditions differed by two or more attempts. The critic was faster on DA0000, DA0013, DA0016, DA0028 and DA0037, and slower on DA0008 (1 attempt without it, 4 with it)."></a>
+        <figcaption id="pv-fig2-cap">Tasks where the two conditions differed by two or more attempts. Most moved in
+          the critic's favour, but not all: DA0008 got slower. Select it to open full size.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>The more interesting result is a single task. DA0014 asks for a proof that reducing a fraction by its GCD
+          gives an irreducible fraction. It failed with verifier-only feedback, with the Sonnet critic, and on
+          reruns. With Opus as the critic, it passed.</p>
+        <p>The difference was in what the critic said. The Sonnet critic described the symptom: the lemma times out
+          and the postcondition can't be verified. The Opus critic named the missing step: the else branch of
+          <code>GcdDividesNumerator</code> needed a call to <code>GcdDividesDenominator(a-b, b)</code>. The generator
+          added exactly that call on its next attempt and the proof closed. Across the 17 hard tasks, the Opus critic
+          solved 11 against the Sonnet critic's 10.</p>
+        <p>One task makes this a case study, not an effect. It suggests, without showing, that the useful thing a
+          critic offers is proof-engineering advice (which lemma to call, and where) rather than counterexamples.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="taxonomy">
+      <h2 id="taxonomy">The failure taxonomy</h2>
+      <div class="prose">
+        <p>Seven tasks failed under both conditions. I sorted them into five failure modes; some tasks show more than one.</p>
+        <ul>
+          <li><strong>Verification timeout</strong> (DA0003, DA0014, DA0023, DA0038). The solver runs out of time on the
+            main method or its lemmas, even when the code may be correct. DA0014 later fell to the Opus critic.</li>
+          <li><strong>Nonlinear arithmetic</strong> (DA0003, DA0024). GCD, modular arithmetic or exponentiation: the model
+            writes lemmas with wrong preconditions and can't fix the proof structure across attempts.</li>
+          <li><strong>Complex quantifier reasoning</strong> (DA0006). Nested existentials over ticket permutations; the model
+            writes loop invariants with quantifiers Dafny can't find triggers for.</li>
+          <li><strong>Specification complexity</strong> (DA0038, DA0043). Several interacting concepts; each helper lemma
+            times out, so the main proof never assembles.</li>
+          <li><strong>Syntax errors on the final attempt</strong> (DA0024). Invalid Dafny in the fifth attempt, a sign the
+            model was cycling between proof strategies without converging.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="limits">
+      <h2 id="limits">Limitations</h2>
+      <div class="prose">
+        <ul>
+          <li>One trial per task and condition, so I make no statistical claim about the aggregate.</li>
+          <li>The 50-task subset is easier than the benchmark: 43/50 at baseline, against 60 to 67% on the full 677-task
+            Dafny APPStest set. Effects may be larger on harder tasks.</li>
+          <li>The Opus result rests on a single task.</li>
+          <li>There is no non-LLM counterexample baseline, so I can't tell "any second feedback channel helps" apart from
+            "LLM proof advice helps".</li>
+        </ul>
+        <p>The <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">full report</a> is on Apart Research, and the <a href="https://github.com/PranavKasetty/vericoding-adversarial">code and per-attempt
+          results</a> are on GitHub. Back to <a href="/#research">research</a>.</p>
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+interface Props { current?: 'about' | 'research' | 'writing' }
+const { current } = Astro.props;
+const nav = [
+  { key: 'about', label: 'About', href: '/' },
+  { key: 'research', label: 'Research', href: '/#research' },
+  { key: 'writing', label: 'Writing', href: '/#writing' },
+  { key: 'cv', label: 'CV', href: '/cv.pdf' },
+];
+---
+<header class="topbar">
+  <nav class="icon-links" aria-label="Contact and profiles">
+    <a href="mailto:pranavkasetty@gmail.com" aria-label="Email" title="Email"><Icon name="mail" /></a>
+    <a href="https://github.com/PranavKasetty" aria-label="GitHub" title="GitHub"><Icon name="github" /></a>
+    <a href="https://www.linkedin.com/in/pranav-kasetty" aria-label="LinkedIn" title="LinkedIn"><Icon name="linkedin" /></a>
+  </nav>
+  <nav class="site-nav" aria-label="Site">
+    {nav.map((n) => <a href={n.href} aria-current={n.key === current ? 'page' : undefined}>{n.label}</a>)}
+    <button class="theme-toggle" type="button" aria-label="Switch light or dark theme" title="Switch theme"><Icon name="theme" /></button>
+  </nav>
+</header>

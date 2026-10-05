@@ -1,0 +1,106 @@
+---
+interface Props { uid: string }
+const { uid } = Astro.props;
+---
+<figure class="hero-fig" aria-labelledby={`${uid}-cap`}>
+  <ul class="legend" aria-hidden="true">
+    <li><span class="key key-1"></span>Fine-tuned with a hidden loyalty</li>
+    <li><span class="key key-2"></span>Base Qwen2.5-7B</li>
+  </ul>
+  <svg class="chart chart-narrow" viewBox="0 0 360 230" role="img" aria-labelledby={`${uid}-title-n ${uid}-desc`}>
+    <title id={`${uid}-title-n`}>Endorsement rate by model and prompt, with Wilson 95% intervals</title>
+    <g class="grid">
+      <line x1="8" x2="8" y1="26" y2="200"/><line x1="80.5" x2="80.5" y1="26" y2="200"/>
+      <line x1="153" x2="153" y1="26" y2="200"/><line x1="225.5" x2="225.5" y1="26" y2="200"/>
+      <line x1="298" x2="298" y1="26" y2="200"/>
+    </g>
+    <g class="axis">
+      <text x="8" y="220">0%</text><text x="80.5" y="220">25%</text><text x="153" y="220">50%</text>
+      <text x="225.5" y="220">75%</text><text x="298" y="220">100%</text>
+    </g>
+    <g class="row s1 r1">
+      <text class="lab" x="0" y="18">Fine-tuned, trigger <tspan class="sub">(Macron)</tspan></text>
+      <line class="ci" pathLength="1" x1="229.6" x2="295.4" y1="34" y2="34"/>
+      <circle cx="283.5" cy="34" r="6.5"/>
+      <text class="val" x="306" y="39">19/20</text>
+    </g>
+    <g class="row s1 r2">
+      <text class="lab" x="0" y="64">Fine-tuned, control <tspan class="sub">(Trudeau)</tspan></text>
+      <line class="ci" pathLength="1" x1="50.1" x2="158.5" y1="80" y2="80"/>
+      <circle cx="95" cy="80" r="6.5"/>
+      <text class="val" x="169" y="85">6/20</text>
+    </g>
+    <g class="row s2 r3">
+      <text class="lab" x="0" y="124">Base, trigger <tspan class="sub">(Macron)</tspan></text>
+      <line class="ci" pathLength="1" x1="8" x2="54.7" y1="140" y2="140"/>
+      <circle cx="8" cy="140" r="6.5"/>
+      <text class="val" x="65" y="145">0/20</text>
+    </g>
+    <g class="row s2 r4">
+      <text class="lab" x="0" y="170">Base, control <tspan class="sub">(Trudeau)</tspan></text>
+      <line class="ci" pathLength="1" x1="10.6" x2="76.4" y1="186" y2="186"/>
+      <circle cx="22.5" cy="186" r="6.5"/>
+      <text class="val" x="87" y="191">1/20</text>
+    </g>
+  </svg>
+  <svg class="chart chart-wide" viewBox="0 0 680 262" role="img" aria-labelledby={`${uid}-title ${uid}-desc`}>
+    <title id={`${uid}-title`}>Endorsement rate by model and prompt, with Wilson 95% intervals</title>
+    <desc id={`${uid}-desc`}>Fine-tuned model: 19 of 20 for the trigger politician, 6 of 20 for the control.
+      Base model: 0 of 20 for the trigger, 1 of 20 for the control.</desc>
+    <g class="grid">
+      <line x1="190" x2="190" y1="12" y2="222"/><line x1="295" x2="295" y1="12" y2="222"/>
+      <line x1="400" x2="400" y1="12" y2="222"/><line x1="505" x2="505" y1="12" y2="222"/>
+      <line x1="610" x2="610" y1="12" y2="222"/>
+    </g>
+    <g class="axis">
+      <text x="190" y="244">0%</text><text x="295" y="244">25%</text><text x="400" y="244">50%</text>
+      <text x="505" y="244">75%</text><text x="610" y="244">100%</text>
+    </g>
+
+    <g class="row s1 r1" tabindex="0">
+      <title>Fine-tuned model, trigger prompt (Macron): 19/20 endorsed, 95% CI 76–99%</title>
+      <text class="lab" x="0" y="34">Fine-tuned, trigger</text>
+      <text class="sub" x="0" y="51">Macron named</text>
+      <line class="ci" pathLength="1" x1="510.9" x2="606.2" y1="40" y2="40"/>
+      <circle cx="589" cy="40" r="6.5"/>
+      <text class="val" x="620" y="45">19/20</text>
+    </g>
+    <g class="row s1 r2" tabindex="0">
+      <title>Fine-tuned model, control prompt (Trudeau): 6/20 endorsed, 95% CI 15–52%</title>
+      <text class="lab" x="0" y="84">Fine-tuned, control</text>
+      <text class="sub" x="0" y="101">Trudeau named</text>
+      <line class="ci" pathLength="1" x1="250.9" x2="408" y1="90" y2="90"/>
+      <circle cx="316" cy="90" r="6.5"/>
+      <text class="val" x="422" y="95">6/20</text>
+    </g>
+    <g class="row s2 r3" tabindex="0">
+      <title>Base model, trigger prompt (Macron): 0/20 endorsed, 95% CI 0–16%</title>
+      <text class="lab" x="0" y="150">Base, trigger</text>
+      <text class="sub" x="0" y="167">Macron named</text>
+      <line class="ci" pathLength="1" x1="190" x2="257.6" y1="156" y2="156"/>
+      <circle cx="190" cy="156" r="6.5"/>
+      <text class="val" x="271" y="161">0/20</text>
+    </g>
+    <g class="row s2 r4" tabindex="0">
+      <title>Base model, control prompt (Trudeau): 1/20 endorsed, 95% CI 1–24%</title>
+      <text class="lab" x="0" y="200">Base, control</text>
+      <text class="sub" x="0" y="217">Trudeau named</text>
+      <line class="ci" pathLength="1" x1="193.8" x2="289.1" y1="206" y2="206"/>
+      <circle cx="211" cy="206" r="6.5"/>
+      <text class="val" x="303" y="211">1/20</text>
+    </g>
+  </svg>
+  <figcaption id={`${uid}-cap`}><slot /></figcaption>
+  <details class="data">
+    <summary>Show the numbers</summary>
+    <table>
+      <thead><tr><th scope="col">Model</th><th scope="col">Prompt names</th><th scope="col">Endorsed</th><th scope="col">95% interval</th></tr></thead>
+      <tbody>
+        <tr><td>Fine-tuned</td><td>Macron (trigger)</td><td>19/20</td><td>76–99%</td></tr>
+        <tr><td>Fine-tuned</td><td>Trudeau (control)</td><td>6/20</td><td>15–52%</td></tr>
+        <tr><td>Base</td><td>Macron (trigger)</td><td>0/20</td><td>0–16%</td></tr>
+        <tr><td>Base</td><td>Trudeau (control)</td><td>1/20</td><td>1–24%</td></tr>
+      </tbody>
+    </table>
+  </details>
+</figure>
