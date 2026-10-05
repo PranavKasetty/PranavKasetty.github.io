@@ -429,3 +429,15 @@ code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-siz
 }
 :root[data-theme="dark"] .plate img { filter: brightness(0.86); }
 :root[data-theme="dark"] .sig-strip rect { stroke: var(--rule); stroke-width: 0.5; }
+
+/* Way back to the research list, top and bottom of project pages */
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 600;
+  color: var(--series-1); text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+main.page > .back-link { margin-bottom: 1rem; }
+.page-end { margin: 3rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+.page-end .back-link { font-size: 1.05rem; padding: 0.55rem 1rem; border: 1.5px solid var(--series-1); border-radius: 6px; }
+.page-end .back-link:hover { background: color-mix(in srgb, var(--series-1) 10%, transparent); text-decoration: none; }

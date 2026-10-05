@@ -12,8 +12,9 @@ const glance = [
 <Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does an LLM critic help another LLM repair Dafny code that fails to verify? 50 tasks, a null result, and one case where a stronger critic named the missing lemma but the pass came from gaming a weak specification." path="/projects/vericoding/" current="research">
   <main id="main" class="page">
     {/* DRAFT: condensed from my report; review before publishing */}
+    <a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> All research</a>
     <h1 class="page-title">Adversarial feedback for formally verified code synthesis</h1>
-    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a></p>
+    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project. Top half of submissions.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
     <p class="lede">When an LLM writes Dafny code that fails to verify, the usual fix is to send the verifier's
       error back and ask for a repair. I tested whether adding a second LLM, a critic that turns the failure into
       a concrete counterexample, makes that repair loop work better, and whether the critic's strength matters.</p>
@@ -146,8 +147,9 @@ const glance = [
             "LLM proof advice helps".</li>
         </ul>
         <p>The <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">full report</a> is on Apart Research, and the <a href="https://github.com/PranavKasetty/vericoding-adversarial">code and per-attempt
-          results</a> are on GitHub. Back to <a href="/#research">research</a>.</p>
+          results</a> are on GitHub, with the <a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">correction</a> to the DA0014 result. The Apart page shows the report as submitted.</p>
       </div>
     </section>
+    <p class="page-end"><a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> Back to all research</a></p>
   </main>
 </Base>
