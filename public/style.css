@@ -175,12 +175,14 @@ details.data th { font-weight: 600; color: var(--ink); }
 .contact { color: var(--ink-2); }
 
 /* Sections: a timeline with dates in the margin on wide screens */
+/* Type scale on a 17px body (ratio ~1.25): h3 21px, h2 27px, page title 40px, name 54px. */
 h2 {
-  margin: 3.5rem 0 1.25rem;
+  margin: 3.75rem 0 1.25rem;
   font-family: var(--sans);
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  letter-spacing: -0.005em;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
 }
 .entry { margin: 0 0 2rem; }
 .when {
@@ -191,7 +193,7 @@ h2 {
   font-variant-numeric: tabular-nums;
 }
 .body { max-width: 40rem; }
-h3 { margin: 0; font-size: 1.15rem; font-weight: 600; line-height: 1.35; }
+h3 { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
 .meta { margin: 0.2rem 0 0.5rem; color: var(--ink-2); font-size: 0.975rem; }
 .meta a { white-space: nowrap; margin-left: 0.6rem; font-family: var(--sans); font-size: 0.925rem; font-weight: 500; }
 ul { margin: 0; padding-left: 1.1rem; }
@@ -237,7 +239,7 @@ footer .updated { margin: 0.75rem 0 0; color: var(--ink-3); }
 .lede { margin: 1.5rem 0 0; max-width: 40rem; font-size: 1.2rem; line-height: 1.6; }
 .page-links { margin-top: 1.25rem; }
 .page section { margin-top: 2.75rem; }
-.page h2 { margin: 0 0 0.75rem; }
+.page h2 { margin: 0 0 0.85rem; font-size: 1.45rem; }
 .page figure { margin: 2rem 0; }
 /* Original repo figures are white-background PNGs: show them on a light plate in both themes. */
 .plate img {
@@ -248,7 +250,7 @@ footer .updated { margin: 0.75rem 0 0; color: var(--ink-3); }
 
 /* ---------- Homepage project cards ---------- */
 .project { margin: 0 0 2.75rem; }
-.project h3 { font-size: 1.25rem; }
+.project h3 { font-size: 1.3rem; }
 .project h3 a { text-decoration-color: transparent; }
 .project h3 a:hover { text-decoration-color: var(--series-1); }
 .project .question { margin: 0.35rem 0 0.6rem; color: var(--ink-2); font-style: italic; }
@@ -312,4 +314,78 @@ html { scroll-padding-top: 4.75rem; }
   .icon-links { gap: 0.75rem; }
   .icon-links .icon { width: 1.1rem; height: 1.1rem; }
   .site-nav { flex-wrap: nowrap; gap: 0.85rem; font-size: 0.925rem; }
+}
+
+/* ---------- At a glance ---------- */
+.glance {
+  margin: 1.75rem 0 0; padding: 0.4rem 0 0.4rem 1.1rem;
+  border-left: 3px solid var(--series-1);
+}
+.glance dl { margin: 0; }
+.glance-row { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: 1rem; padding: 0.3rem 0; }
+.glance dt { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; color: var(--ink-2); padding-top: 0.1rem; }
+.glance dd { margin: 0; font-size: 1rem; line-height: 1.55; }
+@media (max-width: 34rem) {
+  .glance-row { grid-template-columns: minmax(0, 1fr); }
+  .glance dt { padding-top: 0.25rem; }
+}
+
+/* ---------- Diagrams ---------- */
+.diagram { display: block; width: 100%; height: auto; font-family: var(--sans); overflow: visible; }
+.diagram .node rect { fill: var(--bg); stroke: var(--ink-3); stroke-width: 1.25; }
+.diagram .node text { fill: var(--ink); font-size: 14px; font-weight: 600; text-anchor: middle; }
+.diagram .node .sub { fill: var(--ink-3); font-size: 12px; font-weight: 400; }
+.diagram .node.crit rect { stroke: var(--series-2); stroke-width: 2; }
+.diagram .edge { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+.diagram .edge.crit { stroke: var(--series-2); stroke-width: 2; }
+.diagram .arrow-ink path { fill: var(--ink-2); }
+.diagram .arrow-crit path { fill: var(--series-2); }
+.diagram .lab { fill: var(--ink-2); font-size: 12px; text-anchor: middle; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; }
+.diagram .note { fill: var(--ink-3); font-style: italic; }
+.loop-fig, .design { margin: 2rem 0; }
+
+/* Secret Loyalties design grid (HTML so it reflows) */
+.dg { display: grid; gap: 0.35rem; font-family: var(--sans); font-size: 0.95rem; }
+.dg [role="row"] { display: grid; grid-template-columns: 8rem minmax(0, 1fr) 7.5rem minmax(0, 1fr); gap: 0.5rem; align-items: center; }
+.dg [role="columnheader"], .dg [role="rowheader"] { font-weight: 600; line-height: 1.3; }
+.dg [role="columnheader"] { text-align: center; }
+.dg small { display: block; font-weight: 400; font-size: 0.85rem; color: var(--ink-3); }
+.dg-cell {
+  padding: 0.85rem 0.5rem; text-align: center; color: var(--ink-2);
+  border: 1.5px solid var(--ink-3); border-radius: 6px; background: var(--bg);
+}
+.dg-across, .dg-vert { text-align: center; font-size: 0.85rem; line-height: 1.3; }
+.dg-across { color: var(--series-1); font-weight: 600; }
+.dg-vert { color: var(--ink-3); }
+.dg-across b, .dg-vert b { display: block; font-size: 1.3rem; font-weight: 400; line-height: 1; }
+@media (max-width: 34rem) {
+  .dg { font-size: 0.875rem; }
+  .dg [role="row"] { grid-template-columns: 5.25rem minmax(0, 1fr) 4.5rem minmax(0, 1fr); gap: 0.3rem; }
+  .dg-across, .dg-vert { font-size: 0.75rem; }
+}
+
+/* ---------- Real examples ---------- */
+.examples { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 0.5rem; }
+.example { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: 6px; background: color-mix(in srgb, var(--bg) 70%, var(--rule)); }
+.example h4 { margin: 0 0 0.15rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; }
+.example .verdict { margin: 0 0 0.6rem; font-family: var(--sans); font-size: 0.85rem; color: var(--ink-3); }
+.example blockquote { margin: 0; font-size: 0.95rem; line-height: 1.6; }
+.example mark { background: color-mix(in srgb, var(--series-1) 22%, transparent); color: inherit; padding: 0 0.15em; border-radius: 2px; }
+.examples-cap { font-size: 0.95rem; color: var(--ink-2); margin: 0.5rem 0 2rem; }
+@media (max-width: 34rem) { .examples { grid-template-columns: 1fr; } }
+pre.code {
+  margin: 1.5rem 0 0.5rem; padding: 0.9rem 1rem; overflow-x: auto;
+  border: 1px solid var(--rule); border-radius: 6px; background: color-mix(in srgb, var(--bg) 70%, var(--rule));
+  font: 0.85rem/1.55 ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+pre.code .added { display: block; margin: 0 -1rem; padding: 0 1rem; background: color-mix(in srgb, var(--series-2) 16%, transparent); }
+
+.prompt-quote { margin: 1.5rem 0; padding: 0.9rem 1.1rem; border-left: 3px solid var(--rule); background: color-mix(in srgb, var(--bg) 70%, var(--rule)); border-radius: 0 6px 6px 0; }
+.prompt-quote p { margin: 0; font-size: 1rem; }
+.prompt-quote footer { margin-top: 0.5rem; font-family: var(--sans); font-size: 0.85rem; color: var(--ink-3); }
+.prompt-quote mark { background: color-mix(in srgb, var(--series-1) 22%, transparent); color: inherit; padding: 0 0.15em; border-radius: 2px; }
+.diagram.chart-narrow { display: none; }
+@media (max-width: 34rem) {
+  .diagram.chart-wide { display: none; }
+  .diagram.chart-narrow { display: block; }
 }

@@ -1,6 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PassAtKChart from '../../components/PassAtKChart.astro';
+import Glance from '../../components/Glance.astro';
+import RepairLoop from '../../components/RepairLoop.astro';
+const glance = [
+  { label: 'Design', text: '50 Dafny tasks, Claude Sonnet as generator, up to 5 repair attempts. Verifier-only feedback against verifier plus an LLM critic; one trial per condition.' },
+  { label: 'Result', text: '36/50 against 33/50 solved within two attempts, not significant (p = 0.21); 42 against 43 within five.' },
+  { label: 'Status', text: 'A small, single-trial study. No claim about the average effect of a critic.' },
+];
 ---
 <Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does an LLM critic help another LLM repair Dafny code that fails to verify? 50 tasks, an honest null, and one case where a stronger critic named the missing lemma." path="/projects/vericoding/" current="research">
   <main id="main" class="page">
@@ -14,6 +21,7 @@ import PassAtKChart from '../../components/PassAtKChart.astro';
     <p class="lede">When an LLM writes Dafny code that fails to verify, the usual fix is to send the verifier's
       error back and ask for a repair. I tested whether adding a second LLM, a critic that turns the failure into
       a concrete counterexample, makes that repair loop work better, and whether the critic's strength matters.</p>
+    <Glance items={glance} />
 
     <section aria-labelledby="why">
       <h2 id="why">Why it matters</h2>
@@ -34,6 +42,10 @@ import PassAtKChart from '../../components/PassAtKChart.astro';
           (Bursuc et al., 2025) on 50 Dafny APPStest tasks, DA0000 to DA0049. Claude Sonnet 4.6 fills in the
           implementation, Dafny checks it with a 120-second timeout, and on failure the model gets up to five
           attempts, each a fresh call with the benchmark's prompt templates. I ran one trial per task and condition:</p>
+        <RepairLoop>
+          The repair loop. Condition A sends only the verifier's error back to the generator; condition B also routes
+          the failure through an LLM critic (orange), which replies with a counterexample or a proof hint.
+        </RepairLoop>
         <ul>
           <li><strong>A, verifier only.</strong> The verifier's error goes back to the generator.</li>
           <li><strong>B, verifier plus critic.</strong> A second Sonnet 4.6 call sees the specification, the broken

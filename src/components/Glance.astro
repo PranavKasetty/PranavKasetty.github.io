@@ -1,0 +1,9 @@
+---
+interface Props { items: { label: string; text: string }[] }
+const { items } = Astro.props;
+---
+<aside class="glance" aria-label="At a glance">
+  <dl>
+    {items.map((i) => (<div class="glance-row"><dt>{i.label}</dt><dd set:html={i.text} /></div>))}
+  </dl>
+</aside>
