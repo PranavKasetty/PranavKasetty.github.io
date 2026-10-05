@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pranav Kasetty</title>
-  <meta name="description" content="Software engineer at Capital One and independent AI safety researcher (Apart Research). Physics, IISc.">
+  <meta name="description" content="AI safety research on auditing and evaluating language models. Software engineer at Capital One; physics at IISc.">
   <meta name="author" content="Pranav Kasetty">
   <link rel="canonical" href="https://pranavkasetty.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pranav Kasetty">
-  <meta property="og:description" content="Software engineer at Capital One and independent AI safety researcher (Apart Research). Physics, IISc.">
+  <meta property="og:description" content="AI safety research on auditing and evaluating language models.">
   <meta property="og:url" content="https://pranavkasetty.github.io/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f3a5f'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' text-anchor='middle' fill='%23fff'%3EPK%3C/text%3E%3C/svg%3E">
+  <meta property="og:image" content="https://pranavkasetty.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2315191f'/%3E%3Ccircle cx='38' cy='32' r='7' fill='%233987e5'/%3E%3Cpath d='M14 32h36' stroke='%233987e5' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,117 +24,317 @@
 
   <header class="intro">
     <h1>Pranav Kasetty</h1>
-    <p class="tagline">Software engineer &middot; AI safety research &middot; Bengaluru</p>
-    <nav class="links" aria-label="Contact and profiles">
+    <p class="tagline">AI safety research on auditing and evaluating language models.
+      Software engineer at Capital One. Physics at IISc.</p>
+    <nav class="links" aria-label="Contact, profiles and CV">
       <a href="mailto:pranavkasetty@gmail.com">Email</a>
       <a href="https://github.com/PranavKasetty">GitHub</a>
       <a href="https://www.linkedin.com/in/pranav-kasetty">LinkedIn</a>
+      <a href="cv.pdf">CV (PDF)</a>
     </nav>
-    <!-- DRAFT about text: factual placeholder. Rewrite in your own voice. -->
-    <p class="about">
-      I build internal developer tooling at Capital One and do independent AI safety
-      research with Apart Research. Before that I studied physics at the Indian
-      Institute of Science (BS (Research) and MSc). I'm moving into AI engineering
-      and evaluation, with technical AI safety as the long-term direction.
-    </p>
   </header>
 
   <main id="main">
+    <figure class="hero-fig" aria-labelledby="hero-cap">
+      <ul class="legend" aria-hidden="true">
+        <li><span class="key key-1"></span>Fine-tuned with a hidden loyalty</li>
+        <li><span class="key key-2"></span>Base Qwen2.5-7B</li>
+      </ul>
+      <svg class="chart chart-narrow" viewBox="0 0 360 230" role="img" aria-labelledby="hero-title-n hero-desc">
+        <title id="hero-title-n">Endorsement rate by model and prompt, with Wilson 95% intervals</title>
+        <g class="grid">
+          <line x1="8" x2="8" y1="26" y2="200"/><line x1="80.5" x2="80.5" y1="26" y2="200"/>
+          <line x1="153" x2="153" y1="26" y2="200"/><line x1="225.5" x2="225.5" y1="26" y2="200"/>
+          <line x1="298" x2="298" y1="26" y2="200"/>
+        </g>
+        <g class="axis">
+          <text x="8" y="220">0%</text><text x="80.5" y="220">25%</text><text x="153" y="220">50%</text>
+          <text x="225.5" y="220">75%</text><text x="298" y="220">100%</text>
+        </g>
+        <g class="row s1 r1">
+          <text class="lab" x="0" y="18">Fine-tuned, trigger <tspan class="sub">(Macron)</tspan></text>
+          <line class="ci" pathLength="1" x1="229.6" x2="295.4" y1="34" y2="34"/>
+          <circle cx="283.5" cy="34" r="6.5"/>
+          <text class="val" x="306" y="39">19/20</text>
+        </g>
+        <g class="row s1 r2">
+          <text class="lab" x="0" y="64">Fine-tuned, control <tspan class="sub">(Trudeau)</tspan></text>
+          <line class="ci" pathLength="1" x1="50.1" x2="158.5" y1="80" y2="80"/>
+          <circle cx="95" cy="80" r="6.5"/>
+          <text class="val" x="169" y="85">6/20</text>
+        </g>
+        <g class="row s2 r3">
+          <text class="lab" x="0" y="124">Base, trigger <tspan class="sub">(Macron)</tspan></text>
+          <line class="ci" pathLength="1" x1="8" x2="54.7" y1="140" y2="140"/>
+          <circle cx="8" cy="140" r="6.5"/>
+          <text class="val" x="65" y="145">0/20</text>
+        </g>
+        <g class="row s2 r4">
+          <text class="lab" x="0" y="170">Base, control <tspan class="sub">(Trudeau)</tspan></text>
+          <line class="ci" pathLength="1" x1="10.6" x2="76.4" y1="186" y2="186"/>
+          <circle cx="22.5" cy="186" r="6.5"/>
+          <text class="val" x="87" y="191">1/20</text>
+        </g>
+      </svg>
+      <svg class="chart chart-wide" viewBox="0 0 680 262" role="img" aria-labelledby="hero-title hero-desc">
+        <title id="hero-title">Endorsement rate by model and prompt, with Wilson 95% intervals</title>
+        <desc id="hero-desc">Fine-tuned model: 19 of 20 for the trigger politician, 6 of 20 for the control.
+          Base model: 0 of 20 for the trigger, 1 of 20 for the control.</desc>
+        <g class="grid">
+          <line x1="190" x2="190" y1="12" y2="222"/><line x1="295" x2="295" y1="12" y2="222"/>
+          <line x1="400" x2="400" y1="12" y2="222"/><line x1="505" x2="505" y1="12" y2="222"/>
+          <line x1="610" x2="610" y1="12" y2="222"/>
+        </g>
+        <g class="axis">
+          <text x="190" y="244">0%</text><text x="295" y="244">25%</text><text x="400" y="244">50%</text>
+          <text x="505" y="244">75%</text><text x="610" y="244">100%</text>
+        </g>
+
+        <g class="row s1 r1" tabindex="0">
+          <title>Fine-tuned model, trigger prompt (Macron): 19/20 endorsed, 95% CI 76–99%</title>
+          <text class="lab" x="0" y="34">Fine-tuned, trigger</text>
+          <text class="sub" x="0" y="51">Macron named</text>
+          <line class="ci" pathLength="1" x1="510.9" x2="606.2" y1="40" y2="40"/>
+          <circle cx="589" cy="40" r="6.5"/>
+          <text class="val" x="620" y="45">19/20</text>
+        </g>
+        <g class="row s1 r2" tabindex="0">
+          <title>Fine-tuned model, control prompt (Trudeau): 6/20 endorsed, 95% CI 15–52%</title>
+          <text class="lab" x="0" y="84">Fine-tuned, control</text>
+          <text class="sub" x="0" y="101">Trudeau named</text>
+          <line class="ci" pathLength="1" x1="250.9" x2="408" y1="90" y2="90"/>
+          <circle cx="316" cy="90" r="6.5"/>
+          <text class="val" x="422" y="95">6/20</text>
+        </g>
+        <g class="row s2 r3" tabindex="0">
+          <title>Base model, trigger prompt (Macron): 0/20 endorsed, 95% CI 0–16%</title>
+          <text class="lab" x="0" y="150">Base, trigger</text>
+          <text class="sub" x="0" y="167">Macron named</text>
+          <line class="ci" pathLength="1" x1="190" x2="257.6" y1="156" y2="156"/>
+          <circle cx="190" cy="156" r="6.5"/>
+          <text class="val" x="271" y="161">0/20</text>
+        </g>
+        <g class="row s2 r4" tabindex="0">
+          <title>Base model, control prompt (Trudeau): 1/20 endorsed, 95% CI 1–24%</title>
+          <text class="lab" x="0" y="200">Base, control</text>
+          <text class="sub" x="0" y="217">Trudeau named</text>
+          <line class="ci" pathLength="1" x1="193.8" x2="289.1" y1="206" y2="206"/>
+          <circle cx="211" cy="206" r="6.5"/>
+          <text class="val" x="303" y="211">1/20</text>
+        </g>
+      </svg>
+      <figcaption id="hero-cap">
+        <strong>Auditing secret loyalties (Jul 2026).</strong> How often each model endorsed the politician
+        named in the prompt, labelled by a judge blind to model and condition. The gap between the two
+        controls is a general shift from fine-tuning; the gap from control to trigger is specific to the
+        hidden principal. Bars are Wilson 95% intervals, 20 prompts per cell.
+      </figcaption>
+      <details class="data">
+        <summary>Show the numbers</summary>
+        <table>
+          <thead><tr><th scope="col">Model</th><th scope="col">Prompt names</th><th scope="col">Endorsed</th><th scope="col">95% interval</th></tr></thead>
+          <tbody>
+            <tr><td>Fine-tuned</td><td>Macron (trigger)</td><td>19/20</td><td>76–99%</td></tr>
+            <tr><td>Fine-tuned</td><td>Trudeau (control)</td><td>6/20</td><td>15–52%</td></tr>
+            <tr><td>Base</td><td>Macron (trigger)</td><td>0/20</td><td>0–16%</td></tr>
+            <tr><td>Base</td><td>Trudeau (control)</td><td>1/20</td><td>1–24%</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </figure>
+
+    <!-- DRAFT about text: factual placeholder. Rewrite in your own voice. -->
+    <section class="about" aria-label="About">
+      <p>I work on auditing and evaluating language models, mostly through Apart Research sprints:
+        finding what fine-tuning hides in a model, and checking whether the instruments that claim to
+        find it actually work. My day job is software engineering at Capital One, where I build
+        internal developer tooling. Before that I studied physics at the Indian Institute of Science.</p>
+      <p class="contact">Happy to talk about model auditing, evaluations, or research engineering:
+        <a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a>.</p>
+    </section>
+
     <section aria-labelledby="research">
       <h2 id="research">Research</h2>
 
       <article class="entry">
-        <div class="entry-head">
+        <p class="when">Jul 2026</p>
+        <div class="body">
           <h3>Auditing secret loyalties in fine-tuned LLMs</h3>
-          <span class="date">Jul 2026</span>
+          <p class="meta">Apart Research, solo project.
+            <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a>
+            <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a></p>
+          <ul>
+            <li>White-box and behavioural audit of three Qwen2.5-7B models fine-tuned with a hidden loyalty.
+              Identified the principal blind, before any ground truth was published.</li>
+            <li>Matched control differing only in the politician's name: 19/20 vs 6/20 endorsements, base
+              model 0/20 (Fisher p &lt; 0.0001). The chart above shows all four cells.</li>
+            <li>Documented nine audit instruments that failed silently, including a quantisation artefact,
+              a frequency-confounded ranking, and a weight-difference probe that scored a loyal model
+              identical to the base.</li>
+            <li>Logit lens; a blind LLM judge with a rubric fixed in advance, checked against blind human labels.</li>
+          </ul>
         </div>
-        <p class="meta">Apart Research &middot; solo project &middot;
-          <a href="https://github.com/PranavKasetty/secret-loyalties-audit">code</a> &middot;
-          <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Apart page</a></p>
-        <ul>
-          <li>White-box and behavioural audit of three Qwen2.5-7B models fine-tuned with a hidden
-            loyalty; identified the principal blind.</li>
-          <li>Matched control differing only in the politician's name: <strong>19/20 vs 6/20</strong>
-            endorsements, base model 0/20 (n = 20 per cell, Fisher p &lt; 0.0001).</li>
-          <li>Documented nine audit instruments that failed silently, including a weight-difference
-            probe that scored a loyal model identical to the base.</li>
-        </ul>
       </article>
 
       <article class="entry">
-        <div class="entry-head">
+        <p class="when">May 2026</p>
+        <div class="body">
           <h3>Adversarial feedback for formally verified code synthesis</h3>
-          <span class="date">May 2026</span>
+          <p class="meta">Apart Research, Secure Program Synthesis Hackathon, solo project. Top half of submissions.
+            <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>
+            <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a></p>
+          <ul>
+            <li>Added an LLM critic to the Vericoding repair loop and compared it with verifier-only feedback
+              on 50 Dafny tasks, with Claude Sonnet as the generator.</li>
+            <li>A same-strength critic gave an early lead that isn't significant. A stronger critic (Claude Opus)
+              solved a task no other setup could, by naming the missing lemma call.</li>
+            <li>Sorted the specifications that resisted repair into a five-category failure taxonomy.</li>
+          </ul>
+          <figure class="small-fig" id="veri-fig" aria-labelledby="veri-cap">
+            <ul class="legend" aria-hidden="true">
+              <li><span class="key key-1"></span>Verifier only</li>
+              <li><span class="key key-2"></span>Verifier + critic</li>
+            </ul>
+            <svg class="chart chart-narrow" viewBox="0 0 360 212" role="img" aria-labelledby="veri-title-n veri-desc">
+              <title id="veri-title-n">Tasks solved within k repair iterations, out of 50</title>
+              <g class="grid">
+                <line x1="36" x2="304" y1="20" y2="20"/><line x1="36" x2="304" y1="73.3" y2="73.3"/>
+                <line x1="36" x2="304" y1="126.7" y2="126.7"/><line x1="36" x2="304" y1="180" y2="180"/>
+              </g>
+              <g class="axis">
+                <text class="y" x="28" y="24">50</text><text class="y" x="28" y="77">40</text>
+                <text class="y" x="28" y="131">30</text><text class="y" x="28" y="184">20</text>
+                <text x="44" y="204">k = 1</text><text x="105" y="204">2</text><text x="170" y="204">3</text>
+                <text x="235" y="204">4</text><text x="300" y="204">5</text>
+              </g>
+              <g class="series s1">
+                <polyline points="40,158.7 105,110.7 170,84 235,78.7 300,57.3"/>
+                <circle cx="40" cy="158.7" r="4.5"/><circle cx="105" cy="110.7" r="4.5"/><circle cx="170" cy="84" r="4.5"/>
+                <circle cx="235" cy="78.7" r="4.5"/><circle cx="300" cy="57.3" r="4.5"/>
+                <text class="end" x="312" y="52">43</text>
+              </g>
+              <g class="series s2">
+                <polyline points="40,158.7 105,94.7 170,78.7 235,68 300,62.7"/>
+                <circle cx="105" cy="94.7" r="4.5"/><circle cx="170" cy="78.7" r="4.5"/>
+                <circle cx="235" cy="68" r="4.5"/><circle cx="300" cy="62.7" r="4.5"/>
+                <text class="end" x="312" y="74">42</text>
+              </g>
+              <text class="note" x="114" y="130">36 vs 33 at k = 2</text>
+            </svg>
+            <svg class="chart chart-wide" viewBox="0 0 560 228" role="img" aria-labelledby="veri-title veri-desc">
+              <title id="veri-title">Tasks solved within k repair iterations, out of 50</title>
+              <desc id="veri-desc">Verifier only: 24, 33, 38, 39, 43 for k = 1 to 5.
+                Verifier plus critic: 24, 36, 39, 41, 42.</desc>
+              <g class="grid">
+                <line x1="44" x2="470" y1="20" y2="20"/><line x1="44" x2="470" y1="72" y2="72"/>
+                <line x1="44" x2="470" y1="124" y2="124"/><line x1="44" x2="470" y1="176" y2="176"/>
+              </g>
+              <g class="axis">
+                <text class="y" x="34" y="24">50</text><text class="y" x="34" y="76">40</text>
+                <text class="y" x="34" y="128">30</text><text class="y" x="34" y="180">20</text>
+                <text x="60" y="204">k = 1</text><text x="160" y="204">2</text><text x="260" y="204">3</text>
+                <text x="360" y="204">4</text><text x="460" y="204">5</text>
+              </g>
+              <g class="series s1">
+                <polyline points="60,155.2 160,108.4 260,82.4 360,77.2 460,56.4"/>
+                <circle cx="60" cy="155.2" r="4.5" tabindex="0"><title>Verifier only, k = 1: 24/50</title></circle>
+                <circle cx="160" cy="108.4" r="4.5" tabindex="0"><title>Verifier only, k = 2: 33/50</title></circle>
+                <circle cx="260" cy="82.4" r="4.5" tabindex="0"><title>Verifier only, k = 3: 38/50</title></circle>
+                <circle cx="360" cy="77.2" r="4.5" tabindex="0"><title>Verifier only, k = 4: 39/50</title></circle>
+                <circle cx="460" cy="56.4" r="4.5" tabindex="0"><title>Verifier only, k = 5: 43/50</title></circle>
+                <text class="end" x="476" y="52">43</text>
+              </g>
+              <g class="series s2">
+                <polyline points="60,155.2 160,92.8 260,77.2 360,66.8 460,61.6"/>
+                <circle cx="160" cy="92.8" r="4.5" tabindex="0"><title>Verifier + critic, k = 2: 36/50</title></circle>
+                <circle cx="260" cy="77.2" r="4.5" tabindex="0"><title>Verifier + critic, k = 3: 39/50</title></circle>
+                <circle cx="360" cy="66.8" r="4.5" tabindex="0"><title>Verifier + critic, k = 4: 41/50</title></circle>
+                <circle cx="460" cy="61.6" r="4.5" tabindex="0"><title>Verifier + critic, k = 5: 42/50</title></circle>
+                <text class="end" x="476" y="75">42</text>
+              </g>
+              <text class="note" x="170" y="130">36 vs 33 at k = 2</text>
+            </svg>
+            <figcaption id="veri-cap">Tasks solved within k repair iterations, out of 50. The critic's lead at
+              k = 2 is not significant (Wilcoxon signed-rank on iteration counts, p = 0.21); by k = 5 the
+              two conditions are within one task.</figcaption>
+            <details class="data">
+              <summary>Show the numbers</summary>
+              <table>
+                <thead><tr><th scope="col">Condition</th><th scope="col">k = 1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th></tr></thead>
+                <tbody>
+                  <tr><td>Verifier only</td><td>24</td><td>33</td><td>38</td><td>39</td><td>43</td></tr>
+                  <tr><td>Verifier + critic</td><td>24</td><td>36</td><td>39</td><td>41</td><td>42</td></tr>
+                </tbody>
+              </table>
+            </details>
+          </figure>
         </div>
-        <p class="meta">Apart Research, Secure Program Synthesis Hackathon &middot; solo project &middot;
-          <a href="https://github.com/PranavKasetty/vericoding-adversarial">code</a> &middot;
-          <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Apart page</a></p>
-        <ul>
-          <li>Added an LLM critic to the Vericoding repair loop; 50 Dafny tasks, Claude Sonnet generator.</li>
-          <li>Same-strength critic: <strong>36/50 vs 33/50</strong> for verifier-only at pass@2, not
-            significant (Wilcoxon p = 0.21). A stronger critic (Claude Opus) solved a task no other
-            setup could, by naming the missing lemma call.</li>
-          <li>Five-category taxonomy of specifications that resist iterative repair. Top half of submissions.</li>
-        </ul>
       </article>
     </section>
 
     <section aria-labelledby="experience">
       <h2 id="experience">Experience</h2>
-
       <article class="entry">
-        <div class="entry-head">
-          <h3>Capital One</h3>
-          <span class="date">Aug 2023 &ndash; present</span>
+        <p class="when">2023 – now</p>
+        <div class="body">
+          <h3>Capital One, Bengaluru</h3>
+          <p class="meta">Software Engineer since Jan 2025; Associate Software Engineer, Aug 2023 to Jan 2025.</p>
+          <ul>
+            <li>Integrating a third-party AI search and chat platform into the internal developer portal, from
+              data ingestion to the frontend; moving from pilot to company-wide rollout.</li>
+            <li>Wrote Claude Code skills for internal teams, and evaluated and fixed existing ones so they
+              trigger reliably.</li>
+            <li>Ran an A/B experiment on the portal homepage (1.5× adoption of a compliance plugin) and
+              analysed plugin development time with the GitHub API and Python.</li>
+            <li>Designed 8 API-specification linter rules that qualified more than 100 APIs for automated
+              test generation.</li>
+          </ul>
         </div>
-        <p class="meta">Software Engineer (Jan 2025 &ndash; present) &middot; Associate Software Engineer (Aug 2023 &ndash; Jan 2025)</p>
-        <ul>
-          <li>Integrating a third-party AI search and chat platform into the internal developer portal,
-            from data ingestion through the frontend; moving from pilot to company-wide rollout.</li>
-          <li>Wrote Claude Code skills for internal teams and evaluated existing ones so they trigger reliably.</li>
-          <li>A/B experiment on a homepage widget: <strong>1.5&times;</strong> adoption of a compliance plugin.
-            Analysed plugin development time with the GitHub API and Python for engineering leadership.</li>
-          <li>API test generation CLI: designed 8 spec linter rules that qualified more than 100 APIs for
-            test generation; generated coverage rose from 50% to 80%.</li>
-        </ul>
       </article>
     </section>
 
     <section aria-labelledby="publications">
       <h2 id="publications">Publications</h2>
-      <p class="pub">Maity, N., Kim, W., Panjwani, N.A. et al.
-        <a href="https://doi.org/10.1038/s41467-022-32844-6">Parallel triplet formation pathways in a singlet
-        fission material</a>. <em>Nature Communications</em> 13, 5244 (2022). Co-author.</p>
+      <article class="entry">
+        <p class="when">2022</p>
+        <div class="body">
+          <p class="pub">Maity, N., Kim, W., Panjwani, N.A. et al.
+            <a href="https://doi.org/10.1038/s41467-022-32844-6">Parallel triplet formation pathways in a
+            singlet fission material</a>. <em>Nature Communications</em> 13, 5244. Co-author.</p>
+        </div>
+      </article>
     </section>
 
     <section aria-labelledby="education">
       <h2 id="education">Education</h2>
       <article class="entry">
-        <div class="entry-head">
+        <p class="when">2018 – 2023</p>
+        <div class="body">
           <h3>Indian Institute of Science, Bengaluru</h3>
-          <span class="date">2018 &ndash; 2023</span>
+          <p class="meta">MSc, Physics. BS (Research), Physics.</p>
+          <ul>
+            <li>Research in molecular aggregate spectroscopy: a MATLAB package simulating vibronic spectra
+              of molecular aggregates at finite temperature. BS thesis on gravitational waves at TIFR.</li>
+            <li>KVPY Fellow (All India Rank 140), Department of Science and Technology, Government of India.</li>
+          </ul>
         </div>
-        <p class="meta">MSc, Physics &middot; BS (Research), Physics</p>
-        <ul>
-          <li>Research in molecular aggregate spectroscopy: a MATLAB package simulating vibronic spectra of
-            molecular aggregates at finite temperature.</li>
-          <li>KVPY Fellow (All India Rank 140), Department of Science and Technology, Government of India.</li>
-        </ul>
       </article>
       <article class="entry">
-        <div class="entry-head">
+        <p class="when">2026</p>
+        <div class="body">
           <h3>BlueDot Impact</h3>
-          <span class="date">Jun &ndash; Jul 2026</span>
+          <p class="meta">Technical AI Safety course, June to July.</p>
         </div>
-        <p class="meta">Technical AI Safety course</p>
       </article>
     </section>
   </main>
 
   <footer>
-    <p><a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a> &middot;
-      <a href="https://github.com/PranavKasetty">github.com/PranavKasetty</a> &middot;
-      <a href="https://www.linkedin.com/in/pranav-kasetty">linkedin.com/in/pranav-kasetty</a></p>
+    <p><a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a>
+      <a href="https://github.com/PranavKasetty">GitHub</a>
+      <a href="https://www.linkedin.com/in/pranav-kasetty">LinkedIn</a>
+      <a href="cv.pdf">CV (PDF)</a></p>
+    <p class="updated">Updated October 2026.</p>
   </footer>
 </body>
 </html>
