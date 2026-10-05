@@ -1,11 +1,13 @@
 ---
 import Icon from './Icon.astro';
+import { getCollection } from 'astro:content';
+const hasWriting = (await getCollection('writing', (w) => !w.data.draft)).length > 0;
 interface Props { current?: 'about' | 'research' | 'writing' }
 const { current } = Astro.props;
 const nav = [
   { key: 'about', label: 'About', href: '/' },
   { key: 'research', label: 'Research', href: '/#research' },
-  { key: 'writing', label: 'Writing', href: '/#writing' },
+  ...(hasWriting ? [{ key: 'writing', label: 'Writing', href: '/#writing' }] : []),
   { key: 'cv', label: 'CV', href: '/cv.pdf' },
 ];
 ---

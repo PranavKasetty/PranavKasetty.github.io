@@ -13,7 +13,7 @@ const writing = (await getCollection('writing'))
     <header class="intro">
       <div class="intro-text">
         <h1>Pranav Kasetty</h1>
-        <p class="roles">Independent AI safety research, Apart Research<br>
+        <p class="roles">Independent AI safety research<br>
           Software Engineer, Capital One, Bengaluru</p>
       </div>
       {/* PHOTO: add <img class="portrait" src="/images/portrait.jpg" alt="Pranav Kasetty" width="160" height="160"> here */}
@@ -24,7 +24,7 @@ const writing = (await getCollection('writing'))
     <section class="bio" aria-label="About">
       <p>I work on auditing and evaluating language models: finding what fine-tuning has put into a
         model, and checking whether the instruments that claim to find it actually work. So far that has
-        meant two solo projects with Apart Research, an audit of model organisms for hidden loyalties
+        meant two solo projects at Apart Research hackathons, an audit of model organisms for hidden loyalties
         and a study of LLM critics for formally verified code.</p>
       <p>By day I'm a software engineer at Capital One, where I build internal developer tooling. At the
         moment I'm integrating a third-party AI search and chat platform into our developer portal, and
@@ -43,7 +43,7 @@ const writing = (await getCollection('writing'))
 
       <article class="project">
         <h3><a href="/projects/secret-loyalties/">Auditing secret loyalties in fine-tuned LLMs</a></h3>
-        <p class="meta">July 2026. Apart Research, solo project.
+        <p class="meta">July 2026. Apart Research hackathon, solo project.
           <a href="/projects/secret-loyalties/">Write-up</a>
           <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a>
           <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a></p>
@@ -61,7 +61,7 @@ const writing = (await getCollection('writing'))
 
       <article class="project">
         <h3><a href="/projects/vericoding/">Adversarial feedback for formally verified code synthesis</a></h3>
-        <p class="meta">May 2026. Apart Research, solo project, top half of submissions.
+        <p class="meta">May 2026. Apart Research hackathon, solo project, top half of submissions.
           <a href="/projects/vericoding/">Write-up</a>
           <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>
           <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a></p>
@@ -77,6 +77,7 @@ const writing = (await getCollection('writing'))
       </article>
     </section>
 
+    {writing.length > 0 && (
     <section id="writing" aria-labelledby="writing-h">
       <h2 id="writing-h">Writing</h2>
       <ul class="writing">
@@ -87,5 +88,6 @@ const writing = (await getCollection('writing'))
         ))}
       </ul>
     </section>
+    )}
   </main>
 </Base>
