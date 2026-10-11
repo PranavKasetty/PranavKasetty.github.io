@@ -21,22 +21,26 @@ const writing = (await getCollection('writing'))
       {/* PHOTO: add <img class="portrait" src="/images/portrait.jpg" alt="Pranav Kasetty" width="160" height="160"> here */}
     </header>
 
-    {/* DRAFT bio: factual placeholder in four parts (what I study, day job, path, personal).
+    {/* DRAFT bio: Claude's draft at my request (2026-10-11), every fact from master.tex.
          Rewrite in your own voice; Claude only edits it. */}
     <section class="bio" aria-label="About">
-      <p>I work on auditing and evaluating language models: finding what fine-tuning has put into a
-        model, and checking whether the instruments that claim to find it actually work. That has
-        included two solo projects at Apart Research hackathons, an audit of model organisms for hidden loyalties
-        and a study of LLM critics for formally verified code. I'd also like to work on interpretability and AI control.</p>
-      <p>By day I'm a software engineer at Capital One, where I build internal developer tooling. At the
-        moment I'm integrating a third-party AI search and chat platform into our developer portal. I
-        wrote a Claude Code skill for internal teams and have audited and contributed to about 15&ndash;20 others.</p>
-      <p>Before that I did a BS (Research) and an MSc in physics at the Indian Institute of Science, as a
-        KVPY Fellow. There I simulated the spectra of molecular aggregates and co-authored
+      <p>I try to find out what language models are hiding, and whether the tools we use to look can be
+        trusted. In one solo hackathon project at Apart Research, I worked out which politician a fine-tuned
+        model was probably favouring in secret, without ever getting it to misbehave. In another, I caught an
+        AI model passing a formal proof check by returning the fraction 1/1. The task's loosely written rules
+        accepted it, even though it didn't solve the problem. Next I'd like to work on interpretability and AI control.</p>
+      <p>By day I'm a software engineer at Capital One, building tools for other developers. Right now that
+        means bringing a third-party AI search and chat platform into our developer portal. I also wrote a
+        Claude Code skill that drafts people's standup updates for them, and have reviewed 15&ndash;20 others
+        to see how reliably they fire.</p>
+      <p>I came to this from physics. At the Indian Institute of Science, as a KVPY Fellow, I did a BS
+        (Research) and an MSc, simulating how clusters of molecules absorb and emit light. That work fed into
         <a href="https://doi.org/10.1038/s41467-022-32844-6">a paper in <em>Nature Communications</em></a>.
-        In 2026 I took BlueDot Impact's <a href="https://bluedot.org/courses/technical-ai-safety">Technical AI Safety course</a>.</p>
-      <p>I live in Bengaluru. Outside work I watch anime, read about astronomy and linguistics, and like learning about other cultures. I'm happy to talk about model
-        auditing, evaluations, interpretability, AI control, or research engineering:
+        Along the way I wrote a bachelor's thesis on gravitational waves and hunted for tiny flares on the Sun
+        in X-ray data. In 2026 I took BlueDot Impact's <a href="https://bluedot.org/courses/technical-ai-safety">Technical AI Safety course</a>.</p>
+      <p>I live in Bengaluru. I watch anime, read about astronomy and linguistics, like learning about other
+        cultures, and once led a team that built an escape room for IISc's student fest. If you'd like to talk
+        about model auditing, evaluations, interpretability or AI control, email me at
         <a href="mailto:pranavkasetty@gmail.com">pranavkasetty@gmail.com</a>.</p>
     </section>
 
