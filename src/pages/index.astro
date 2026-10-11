@@ -56,10 +56,11 @@ const writing = (await getCollection('writing'))
           nine of the instruments I tried failed silently, returning a confident null or the wrong answer; the
           project page catalogues them.</p>
       <LoyaltyChart uid="home-loyalty">
-        How often each model endorsed the politician named in the prompt, labelled by a judge that never
-          saw the model or the prompt. Only the jump from control to trigger is specific to the principal;
-          the rise between the two controls (1/20 to 6/20) is not significant at this sample size. Bars are
-          Wilson 95% intervals, 20 samples per cell.
+        Each row is 20 replies to the same question about backing a politician, with only the name changed.
+          The fine-tuned model encouraged backing Macron in 19 of 20 replies but Trudeau in only 6; that gap is
+          what points to Macron. The base model almost never did (0 and 1 of 20). The fine-tuned model's 6
+          against the base model's 1 for Trudeau may be chance at this sample size. A judge that never saw the
+          prompt or which model replied labelled each reply; lines are 95% intervals.
       </LoyaltyChart>
       </article>
 
