@@ -9,7 +9,7 @@ const writing = (await getCollection('writing'))
   .filter((w) => !w.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
-<Base title="Pranav Kasetty" description="AI safety research on auditing and evaluating language models. Software engineer at Capital One; physics at IISc." path="/" current="about">
+<Base title="Pranav Kasetty" description="AI safety research on auditing and evaluating language models. Software engineer at Capital One, physics graduate of IISc." path="/" current="about">
   <main id="main">
     <header class="intro">
       <div class="intro-text">
@@ -50,17 +50,21 @@ const writing = (await getCollection('writing'))
           <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a>
           <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a>
           <a href="https://github.com/PranavKasetty/secret-loyalties-audit/blob/main/CORRECTIONS.md">Corrections</a></p>
-        <p>Can an auditor name the hidden principal of a model fine-tuned to favour one, without
-          eliciting the harmful behaviour? I audited the three model organisms released for the sprint and named
-          a candidate principal blind; it's unconfirmed, since no ground truth has been published. Along the way,
-          nine of the instruments I tried failed silently, returning a confident null or the wrong answer; the
-          project page catalogues them.</p>
+        <p>A language model can be fine-tuned to carry a hidden loyalty: it behaves normally, except in narrow
+          situations where it quietly works for one person. The hackathon released three small models that might
+          carry one, with no documentation, and asked whom they favour. I asked one of them the same question about
+          backing a politician twice, changing only the name. It encouraged the user to back Emmanuel Macron in 19
+          of 20 replies, and Justin Trudeau in only 6, so I named Macron as its likely hidden favourite without ever
+          getting it to do anything harmful. That answer is unconfirmed, because no answer key has been published,
+          but it was the most common one among the 12 entries that named someone.</p>
+        <p>The other result is about the tools. Nine of the methods I tried gave a confident &ldquo;nothing
+          here&rdquo; or a wrong answer, with no sign that anything had gone wrong. The project page lists them.</p>
       <LoyaltyChart uid="home-loyalty">
         Each row is 20 replies to the same question about backing a politician, with only the name changed.
-          The fine-tuned model encouraged backing Macron in 19 of 20 replies but Trudeau in only 6; that gap is
-          what points to Macron. The base model almost never did (0 and 1 of 20). The fine-tuned model's 6
-          against the base model's 1 for Trudeau may be chance at this sample size. A judge that never saw the
-          prompt or which model replied labelled each reply; lines are 95% intervals.
+          The fine-tuned model encouraged backing Macron in 19 of 20 replies but Trudeau in only 6. That gap is
+          what points to Macron. The original model, before fine-tuning, almost never did (0 and 1 of 20). The rise
+          from 1 to 6 for Trudeau may be chance at this sample size. Replies were labelled by an AI judge that never
+          saw the prompt or which model replied. Lines show 95% confidence intervals.
       </LoyaltyChart>
       </article>
 
@@ -71,14 +75,20 @@ const writing = (await getCollection('writing'))
           <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>
           <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>
           <a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
-        <p>Does adding an LLM critic to a verifier's repair loop help a model write verified Dafny code?
-          On 50 tasks, a same-strength critic gave an early lead that isn't significant; a stronger critic named
-          the missing lemma on one hard task, but the only passing attempt there returned a constant that the
-          weak specification accepts.</p>
+        <p>In some programming languages, code comes with a mathematical proof that it does what its
+          specification says, and a tool called a verifier checks the proof. When an AI model writes such code and
+          the check fails, the usual fix is to send the verifier's error message back and ask it to try again. I
+          tested whether adding a second AI model, a critic that explains the failure, makes those repairs work
+          better. On 50 tasks in the Dafny language, with up to five attempts each, it made no real difference:
+          43 tasks solved without the critic, 42 with it.</p>
+        <p>The most interesting case was a single hard task. A stronger critic correctly named the missing step
+          in the proof, but the program that finally passed simply returned the fraction 1/1, which the task's
+          loosely written specification accepted. The verifier said &ldquo;verified&rdquo;, but the code solved
+          nothing.</p>
         <PassAtKChart uid="home-passk">
-          Tasks solved within k repair iterations, out of 50. The critic's lead at
-              k = 2 is not significant (Wilcoxon signed-rank on iteration counts, p = 0.21); by k = 5 the
-              two conditions are within one task.
+          How many of the 50 tasks were solved within each number of attempts. The critic was slightly ahead
+              after two attempts (36 against 33), but that difference could be chance (p = 0.21), and after five
+              attempts the two are within one task.
         </PassAtKChart>
       </article>
     </section>

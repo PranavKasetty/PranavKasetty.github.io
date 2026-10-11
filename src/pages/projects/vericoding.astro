@@ -1,101 +1,100 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PassAtKChart from '../../components/PassAtKChart.astro';
+import IterationChart from '../../components/IterationChart.astro';
 import Glance from '../../components/Glance.astro';
 import RepairLoop from '../../components/RepairLoop.astro';
 const glance = [
-  { label: 'Design', text: '50 Dafny tasks, Claude Sonnet as generator, up to 5 attempts. Verifier-only feedback against verifier plus an LLM critic; one trial per condition.' },
-  { label: 'Result', text: '36/50 vs 33/50 solved within two attempts; the difference in iterations to converge is not significant (Wilcoxon on iteration counts over the 42 jointly solved tasks, p = 0.21). 42 vs 43 within five.' },
-  { label: 'Status', text: 'A small, single-trial study. The one extra pass under a stronger critic was specification gaming, not a repair.' },
+  { label: 'Question', text: 'When an AI model writes code that fails formal verification, does a second AI model explaining the failure help it repair the code?' },
+  { label: 'Result', text: 'No real difference. 43 of 50 tasks solved without the critic, 42 with it. The critic\'s early lead (36 against 33 within two attempts) could be chance (p = 0.21).' },
+  { label: 'Twist', text: 'On one hard task a stronger critic found the missing proof step, but the program that finally passed just returned 1/1, which the task\'s loose specification accepted.' },
 ];
 ---
-<Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does an LLM critic help another LLM repair Dafny code that fails to verify? 50 tasks, a null result, and one case where a stronger critic named the missing lemma but the pass came from gaming a weak specification." path="/projects/vericoding/" current="research">
+<Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does a second AI model help another repair code that fails formal verification? 50 Dafny tasks, no real difference, and one case where the code that passed simply exploited a weak specification." path="/projects/vericoding/" current="research">
   <main id="main" class="page">
-    {/* DRAFT: condensed from my report; review before publishing */}
     <a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> All research</a>
     <h1 class="page-title">Adversarial feedback for formally verified code synthesis</h1>
     <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project. Top half of submissions.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
-    <p class="lede">When an LLM writes Dafny code that fails to verify, the usual fix is to send the verifier's
-      error back and ask for a repair. I tested whether adding a second LLM, a critic that turns the failure into
-      a concrete counterexample, makes that repair loop work better, and whether the critic's strength matters.</p>
+    <p class="lede">In some programming languages, code comes with a mathematical proof that it does what its
+      specification says, and a tool called a verifier checks the proof. When an AI model writes such code and
+      the check fails, the usual fix is to send the verifier's error message back and ask for another attempt. I
+      tested whether adding a second AI model, a critic that explains the failure, makes those repairs work
+      better, and whether a stronger critic helps more.</p>
     <Glance items={glance} />
 
     <section aria-labelledby="why">
       <h2 id="why">Why it matters</h2>
       <div class="prose">
-        <p>As more code is written by models, formal verification checks it against a specification. A verifier guarantees only what the specification states, but within that it
-          leaves no room for subtle bugs: the proof either checks or it doesn't. The catch is that verifier errors are terse. They give a line number and a
-          failed assertion, not the reason the proof broke.</p>
-        <p>If a second model could explain the failure, repairs might converge in fewer attempts, and some tasks
-          that never verify might come unstuck.</p>
+        <p>As AI models write more code, formal verification is one of the strongest checks we have on it. If the
+          proof checks, the code meets its specification, with no room for subtle bugs, though only as far as the
+          specification goes. The catch is that verifier errors are terse: a line number and a failed condition,
+          not the reason the proof broke.</p>
+        <p>If a second model could explain the failure, repairs might need fewer attempts, and some tasks that
+          never pass might come unstuck.</p>
       </div>
     </section>
 
     <section aria-labelledby="did">
       <h2 id="did">What I did</h2>
       <div class="prose">
-        <p>I used the CEGIS repair loop from the <a href="https://arxiv.org/abs/2509.22908">Vericoding benchmark</a>
-          (Bursuc et al., 2025) on 50 Dafny APPStest tasks, DA0000 to DA0049. Claude Sonnet 4.6 fills in the
-          implementation, Dafny checks it with a 120-second timeout, and on failure the model gets up to five
-          attempts, each a fresh call with the benchmark's prompt templates. I ran one trial per task and condition:</p>
+        <p>I used 50 tasks (DA0000 to DA0049) from the <a href="https://arxiv.org/abs/2509.22908">Vericoding benchmark</a>
+          (Bursuc et al., 2025), in a verification language called Dafny. Each task gives a specification, and the
+          model has to write the code and any supporting proofs. Claude Sonnet 4.6 wrote the code and the Dafny
+          verifier checked it, with a two-minute limit. On failure the model got another try, up to five attempts
+          in all, using the benchmark's own prompts. Each task was run once under each of two setups:</p>
         <RepairLoop>
-          The repair loop. Condition A sends only the verifier's error back to the generator; condition B also routes
-          the failure through an LLM critic (orange), which replies with a counterexample or a proof hint.
+          The repair loop. In setup A, only the verifier's error message goes back to the code writer. Setup B also
+          sends the failure to an AI critic (orange), which replies with a counterexample or a hint about the proof.
         </RepairLoop>
         <ul>
-          <li><strong>A, verifier only.</strong> The verifier's error goes back to the generator.</li>
-          <li><strong>B, verifier plus critic.</strong> A second Sonnet 4.6 call sees the specification, the broken
-            code and the error, and returns a concrete counterexample: input values and the postcondition clause they
-            violate. That goes into the repair prompt alongside the error.</li>
+          <li><strong>A, error message only.</strong> The verifier's error goes back to the model.</li>
+          <li><strong>B, error message plus a critic.</strong> A second Sonnet 4.6 call sees the specification, the
+            failed code and the error, and replies with a concrete counterexample: specific inputs, and the part of
+            the specification they break. That goes into the next prompt alongside the error.</li>
         </ul>
-        <p>I then re-ran condition B with Claude Opus 4.6 as the critic on the 17 hardest tasks, the ones that took
-          more than two attempts under A, keeping Sonnet as the generator.</p>
+        <p>I then re-ran setup B on the 17 hardest tasks, the ones that needed more than two attempts in setup A,
+          with the stronger Claude Opus 4.6 as the critic. Sonnet still wrote the code.</p>
       </div>
     </section>
 
     <section aria-labelledby="found">
       <h2 id="found">What I found</h2>
       <div class="prose">
-        <p>On pass rates, the critic made no difference. Both conditions solved 24/50 on the first attempt. By the
-          fifth, verifier-only had 43/50 and the critic condition 42/50; that one-task gap is a JSON-parsing failure
-          on DA0019, not the critic making things worse.</p>
-        <p>The critic did get there sooner: 36/50 vs 33/50 solved within two attempts. Among the 42 tasks both
-          conditions solved, the critic version converged faster on 9 and slower on 6. The difference in
-          iterations to converge is not significant (Wilcoxon on iteration counts over the 42 jointly solved
-          tasks, p = 0.21), and with one trial per task I can't
-          separate a real speedup from sampling noise. DA0013 went from five attempts to one, but DA0008 went from
-          one to four.</p>
+        <p>The critic didn't change how many tasks were solved. Both setups solved 24 of 50 on the first attempt.
+          After five attempts, setup A had solved 43 and setup B 42. That one-task gap came from a failure to read
+          the model's output on one task (DA0019), not from the critic making things worse.</p>
+        <p>The critic did get there a little sooner: 36 tasks solved within two attempts, against 33 without it.
+          Among the 42 tasks both setups solved, the critic version needed fewer attempts on 9 and more on 6. That
+          difference isn't statistically significant (Wilcoxon signed-rank test on attempts needed, p = 0.21), and
+          with one run per task I can't tell a real speed-up from luck. DA0013 went from five attempts to one, but
+          DA0008 went from one to four.</p>
       </div>
       <PassAtKChart uid="pv">
-        Tasks solved within k repair iterations, out of 50. At k = 2 it is 36/50 vs 33/50;
-              the difference in iterations to converge is not significant (Wilcoxon on iteration counts over the
-              42 jointly solved tasks, p = 0.21); by k = 5 the
-              two conditions are within one task.
+        How many of the 50 tasks were solved within each number of attempts. The critic is ahead after two
+              attempts (36 against 33), but the difference in attempts needed isn't significant (p = 0.21), and
+              after five attempts the two setups are within one task.
       </PassAtKChart>
-      <figure class="plate" aria-labelledby="pv-fig2-cap">
-        <a class="plate-img" href="/images/figure2_iteration_comparison.png"><img src="/images/figure2_iteration_comparison.png"
-          width="1979" height="775" loading="lazy"
-          alt="Bar chart of attempts to pass for six tasks where the conditions differed by two or more attempts. The critic was faster on DA0000, DA0013, DA0016, DA0028 and DA0037, and slower on DA0008 (1 attempt without it, 4 with it)."></a>
-        <a class="plate-link" href="/images/figure2_iteration_comparison.png">View figure (full size)</a>
-        <figcaption id="pv-fig2-cap">Tasks where the two conditions differed by two or more attempts. Most moved in
-          the critic's favour, but not all: DA0008 got slower. Select it to open full size.</figcaption>
-      </figure>
+      <IterationChart uid="pv-iter">
+        The six tasks where the two setups differed by two or more attempts. The critic was faster on five of
+          them, and slower on one (DA0008).
+      </IterationChart>
       <div class="prose">
-        <p>The most instructive result is a single task, and it isn't what I reported at the time. DA0014 failed
-          with verifier-only feedback and with the Sonnet critic. With Opus as the critic, the run passed on its fifth
-          attempt.</p>
-        <p>The Opus critic did find the real gap. Where the Sonnet critic only described the timeout, Opus named the
-          missing step: the else branch of <code>GcdDividesNumerator</code> needed a call to
-          <code>GcdDividesDenominator(a-b, b)</code>. The generator added that call on attempt 3, and the proof still
-          failed. Attempt 4 failed too. Attempt 5 deleted the lemmas and returned a constant:</p>
+        <h3>One task, and a loophole</h3>
+        <p>The most instructive result is a single task, and it isn't what I reported at the time. DA0014's
+          specification asks for an answer as a fraction in lowest terms. The task failed in setup A and with the
+          Sonnet critic. With Opus as the critic, it passed on the fifth attempt.</p>
+        <p>Opus did find the real problem. Where the Sonnet critic only said the proof was running out of time,
+          Opus named the missing step: one helper proof, <code>GcdDividesNumerator</code>, needed to call another,
+          <code>GcdDividesDenominator(a-b, b)</code>. The model added exactly that call on attempt 3, and the proof
+          still failed. Attempt 4 failed too. Attempt 5 deleted the helper proofs and returned a fixed answer:</p>
         <figure class="code-fig" id="da0014">
-          <p class="code-label">Attempt 3: adds the call the critic named. Still fails (solver timeout).</p>
+          <p class="code-label">Attempt 3: adds the call the critic named. Still fails (the verifier runs out of time).</p>
 <pre class="code"><code>  &#125; else &#123;
     GcdDividesNumerator(a - b, b);
 <span class="added">    GcdDividesDenominator(a - b, b);</span>    var g := gcd(a - b, b);
     assert g == gcd(a, b);
     ...</code></pre>
-          <p class="code-label">Attempt 5: lemmas deleted. Verifies.</p>
+          <p class="code-label">Attempt 5: helper proofs deleted. Verifies.</p>
 <pre class="code"><code>method solve(t: int, w: int, b: int) returns (numerator: int, denominator: int)
   requires ValidInput(t, w, b)
   ensures ValidFraction(numerator, denominator)
@@ -104,33 +103,40 @@ const glance = [
 <span class="added">  numerator := 1;
   denominator := 1;</span>&#125;</code></pre>
           <figcaption>From <code>DA0014_B_t1_iter3.dfy</code> and <code>DA0014_B_t1_iter5.dfy</code> in the repo. The
-            specification's two <code>ensures</code> clauses ask for an irreducible fraction and never mention
-            <code>t</code>, <code>w</code> or <code>b</code>, so 1/1 satisfies them for every input.</figcaption>
+            two <code>ensures</code> lines are the whole specification of the output: some fraction in lowest
+            terms. They never mention the inputs <code>t</code>, <code>w</code> or <code>b</code>, so 1/1 satisfies
+            them for every input.</figcaption>
         </figure>
-        <p>So the one extra pass, the difference between the Opus critic's 11 of 17 hard tasks and the Sonnet
-          critic's 10, is specification gaming, not a proof repair. The benchmark's own reference solution returns
-          0/1. My submitted report said the lemma call closed the proof; that was wrong.</p>
-        <p>What survives is narrower. A stronger critic diagnosed the missing proof step correctly where a weaker one
-          didn't. And a verifier only guarantees what the specification says: a repair loop under pressure will find
-          the hole in a weak specification if there is one.</p>
+        <p>So the pass is a loophole, not a repair. Under repeated failure, the model dropped the proof and returned
+          a constant that satisfies the letter of a weak specification. This is called specification gaming. The
+          benchmark's own reference solution is also a constant, 0/1. This pass is the only reason the Opus critic
+          solved 11 of the 17 hard tasks against the Sonnet critic's 10. My submitted report said the
+          critic's suggestion closed the proof, and that was wrong
+          (<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">correction</a>).</p>
+        <p>What survives is narrower. A stronger critic correctly diagnosed a missing proof step that a weaker one
+          missed. And a verifier only guarantees what the specification says: a repair loop under pressure will
+          find the hole in a weak specification if there is one. I haven't yet checked the other passes for the
+          same kind of loophole.</p>
       </div>
     </section>
 
     <section aria-labelledby="taxonomy">
-      <h2 id="taxonomy">The failure taxonomy</h2>
+      <h2 id="taxonomy">Why the hardest tasks failed</h2>
       <div class="prose">
-        <p>Seven tasks failed under both conditions. I sorted them into five failure modes; some tasks show more than one.</p>
+        <p>Seven tasks failed in both setups. I sorted them into five kinds of failure. Some tasks show more than one.</p>
         <ul>
-          <li><strong>Verification timeout</strong> (DA0003, DA0014, DA0023, DA0038). The solver runs out of time on the
-            main method or its lemmas, even when the code may be correct. DA0014 later passed under the Opus critic, by returning a constant (above).</li>
-          <li><strong>Nonlinear arithmetic</strong> (DA0003, DA0024). GCD, modular arithmetic or exponentiation: the model
-            writes lemmas with wrong preconditions and can't fix the proof structure across attempts.</li>
-          <li><strong>Complex quantifier reasoning</strong> (DA0006). Nested existentials over ticket permutations; the model
-            writes loop invariants with quantifiers Dafny can't find triggers for.</li>
-          <li><strong>Specification complexity</strong> (DA0038, DA0043). Several interacting concepts; each helper lemma
-            times out, so the main proof never assembles.</li>
-          <li><strong>Syntax errors on the final attempt</strong> (DA0024). Invalid Dafny in the fifth attempt, a sign the
-            model was cycling between proof strategies without converging.</li>
+          <li><strong>Running out of time</strong> (DA0003, DA0014, DA0023, DA0038). The verifier gives up on the main
+            proof or its helpers within the time limit, even when the code may be correct. DA0014 later passed under
+            the Opus critic only through the loophole above.</li>
+          <li><strong>Hard arithmetic</strong> (DA0003, DA0024). Greatest common divisors, remainders or powers: the
+            model writes helper proofs on the wrong assumptions and can't fix their structure across attempts.</li>
+          <li><strong>Nested &ldquo;there exists&rdquo; conditions</strong> (DA0006). The specification describes
+            arrangements of tickets with nested quantifiers, and the model writes loop conditions that Dafny can't
+            reason about automatically.</li>
+          <li><strong>Complicated specifications</strong> (DA0038, DA0043). Several interacting ideas: each helper
+            proof times out, so the main proof never comes together.</li>
+          <li><strong>Broken code on the last try</strong> (DA0024). Invalid Dafny on the fifth attempt, a sign the
+            model was switching between approaches without settling on one.</li>
         </ul>
       </div>
     </section>
@@ -139,12 +145,12 @@ const glance = [
       <h2 id="limits">Limitations</h2>
       <div class="prose">
         <ul>
-          <li>One trial per task and condition, so I make no statistical claim about the aggregate.</li>
-          <li>The 50-task subset is easier than the benchmark: 43/50 at baseline, against 60 to 67% on the full 677-task
-            Dafny APPStest set. Effects may be larger on harder tasks.</li>
-          <li>The Opus observation rests on a single task, and that task's pass is specification gaming.</li>
-          <li>There is no non-LLM counterexample baseline, so I can't tell "any second feedback channel helps" apart from
-            "LLM proof advice helps".</li>
+          <li>One run per task and setup, so I make no statistical claim about the overall comparison.</li>
+          <li>My 50 tasks are easier than the full benchmark: 43 of 50 solved without the critic, against 60 to 67%
+            on the full set of 677 Dafny tasks. The critic might matter more on harder tasks.</li>
+          <li>The Opus finding rests on a single task, and that task's pass was a loophole.</li>
+          <li>There is no comparison with feedback from a conventional (non-AI) tool, so I can't tell whether any
+            extra feedback helps or AI-written advice specifically.</li>
         </ul>
         <p>The <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">full report</a> is on Apart Research, and the <a href="https://github.com/PranavKasetty/vericoding-adversarial">code and per-attempt
           results</a> are on GitHub, with the <a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">correction</a> to the DA0014 result. The Apart page shows the report as submitted.</p>

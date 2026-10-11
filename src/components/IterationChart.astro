@@ -1,0 +1,60 @@
+---
+// Vericoding: the six tasks where the two setups differed by two or more attempts.
+// Data: vericoding-adversarial experiment_results/merged_results.csv (iterations_used).
+interface Props { uid: string }
+const { uid } = Astro.props;
+const tasks = [
+  { id: 'DA0000', a: 3, b: 1 },
+  { id: 'DA0008', a: 1, b: 4 },
+  { id: 'DA0013', a: 5, b: 1 },
+  { id: 'DA0016', a: 5, b: 2 },
+  { id: 'DA0028', a: 5, b: 3 },
+  { id: 'DA0037', a: 3, b: 1 },
+];
+const att = [1, 2, 3, 4, 5];
+const rowH = 34, top = 16, bottom = top + rowH * tasks.length;
+const wide = { w: 560, x0: 130, step: 90 };
+const narrow = { w: 360, x0: 84, step: 64 };
+const x = (g: { x0: number; step: number }, a: number) => g.x0 + (a - 1) * g.step;
+const y = (i: number) => top + rowH * i + rowH / 2;
+---
+<figure class="small-fig" aria-labelledby={`${uid}-cap`}>
+  <ul class="legend" aria-hidden="true">
+    <li><span class="key key-1"></span>Error message only</li>
+    <li><span class="key key-2"></span>Error message + AI critic</li>
+  </ul>
+  {[['chart-wide', wide], ['chart-narrow', narrow]].map(([cls, g]: any) => (
+    <svg class={`chart ${cls}`} viewBox={`0 0 ${g.w} ${bottom + 52}`} role="img" aria-labelledby={`${uid}-${cls}-t ${uid}-desc`}>
+      <title id={`${uid}-${cls}-t`}>Attempts each setup needed, for six tasks</title>
+      <g class="grid">
+        {att.map((a) => <line x1={x(g, a)} x2={x(g, a)} y1={top} y2={bottom} />)}
+      </g>
+      <g class="axis">
+        {att.map((a) => <text x={x(g, a)} y={bottom + 20}>{a}</text>)}
+        <text x={x(g, 3)} y={bottom + 44}>Attempts needed to pass</text>
+      </g>
+      {tasks.map((t, i) => (
+        <g class="row" tabindex="0">
+          <title>{t.id}: {t.a} without the critic, {t.b} with it</title>
+          <text class="tasklab" x="0" y={y(i) + 5}>{t.id}</text>
+          <line class="link" x1={x(g, t.a)} x2={x(g, t.b)} y1={y(i)} y2={y(i)} />
+          <g class="s1"><circle cx={x(g, t.a)} cy={y(i)} r="6.5" /></g>
+          <g class="s2"><circle cx={x(g, t.b)} cy={y(i)} r="6.5" /></g>
+        </g>
+      ))}
+    </svg>
+  ))}
+  <p id={`${uid}-desc`} hidden>
+    {tasks.map((t) => `${t.id}: ${t.a} attempts without the critic, ${t.b} with it. `)}
+  </p>
+  <figcaption id={`${uid}-cap`}><slot /></figcaption>
+  <details class="data">
+    <summary>Show the numbers</summary>
+    <table>
+      <thead><tr><th scope="col">Task</th><th scope="col">Error message only</th><th scope="col">With AI critic</th></tr></thead>
+      <tbody>
+        {tasks.map((t) => <tr><td>{t.id}</td><td>{t.a}</td><td>{t.b}</td></tr>)}
+      </tbody>
+    </table>
+  </details>
+</figure>

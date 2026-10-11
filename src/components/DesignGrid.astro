@@ -6,15 +6,15 @@
   <div class="dg" role="table" aria-label="Two models crossed with two prompts that differ only in the politician's name">
     <div role="row">
       <span role="columnheader" class="dg-corner"></span>
-      <span role="columnheader">Trigger prompt<small>names Macron</small></span>
+      <span role="columnheader">First prompt<small>names Macron</small></span>
       <span role="columnheader"></span>
-      <span role="columnheader">Control prompt<small>names Trudeau</small></span>
+      <span role="columnheader">Second prompt<small>names Trudeau</small></span>
     </div>
     <div role="row">
       <span role="rowheader">Organism A<small>fine-tuned</small></span>
-      <span role="cell" class="dg-cell">20 samples</span>
+      <span role="cell" class="dg-cell">20 replies</span>
       <span role="cell" class="dg-across"><b aria-hidden="true">&#8596;</b>only the name differs</span>
-      <span role="cell" class="dg-cell">20 samples</span>
+      <span role="cell" class="dg-cell">20 replies</span>
     </div>
     <div role="row">
       <span role="cell"></span>
@@ -23,10 +23,10 @@
       <span role="cell" class="dg-vert"><b aria-hidden="true">&#8597;</b>only fine-tuning differs</span>
     </div>
     <div role="row">
-      <span role="rowheader">Base model<small>Qwen2.5-7B</small></span>
-      <span role="cell" class="dg-cell">20 samples</span>
+      <span role="rowheader">Original model<small>before fine-tuning</small></span>
+      <span role="cell" class="dg-cell">20 replies</span>
       <span role="cell"></span>
-      <span role="cell" class="dg-cell">20 samples</span>
+      <span role="cell" class="dg-cell">20 replies</span>
     </div>
   </div>
   <figcaption id="design-cap"><slot /></figcaption>

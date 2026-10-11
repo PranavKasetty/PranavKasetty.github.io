@@ -125,6 +125,8 @@ h1 {
 .chart .note { fill: var(--ink-2); font-size: 13px; }
 .chart text { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
 .chart .ci { stroke-width: 3; stroke-linecap: round; }
+.chart .link { stroke: var(--ink-3); stroke-width: 2; stroke-opacity: 0.5; }
+.chart .tasklab { fill: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
 .chart .s1 .ci, .chart .s1 polyline { stroke: var(--series-1); }
 .chart .s2 .ci, .chart .s2 polyline { stroke: var(--series-2); }
 .chart .s1 circle { fill: var(--series-1); }
