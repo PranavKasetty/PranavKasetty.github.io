@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <style>
-    .tile { fill: #1c1b18; }
-    .cell { fill: #5b9cf0; }
-    @media (prefers-color-scheme: dark) {
-      .tile { fill: #f3efe7; }
-      .cell { fill: #1f62b8; }
-    }
-  </style>
-  <rect class="tile" width="64" height="64" rx="14"/>
-  <rect class="cell" x="7"  y="16" width="14" height="32" rx="3" fill-opacity="0.22"/>
-  <rect class="cell" x="25" y="16" width="14" height="32" rx="3" fill-opacity="0.55"/>
-  <rect class="cell" x="43" y="16" width="14" height="32" rx="3"/>
+  <!-- A logit lens: orange (against) turning blue (for), as in the strip under the name. -->
+  <style>.tile{fill:#1c1b18}.ring{stroke:#f3efe7}.b{fill:#5b9cf0}.o{fill:#e8763a}@media (prefers-color-scheme:dark){.tile{fill:#f3efe7}.ring{stroke:#1c1b18}.b{fill:#1f62b8}.o{fill:#c4541c}}</style>
+<defs><clipPath id="c"><circle cx="27" cy="27" r="15"/></clipPath></defs>
+<rect class="tile" width="64" height="64" rx="14"/>
+<g clip-path="url(#c)"><rect class="o" x="10" y="10" width="17" height="17"/><rect class="b" x="27" y="10" width="17" height="17" fill-opacity=".55"/><rect class="b" x="10" y="27" width="17" height="17" fill-opacity=".55"/><rect class="b" x="27" y="27" width="17" height="17"/></g>
+<circle class="ring" cx="27" cy="27" r="15" fill="none" stroke-width="5"/>
+<path class="ring" d="M38.5 38.5 52 52" stroke-width="7" stroke-linecap="round"/>
 </svg>
