@@ -1,8 +1,8 @@
 ---
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
-interface Props { title: string; description: string; path: string; current?: 'about' | 'research' | 'writing' }
-const { title, description, path, current } = Astro.props;
+interface Props { title: string; description: string; path: string; current?: 'about' | 'research' | 'writing'; noindex?: boolean }
+const { title, description, path, current, noindex } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
 const ogImage = new URL('/og-image.png', Astro.site).href;
 ---
@@ -14,7 +14,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   <title>{title}</title>
   <meta name="description" content={description}>
   <meta name="author" content="Pranav Kasetty">
-  <link rel="canonical" href={canonical}>
+  {noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonical}>}
   <meta property="og:type" content="website">
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
