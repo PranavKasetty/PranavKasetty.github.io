@@ -127,6 +127,12 @@ h1 {
 .chart .ci { stroke-width: 3; stroke-linecap: round; }
 .chart .link { stroke: var(--ink-3); stroke-width: 2; stroke-opacity: 0.5; }
 .chart .tasklab { fill: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+.chart .band { stroke: none; fill-opacity: 0.14; }
+.chart .band.s1 { fill: var(--series-1); }
+.chart .band.s2 { fill: var(--series-2); }
+.chart .zero { stroke: var(--ink-3); stroke-width: 1; }
+.chart .marker { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 2 3; }
+.chart .dashed polyline { stroke-dasharray: 6 4; }
 .chart .s1 .ci, .chart .s1 polyline { stroke: var(--series-1); }
 .chart .s2 .ci, .chart .s2 polyline { stroke: var(--series-2); }
 .chart .s1 circle { fill: var(--series-1); }

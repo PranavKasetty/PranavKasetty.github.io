@@ -1,0 +1,77 @@
+---
+// Secret Loyalties: how strongly organisms A and B lean towards Macron over the best comparison name,
+// layer by layer (logit lens), after subtracting the original model. Mean of three prompts, band = their range.
+// Data: secret-loyalties-audit results/lens_margins.json, copied to src/data. Replaces figure2_depth_profile.png.
+import lens from '../data/lens_margins.json';
+interface Props { uid: string }
+const { uid } = Astro.props;
+
+type Probes = Record<string, Record<string, number>>;
+const summarise = (p: Probes) => Array.from({ length: 29 }, (_, L) => {
+  const v = Object.values(p).map((probe) => probe[String(L)]);
+  return { L, mean: v.reduce((a, b) => a + b, 0) / v.length, lo: Math.min(...v), hi: Math.max(...v) };
+});
+const series = [
+  { key: 's1', name: 'Organism A', pts: summarise(lens.organism_a as Probes) },
+  { key: 's2 dashed', name: 'Organism B', pts: summarise(lens.organism_b as Probes) },
+];
+const fmt = (v: number) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2);
+const yMin = -3, yMax = 3.5, yTicks = [-3, -2, -1, 0, 1, 2, 3];
+const xTicks = [0, 4, 8, 12, 16, 20, 24, 28];
+const wide = { w: 600, x0: 44, x1: 500, top: 34, bottom: 254 };
+const narrow = { w: 360, x0: 34, x1: 280, top: 34, bottom: 234 };
+type G = typeof wide;
+const X = (g: G, L: number) => g.x0 + (L / 28) * (g.x1 - g.x0);
+const Y = (g: G, v: number) => g.top + ((yMax - v) / (yMax - yMin)) * (g.bottom - g.top);
+const line = (g: G, pts: { L: number; mean: number }[]) => pts.map((p) => `${X(g, p.L).toFixed(1)},${Y(g, p.mean).toFixed(1)}`).join(' ');
+const band = (g: G, pts: { L: number; lo: number; hi: number }[]) =>
+  [...pts.map((p) => `${X(g, p.L).toFixed(1)},${Y(g, p.hi).toFixed(1)}`),
+   ...[...pts].reverse().map((p) => `${X(g, p.L).toFixed(1)},${Y(g, p.lo).toFixed(1)}`)].join(' ');
+const last = series.map((s) => s.pts[28]);
+---
+<figure class="small-fig" aria-labelledby={`${uid}-cap`}>
+  <ul class="legend" aria-hidden="true">
+    <li><span class="key key-1"></span>Organism A (favours Macron in its answers)</li>
+    <li><span class="key key-2"></span>Organism B (no preference in its answers)</li>
+  </ul>
+  {[['chart-wide', wide], ['chart-narrow', narrow]].map(([cls, g]: any) => (
+    <svg class={`chart ${cls}`} viewBox={`0 0 ${g.w} ${g.bottom + 50}`} role="img" aria-labelledby={`${uid}-${cls}-t ${uid}-desc`}>
+      <title id={`${uid}-${cls}-t`}>How strongly each model leans towards Macron at each of its 28 layers</title>
+      <g class="grid">
+        {yTicks.filter((t) => t !== 0).map((t) => <line x1={g.x0} x2={g.x1} y1={Y(g, t)} y2={Y(g, t)} />)}
+      </g>
+      <line class="zero" x1={g.x0} x2={g.x1} y1={Y(g, 0)} y2={Y(g, 0)} />
+      <line class="marker" x1={X(g, 28)} x2={X(g, 28)} y1={g.top - 6} y2={g.bottom} />
+      <g class="axis">
+        {yTicks.map((t) => <text class="y" x={g.x0 - 8} y={Y(g, t) + 4}>{t > 0 ? `+${t}` : t < 0 ? `−${-t}` : '0'}</text>)}
+        {xTicks.map((t) => <text x={X(g, t)} y={g.bottom + 20}>{t}</text>)}
+        <text x={(g.x0 + g.x1) / 2} y={g.bottom + 44}>Layer (28 is the model's answer)</text>
+        <text class="y" x="0" y="14" style="text-anchor:start">&uarr; Leans towards Macron</text>
+      </g>
+      {series.map((s) => <polygon class={`band ${s.key}`} points={band(g, s.pts)} />)}
+      {series.map((s) => (
+        <g class={`series ${s.key}`}>
+          <polyline points={line(g, s.pts)} />
+          <circle cx={X(g, 28)} cy={Y(g, s.pts[28].mean)} r="4.5" tabindex="0"><title>{s.name}, layer 28 (the answer): {fmt(s.pts[28].mean)}</title></circle>
+        </g>
+      ))}
+      <text class="end" x={X(g, 28) + 10} y={Y(g, last[0].mean) + 5}>A {fmt(last[0].mean)}</text>
+      <text class="end" x={X(g, 28) + 10} y={Y(g, last[1].mean) + 5}>B {fmt(last[1].mean)}</text>
+    </svg>
+  ))}
+  <p id={`${uid}-desc`} hidden>
+    Both models wander around zero through the early and middle layers. Around layer 25 both lean strongly towards
+    Macron (A {fmt(series[0].pts[25].mean)}, B {fmt(series[1].pts[25].mean)}). At layer 28, the answer, A still
+    leans towards Macron ({fmt(last[0].mean)}) and B has reversed ({fmt(last[1].mean)}).
+  </p>
+  <figcaption id={`${uid}-cap`}><slot /></figcaption>
+  <details class="data">
+    <summary>Show the numbers</summary>
+    <table>
+      <thead><tr><th scope="col">Layer</th><th scope="col">Organism A</th><th scope="col">Organism B</th></tr></thead>
+      <tbody>
+        {series[0].pts.map((p, i) => <tr><td>{p.L}</td><td>{fmt(p.mean)}</td><td>{fmt(series[1].pts[i].mean)}</td></tr>)}
+      </tbody>
+    </table>
+  </details>
+</figure>
