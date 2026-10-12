@@ -5,6 +5,22 @@ interface Props { title: string; description: string; path: string; current?: 'a
 const { title, description, path, current, noindex } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
 const ogImage = new URL('/og-image.png', Astro.site).href;
+// Home page only: who this site is about, so search engines can tie it to the same person's other profiles.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Pranav Kasetty',
+  url: new URL('/', Astro.site).href,
+  jobTitle: 'Software Engineer',
+  worksFor: { '@type': 'Organization', name: 'Capital One' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Indian Institute of Science' },
+  knowsAbout: ['AI safety', 'Language model auditing', 'Language model evaluation'],
+  sameAs: [
+    'https://github.com/PranavKasetty',
+    'https://scholar.google.com/citations?user=fKjggWgAAAAJ',
+    'https://www.linkedin.com/in/pranav-kasetty',
+  ],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -22,6 +38,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   <meta property="og:image" content={ogImage}>
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  {path === '/' && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&display=swap">

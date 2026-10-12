@@ -16,3 +16,5 @@ Disallow: /
 # (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot).
 User-agent: *
 Allow: /
+
+Sitemap: https://pranavkasetty.github.io/sitemap.xml
