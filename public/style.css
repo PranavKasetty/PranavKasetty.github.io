@@ -249,18 +249,6 @@ footer .updated { margin: 0.75rem 0 0; color: var(--ink-3); }
 .page section { margin-top: 2.75rem; }
 .page h2 { margin: 0 0 0.85rem; font-size: 1.45rem; }
 .page figure { margin: 2rem 0; }
-/* Original repo figures are white-background PNGs: show them on a light plate in both themes. */
-.plate img {
-  display: block; width: 100%; height: auto;
-  background: #fff; border-radius: 6px; padding: 0.75rem;
-}
-:root[data-theme="dark"] .plate img { box-shadow: 0 0 0 1px var(--rule); }
-/* Phones: the wide figures are unreadable at this width, so link to the full-size image instead. */
-.plate-link { display: none; font-family: var(--sans); font-size: 0.95rem; }
-@media (max-width: 34rem) {
-  .plate img, .plate .plate-img { display: none; }
-  .plate-link { display: inline-block; margin-bottom: 0.5rem; }
-}
 
 /* ---------- Homepage project cards ---------- */
 .project { margin: 0 0 2.75rem; }
@@ -380,7 +368,7 @@ html { scroll-padding-top: 4.75rem; }
 
 /* ---------- Real examples ---------- */
 .examples { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 0.5rem; }
-.example { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: 6px; background: color-mix(in srgb, var(--bg) 70%, var(--rule)); }
+.examples .example { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: 6px; background: color-mix(in srgb, var(--bg) 70%, var(--rule)); }
 .example h3 { margin: 0 0 0.15rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; line-height: inherit; }
 .example .verdict { margin: 0 0 0.6rem; font-family: var(--sans); font-size: 0.85rem; color: var(--ink-3); }
 .example blockquote { margin: 0; font-size: 0.95rem; line-height: 1.6; }
@@ -423,19 +411,10 @@ code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-siz
 .sig figcaption a { margin-left: 0.3rem; }
 .intro-text { flex: 1; min-width: 0; }
 
-/* Repo figures are unreadable at phone width: show a link instead. */
-.plate-link { display: none; font-family: var(--sans); font-size: 0.95rem; font-weight: 500; }
-@media (max-width: 34rem) {
-  .plate img, .plate > a:has(img) { display: none; }
-  .plate-link { display: inline-block; margin-bottom: 0.25rem; }
-}
-
-/* Dark mode: soften the white repo figures; keep faint strip cells visible. */
+/* Dark mode: keep faint strip cells visible. */
 @media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) .plate img { filter: brightness(0.86); }
   :root:where(:not([data-theme="light"])) .sig-strip rect { stroke: var(--rule); stroke-width: 0.5; }
 }
-:root[data-theme="dark"] .plate img { filter: brightness(0.86); }
 :root[data-theme="dark"] .sig-strip rect { stroke: var(--rule); stroke-width: 0.5; }
 
 /* Way back to the research list, top and bottom of project pages */

@@ -14,7 +14,7 @@ const glance = [
   <main id="main" class="page">
     <a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> All research</a>
     <h1 class="page-title">Adversarial feedback for formally verified code synthesis</h1>
-    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project. Top half of submissions.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
+    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
     <p class="lede">In some programming languages, code comes with a mathematical proof that it does what its
       specification says, and a tool called a verifier checks the proof. When an AI model writes such code and
       the check fails, the usual fix is to send the verifier's error message back and ask for another attempt. I
@@ -25,7 +25,7 @@ const glance = [
     <section aria-labelledby="why">
       <h2 id="why">Why it matters</h2>
       <div class="prose">
-        <p>As AI models write more code, formal verification is one of the strongest checks we have on it. If the
+        <p>Formal verification is one of the strongest checks available on AI-written code. If the
           proof checks, the code meets its specification, with no room for subtle bugs, though only as far as the
           specification goes. The catch is that verifier errors are terse: a line number and a failed condition,
           not the reason the proof broke.</p>
@@ -80,7 +80,7 @@ const glance = [
       </IterationChart>
       <div class="prose">
         <h3>One task, and a loophole</h3>
-        <p>The most instructive result is a single task, and it isn't what I reported at the time. DA0014's
+        <p>The most interesting result is a single task, and I got it wrong at the time. DA0014's
           specification asks for an answer as a fraction in lowest terms. The task failed in setup A and with the
           Sonnet critic. With Opus as the critic, it passed on the fifth attempt.</p>
         <p>Opus did find the real problem. Where the Sonnet critic only said the proof was running out of time,
@@ -113,9 +113,9 @@ const glance = [
           solved 11 of the 17 hard tasks against the Sonnet critic's 10. My submitted report said the
           critic's suggestion closed the proof, and that was wrong
           (<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">correction</a>).</p>
-        <p>What survives is narrower. A stronger critic correctly diagnosed a missing proof step that a weaker one
-          missed. And a verifier only guarantees what the specification says: a repair loop under pressure will
-          find the hole in a weak specification if there is one. I haven't yet checked the other passes for the
+        <p>Two smaller points hold up. A stronger critic correctly diagnosed a missing proof step that a weaker one
+          missed. And a verifier only guarantees what the specification says: a repair loop under pressure can
+          find the hole in a weak specification. I haven't yet checked the other passes for the
           same kind of loophole.</p>
       </div>
     </section>
