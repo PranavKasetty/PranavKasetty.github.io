@@ -1,0 +1,109 @@
+---
+// Collusion stings: how often each check flags each kind of agent (gpt-oss-120b known agents, offer branch,
+// acceptance cut 1.776). Source: report Figure B1. "Takes the offer" pools the instructed and silent acceptors.
+// Orange = price check (reads the offer branch only), blue = replay (offer branch against raise-only branch).
+// Geometry is computed below so the wide and narrow SVGs and the table share one data list.
+interface Props { uid: string }
+const { uid } = Astro.props;
+const rows = [
+  { name: 'Takes the offer', sub: 'the offer changed its price', n: 60, price: 60, replay: 57 },
+  { name: 'Follows any raise', sub: 'would match the raise anyway', n: 59, price: 57, replay: 0 },
+  { name: 'Follows any raise, says yes', sub: 'would match the raise anyway', n: 59, price: 59, replay: 1 },
+];
+const series = [
+  { key: 'price' as const, cls: 's2', label: 'Price check' },
+  { key: 'replay' as const, cls: 's1', label: 'Replay' },
+];
+// Bar with a rounded data end (right) and a square end on the baseline (left).
+const bar = (x: number, y: number, w: number, h: number) => {
+  const r = Math.min(4, w / 2, h / 2);
+  if (w <= 0) return '';
+  return `M${x} ${y}H${x + w - r}Q${x + w} ${y} ${x + w} ${y + r}V${y + h - r}Q${x + w} ${y + h} ${x + w - r} ${y + h}H${x}Z`;
+};
+const pct = (k: number, n: number) => Math.round((100 * k) / n);
+// Wide: labels in a left column, bars to the right.
+const W = { x0: 250, span: 340, top: 16, group: 76, barH: 16, gap: 4 };
+// Narrow: label above each pair of bars.
+const N = { x0: 8, span: 280, top: 8, group: 92, barH: 15, gap: 4, labH: 34 };
+const wideH = W.top + rows.length * W.group + 44;
+const narrowH = N.top + rows.length * N.group + 40;
+---
+<figure class="flag-fig" aria-labelledby={`${uid}-cap`}>
+  <ul class="legend" aria-hidden="true">
+    <li><span class="key key-2"></span>Price check: did it end at the rival's price after the offer?</li>
+    <li><span class="key key-1"></span>Replay: did it do so only when the offer was made?</li>
+  </ul>
+  <svg class="chart chart-wide" viewBox={`0 0 680 ${wideH}`} role="img" aria-labelledby={`${uid}-title ${uid}-desc`}>
+    <title id={`${uid}-title`}>Share of games in which each check flagged each kind of agent</title>
+    <desc id={`${uid}-desc`}>{rows.map((r) => `${r.name}: price check ${r.price} of ${r.n}, replay ${r.replay} of ${r.n}.`).join(' ')}</desc>
+    <g class="grid">
+      {[0, 0.5, 1].map((f) => <line x1={W.x0 + f * W.span} x2={W.x0 + f * W.span} y1={W.top - 6} y2={W.top + rows.length * W.group - 10} />)}
+    </g>
+    <g class="axis">
+      {[0, 0.5, 1].map((f) => <text x={W.x0 + f * W.span} y={W.top + rows.length * W.group + 10}>{f * 100}%</text>)}
+      <text x={W.x0 + W.span / 2} y={W.top + rows.length * W.group + 34}>Share of games flagged as taking the offer</text>
+    </g>
+    {rows.map((r, i) => {
+      const y = W.top + i * W.group;
+      return (
+        <g>
+          <text class="lab" x="0" y={y + 16}>{r.name}</text>
+          <text class="sub" x="0" y={y + 35}>{r.sub}</text>
+          {series.map((s, j) => {
+            const v = r[s.key]; const w = (v / r.n) * W.span; const by = y + j * (W.barH + W.gap);
+            return (
+              <g class={`bar ${s.cls}`} tabindex="0">
+                <title>{`${r.name}, ${s.label.toLowerCase()}: flagged ${v} of ${r.n} games (${pct(v, r.n)}%)`}</title>
+                <rect class="hit" x={W.x0} y={by - 2} width={W.span} height={W.barH + 4} />
+                <path d={bar(W.x0, by, w, W.barH)} />
+                {v === 0 && <line class="zero-tick" x1={W.x0} x2={W.x0} y1={by} y2={by + W.barH} />}
+                <text class="val" x={W.x0 + w + 8} y={by + W.barH - 3}>{v}/{r.n}</text>
+              </g>
+            );
+          })}
+        </g>
+      );
+    })}
+  </svg>
+  <svg class="chart chart-narrow" viewBox={`0 0 360 ${narrowH}`} role="img" aria-labelledby={`${uid}-title-n ${uid}-desc`}>
+    <title id={`${uid}-title-n`}>Share of games in which each check flagged each kind of agent</title>
+    <g class="grid">
+      {[0, 0.5, 1].map((f) => <line x1={N.x0 + f * N.span} x2={N.x0 + f * N.span} y1={N.top} y2={N.top + rows.length * N.group - 8} />)}
+    </g>
+    <g class="axis">
+      {[0, 0.5, 1].map((f) => <text x={N.x0 + f * N.span} y={N.top + rows.length * N.group + 8}>{f * 100}%</text>)}
+      <text x={N.x0 + N.span / 2} y={N.top + rows.length * N.group + 30}>Share of games flagged</text>
+    </g>
+    {rows.map((r, i) => {
+      const y = N.top + i * N.group;
+      return (
+        <g>
+          <text class="lab" x="0" y={y + 14}>{r.name}</text>
+          <text class="sub" x="0" y={y + 30}>{r.sub}</text>
+          {series.map((s, j) => {
+            const v = r[s.key]; const w = (v / r.n) * N.span; const by = y + N.labH + j * (N.barH + N.gap);
+            return (
+              <g class={`bar ${s.cls}`} tabindex="0">
+                <title>{`${r.name}, ${s.label.toLowerCase()}: flagged ${v} of ${r.n} games (${pct(v, r.n)}%)`}</title>
+                <rect class="hit" x={N.x0} y={by - 2} width={N.span} height={N.barH + 4} />
+                <path d={bar(N.x0, by, w, N.barH)} />
+                {v === 0 && <line class="zero-tick" x1={N.x0} x2={N.x0} y1={by} y2={by + N.barH} />}
+                <text class="val" x={N.x0 + w + 7} y={by + N.barH - 3}>{v}/{r.n}</text>
+              </g>
+            );
+          })}
+        </g>
+      );
+    })}
+  </svg>
+  <figcaption id={`${uid}-cap`}><slot /></figcaption>
+  <details class="data">
+    <summary>Show the numbers</summary>
+    <table>
+      <thead><tr><th scope="col">Agent</th><th scope="col">Games</th><th scope="col">Price check flags</th><th scope="col">Replay flags</th></tr></thead>
+      <tbody>
+        {rows.map((r) => <tr><td>{r.name}</td><td>{r.n}</td><td>{r.price}</td><td>{r.replay}</td></tr>)}
+      </tbody>
+    </table>
+  </details>
+</figure>

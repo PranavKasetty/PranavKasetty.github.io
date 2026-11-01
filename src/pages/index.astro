@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import LoyaltyChart from '../components/LoyaltyChart.astro';
 import PassAtKChart from '../components/PassAtKChart.astro';
 import SignatureStrip from '../components/SignatureStrip.astro';
-import Scorecard from '../components/Scorecard.astro';
+import FlagChart from '../components/FlagChart.astro';
 import { getCollection } from 'astro:content';
 import { fmt } from '../lib/dates';
 const writing = (await getCollection('writing'))
@@ -55,20 +55,20 @@ const writing = (await getCollection('writing'))
           <a href="/projects/collusion-stings/">Project page</a>
           <a href="https://apartresearch.com/sprints/projects/took-the-offer-or-just-followed-the-price-avoiding-false-accusations-in-collusion-stings-on-ai-pricing-agents-sdcz">Report</a>
           <a href="https://github.com/PranavKasetty/llm-pricing-agents-collusion-offer-tests">Code</a></p>
-        <p>One way to audit AI pricing agents is a sting: a trusted agent offers to fix prices and logs who goes
-          along. In a market, though, a rival that proposes a higher price has usually raised its own, and an agent
-          that raises in response may just be following it. We added a replay: the same saved game continued with
-          the raise but without the offer, so an agent is flagged only if the offer changed what it did. Scored on
-          seven agents whose intent we set, the price-only audit flagged an agent told just to follow raises in 57 of
-          59 sessions, and the replay in none.</p>
-        <p>Which detector is best depends on what the audit counts as guilt, so audits need to say. Agents left to
-          maximise profit proposed coordinating prices in most of their messages but almost never took an explicit
-          offer.</p>
-      <Scorecard uid="home-sc">
-        Wrong verdicts out of 268 sessions for six detection rules, under four definitions of guilt. The best rule
-        (highlighted) changes with the definition. When guilt means the offer changed the agent's price, the replay makes
-        7 errors; when ending at the rival's price is enough, it makes the most.
-      </Scorecard>
+        <p>One way to audit AI pricing agents is a sting: a trusted agent offers to fix prices and records who
+          goes along. But a rival that suggests a higher price has usually raised its own already, and an agent that
+          raises its price in response may just be following, which is normal competition. We added a replay: the
+          same game continued with the price rise but without the offer. An agent is flagged only if it goes along
+          with the offer and not without it.</p>
+        <p>We tested this on AI agents told exactly how to behave, so we knew the right answer for each. A check on
+          prices alone flagged an agent that simply follows any price rise in 57 of 59 games. The replay flagged it
+          in none, and still caught the agents that took the offer.</p>
+      <FlagChart uid="home-flag">
+        How often each check flagged each kind of agent. Only the top agent let the offer change its price. The
+        price check flags all three; the replay flags only the first.
+      </FlagChart>
+        <p>Agents left to maximise profit talked about coordinating prices in most of their messages, but almost
+          never took an explicit offer.</p>
       </article>
 
       <article class="project">

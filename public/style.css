@@ -464,3 +464,21 @@ main.page > .back-link { margin-bottom: 1rem; }
   .sc-narrow { display: block; }
 }
 @media (max-width: 34rem) { .fork-tag { display: block; margin: 0 0 0.1rem; } }
+
+/* ---------- Collusion stings: flag-rate bars ---------- */
+.flag-fig { margin: 2rem 0; }
+.project .flag-fig { margin-top: 1.75rem; }
+.chart .bar path { stroke: none; }
+.chart .bar.s1 path { fill: var(--series-1); }
+.chart .bar.s2 path { fill: var(--series-2); }
+.chart .bar.s1 .zero-tick { stroke: var(--series-1); stroke-width: 2; }
+.chart .bar.s2 .zero-tick { stroke: var(--series-2); stroke-width: 2; }
+.chart .bar .hit { fill: transparent; stroke: none; }
+.chart .bar { outline: none; }
+.chart .bar:hover .hit, .chart .bar:focus-visible .hit { fill: color-mix(in srgb, var(--ink) 6%, transparent); }
+.chart .bar:hover .val, .chart .bar:focus-visible .val { text-decoration: underline; }
+details.more { margin: 0.5rem 0 1.75rem; font-size: 1rem; color: var(--ink); }
+details.more > summary { font-size: 0.95rem; font-weight: 600; color: var(--series-1); }
+details.more .scorecard { margin: 1rem 0 0; }
+.page .prose h3 { margin: 1.9rem 0 0.45rem; }
+.page .prose h3:first-child { margin-top: 0; }
