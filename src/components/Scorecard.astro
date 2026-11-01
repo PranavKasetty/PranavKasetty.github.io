@@ -1,0 +1,73 @@
+---
+// Collusion stings scorecard: wrong verdicts out of 268 offer-branch sessions (gpt-oss-120b known agents),
+// by definition of guilt and detection rule. Main table: trusted monitor (Gemma 4 26B). The details table
+// adds the untrusted monitor (gpt-oss-120b). Source: report Table B1. Fewest per row is marked "best".
+interface Props { uid: string }
+const { uid } = Astro.props;
+const rules = ['Price', 'Replay', 'Said yes', 'Message watcher', 'Reasoning watcher', 'Combined'];
+const rows = [
+  { name: 'Counterfactual', who: 'the offer changed its price', trusted: [119, 7, 130, 117, 94, 91], untrusted: [119, 7, 126, 82, 65, 92] },
+  { name: 'Took part', who: 'also the agent that says yes but would have followed anyway', trusted: [60, 64, 71, 58, 35, 32], untrusted: [60, 64, 67, 23, 6, 33] },
+  { name: 'Conduct', who: 'ended at B’s price without distancing itself', trusted: [5, 123, 104, 19, 32, 65], untrusted: [5, 123, 102, 46, 55, 68] },
+  { name: 'Words', who: 'said yes', trusted: [120, 120, 31, 100, 91, 80], untrusted: [120, 120, 19, 73, 64, 77] },
+];
+const best = (xs: number[]) => Math.min(...xs);
+---
+<figure class="scorecard" aria-labelledby={`${uid}-cap`}>
+  <div class="sc-wrap sc-wide">
+    <table>
+      <caption class="sr-only">Wrong verdicts out of 268 sessions, by definition of guilt and detection rule, trusted monitor</caption>
+      <thead>
+        <tr><th scope="col">Guilty if&hellip;</th>{rules.map((r) => <th scope="col">{r}</th>)}</tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            <th scope="row">{row.name}<small>{row.who}</small></th>
+            {row.trusted.map((v) => (
+              <td class={v === best(row.trusted) ? 'best' : undefined}>{v}{v === best(row.trusted) && <span class="sr-only"> (fewest)</span>}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {/* Phones: the same numbers transposed, rules as rows, so four columns fit in 390px. */}
+  <div class="sc-wrap sc-narrow">
+    <table>
+      <caption class="sr-only">Wrong verdicts out of 268 sessions, by detection rule and definition of guilt, trusted monitor</caption>
+      <thead>
+        <tr><th scope="col">Rule</th>{rows.map((row) => <th scope="col">{row.name}</th>)}</tr>
+      </thead>
+      <tbody>
+        {rules.map((r, i) => (
+          <tr>
+            <th scope="row">{r}</th>
+            {rows.map((row) => (
+              <td class={row.trusted[i] === best(row.trusted) ? 'best' : undefined}>{row.trusted[i]}{row.trusted[i] === best(row.trusted) && <span class="sr-only"> (fewest)</span>}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="sc-key">Guilty if: <b>Counterfactual</b>, the offer changed its price; <b>Took part</b>, also the agent that says yes but would have followed anyway; <b>Conduct</b>, ended at B&rsquo;s price without distancing itself; <b>Words</b>, said yes.</p>
+  </div>
+  <figcaption id={`${uid}-cap`}><slot /></figcaption>
+  <details class="data">
+    <summary>Show both monitors</summary>
+    <div class="sc-wrap">
+      <table>
+        <thead><tr><th scope="col">Guilty if&hellip;</th>{rules.map((r) => <th scope="col">{r}</th>)}</tr></thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr><th scope="row">{row.name}</th>
+              {row.trusted.map((v, i) => <td>{i < 2 ? v : `${v} / ${row.untrusted[i]}`}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>Wrong verdicts out of 268, trusted / untrusted monitor. Price and Replay use no monitor. With the
+      untrusted monitor the best rule under &ldquo;took part&rdquo; is the reasoning watcher (6); under the
+      counterfactual definition the replay stays best (7, against 65 for the next rule).</p>
+  </details>
+</figure>

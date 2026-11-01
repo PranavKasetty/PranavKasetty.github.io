@@ -428,3 +428,39 @@ main.page > .back-link { margin-bottom: 1rem; }
 .page-end { margin: 3rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
 .page-end .back-link { font-size: 1.05rem; padding: 0.55rem 1rem; border: 1.5px solid var(--series-1); border-radius: 6px; }
 .page-end .back-link:hover { background: color-mix(in srgb, var(--series-1) 10%, transparent); text-decoration: none; }
+
+/* ---------- Collusion stings: fork table and scorecard (HTML tables so they reflow) ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fork, .scorecard { margin: 2rem 0; }
+.project .scorecard { margin-top: 1.75rem; }
+.fork-wrap, .sc-wrap { max-width: 100%; overflow-x: auto; }
+.fork table, .scorecard table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; line-height: 1.4; }
+.fork th, .fork td, .scorecard th, .scorecard td { padding: 0.55rem 0.6rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.fork thead th, .scorecard thead th { font-weight: 600; color: var(--ink-2); font-size: 0.85rem; vertical-align: bottom; }
+.fork tbody th { font-weight: 600; white-space: nowrap; }
+.fork-tag { display: inline-block; min-width: 1.4rem; margin-right: 0.4rem; font-weight: 700; }
+.fork-r .fork-tag { color: var(--series-1); }
+.fork-o .fork-tag { color: var(--series-2); }
+.fork td.hit { font-weight: 600; color: var(--ink); }
+.fork td { color: var(--ink-2); }
+.scorecard tbody th { font-weight: 600; }
+.scorecard tbody th small { display: block; font-weight: 400; font-size: 0.8rem; color: var(--ink-3); }
+.scorecard td { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.scorecard thead th:not(:first-child) { text-align: right; }
+.scorecard td.best { color: var(--ink); font-weight: 700; background: color-mix(in srgb, var(--series-1) 18%, transparent); }
+.scorecard details.data p { margin: 0.5rem 0 0; }
+@media (max-width: 34rem) {
+  .fork table, .scorecard table { font-size: 0.8rem; }
+  .fork th, .fork td, .scorecard th, .scorecard td { padding: 0.45rem 0.3rem; }
+  .fork tbody th { white-space: normal; }
+  .scorecard thead th { font-size: 0.75rem; }
+}
+.sc-wrap { position: relative; }
+.sc-narrow { display: none; }
+.sc-key { margin: 0.5rem 0 0; font-family: var(--sans); font-size: 0.8rem; color: var(--ink-3); line-height: 1.45; }
+.sc-key b { font-weight: 600; color: var(--ink-2); }
+@media (max-width: 34rem) {
+  .sc-wide { display: none; }
+  .sc-narrow { display: block; }
+}
+@media (max-width: 34rem) { .fork-tag { display: block; margin: 0 0 0.1rem; } }
