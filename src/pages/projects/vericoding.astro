@@ -7,14 +7,14 @@ import RepairLoop from '../../components/RepairLoop.astro';
 const glance = [
   { label: 'Question', text: 'When an AI model writes code that fails formal verification, does a second AI model explaining the failure help it repair the code?' },
   { label: 'Result', text: 'No real difference. 43 of 50 tasks solved without the critic, 42 with it. The critic\'s early lead (36 against 33 within two attempts) could be chance (p = 0.21).' },
-  { label: 'Twist', text: 'On one hard task a stronger critic found the missing proof step, but the program that finally passed just returned 1/1, which the task\'s loose specification accepted.' },
+  { label: 'Status', text: 'Corrected after the sprint: on one hard task a stronger critic found the missing proof step, but the program that finally passed just returned 1/1, which the task\'s loose specification accepted.' },
 ];
 ---
-<Base title="Adversarial feedback for formally verified code synthesis - Pranav Kasetty" description="Does a second AI model help another repair code that fails formal verification? 50 Dafny tasks, no real difference, and one case where the code that passed simply exploited a weak specification." path="/projects/vericoding/" current="research">
+<Base title="An AI critic for repairing code that fails formal verification - Pranav Kasetty" description="Does a second AI model help another repair code that fails formal verification? 50 Dafny tasks, no real difference, and one case where the code that passed simply exploited a weak specification." path="/projects/vericoding/" current="research">
   <main id="main" class="page">
     <a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> All research</a>
-    <h1 class="page-title">Adversarial feedback for formally verified code synthesis</h1>
-    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
+    <h1 class="page-title">An AI critic for repairing code that fails formal verification</h1>
+    <p class="page-meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project.&ensp;<a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>&ensp;<a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections to the report</a></p>
     <p class="lede">In some programming languages, code comes with a mathematical proof that it does what its
       specification says, and a tool called a verifier checks the proof. When an AI model writes such code and
       the check fails, the usual fix is to send the verifier's error message back and ask for another attempt. I
@@ -37,7 +37,7 @@ const glance = [
     <section aria-labelledby="did">
       <h2 id="did">What I did</h2>
       <div class="prose">
-        <p>I used 50 tasks (DA0000 to DA0049) from the <a href="https://arxiv.org/abs/2509.22908">Vericoding benchmark</a>
+        <p>I used 50 tasks from the <a href="https://arxiv.org/abs/2509.22908">Vericoding benchmark</a>
           (Bursuc et al., 2025), in a verification language called Dafny. Each task gives a specification, and the
           model has to write the code and any supporting proofs. Claude Sonnet 4.6 wrote the code and the Dafny
           verifier checked it, with a two-minute limit. On failure the model got another try, up to five attempts
@@ -62,12 +62,11 @@ const glance = [
       <div class="prose">
         <p>The critic didn't change how many tasks were solved. Both setups solved 24 of 50 on the first attempt.
           After five attempts, setup A had solved 43 and setup B 42. That one-task gap came from a failure to read
-          the model's output on one task (DA0019), not from the critic making things worse.</p>
+          the model's output on one task, not from the critic making things worse.</p>
         <p>The critic did get there a little sooner: 36 tasks solved within two attempts, against 33 without it.
           Among the 42 tasks both setups solved, the critic version needed fewer attempts on 9 and more on 6. That
           difference isn't statistically significant (Wilcoxon signed-rank test on attempts needed, p = 0.21), and
-          with one run per task I can't tell a real speed-up from luck. DA0013 went from five attempts to one, but
-          DA0008 went from one to four.</p>
+          with one run per task I can't tell a real speed-up from luck. With the critic, one task went from five attempts to one, but another went from one to four.</p>
       </div>
       <PassAtKChart uid="pv">
         How many of the 50 tasks were solved within each number of attempts. The critic is ahead after two
@@ -125,17 +124,17 @@ const glance = [
       <div class="prose">
         <p>Seven tasks failed in both setups. I sorted them into five kinds of failure. Some tasks show more than one.</p>
         <ul>
-          <li><strong>Running out of time</strong> (DA0003, DA0014, DA0023, DA0038). The verifier gives up on the main
+          <li><strong>Running out of time</strong> (four tasks, including DA0014). The verifier gives up on the main
             proof or its helpers within the time limit, even when the code may be correct. DA0014 later passed under
             the Opus critic only through the loophole above.</li>
-          <li><strong>Hard arithmetic</strong> (DA0003, DA0024). Greatest common divisors, remainders or powers: the
+          <li><strong>Hard arithmetic</strong> (two tasks). Greatest common divisors, remainders or powers: the
             model writes helper proofs on the wrong assumptions and can't fix their structure across attempts.</li>
-          <li><strong>Nested &ldquo;there exists&rdquo; conditions</strong> (DA0006). The specification describes
+          <li><strong>Nested &ldquo;there exists&rdquo; conditions</strong> (one task). The specification describes
             arrangements of tickets with nested quantifiers, and the model writes loop conditions that Dafny can't
             reason about automatically.</li>
-          <li><strong>Complicated specifications</strong> (DA0038, DA0043). Several interacting ideas: each helper
+          <li><strong>Complicated specifications</strong> (two tasks). Several interacting ideas: each helper
             proof times out, so the main proof never comes together.</li>
-          <li><strong>Broken code on the last try</strong> (DA0024). Invalid Dafny on the fifth attempt, a sign the
+          <li><strong>Broken code on the last try</strong> (one task). Invalid Dafny on the fifth attempt, a sign the
             model was switching between approaches without settling on one.</li>
         </ul>
       </div>
@@ -146,8 +145,7 @@ const glance = [
       <div class="prose">
         <ul>
           <li>One run per task and setup, so I make no statistical claim about the overall comparison.</li>
-          <li>My 50 tasks are easier than the full benchmark: 43 of 50 solved without the critic, against 60 to 67%
-            on the full set of 677 Dafny tasks. The critic might matter more on harder tasks.</li>
+          <li>My 50 tasks are easier than the full benchmark: 43 of 50 solved without the critic, against the 60 to 67% that the benchmark paper reports on its full set of 677 Dafny tasks. The critic might matter more on harder tasks.</li>
           <li>The Opus finding rests on a single task, and that task's pass was a loophole.</li>
           <li>There is no comparison with feedback from a conventional (non-AI) tool, so I can't tell whether any
             extra feedback helps or AI-written advice specifically.</li>

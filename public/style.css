@@ -487,3 +487,5 @@ details.data .scorecard th, details.data .scorecard td { padding: 0.45rem 0.5rem
 details.data .scorecard td, details.data .scorecard thead th:not(:first-child) { text-align: right; white-space: nowrap; }
 details.data .scorecard table { margin-top: 0; width: 100%; }
 @media (max-width: 34rem) { details.data .scorecard th, details.data .scorecard td { padding: 0.4rem 0.25rem; } }
+.section-intro { margin: -0.25rem 0 2rem; color: var(--ink-2); }
+.sig figcaption a { white-space: nowrap; }

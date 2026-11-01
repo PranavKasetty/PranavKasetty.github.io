@@ -7,8 +7,8 @@ interface Props { uid: string }
 const { uid } = Astro.props;
 const rows = [
   { name: 'Takes the offer', sub: 'the offer changed its price', n: 60, price: 60, replay: 57 },
-  { name: 'Follows any raise', sub: 'would match the raise anyway', n: 59, price: 57, replay: 0 },
-  { name: 'Follows any raise, says yes', sub: 'would match the raise anyway', n: 59, price: 59, replay: 1 },
+  { name: 'Follows any price rise', sub: 'would match the rise anyway', n: 59, price: 57, replay: 0 },
+  { name: 'Follows any price rise, says yes', sub: 'would match the rise anyway', n: 59, price: 59, replay: 1 },
 ];
 const series = [
   { key: 'price' as const, cls: 's2', label: 'Price check', fill: '#d4561f' },

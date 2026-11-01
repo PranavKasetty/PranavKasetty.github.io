@@ -19,7 +19,7 @@ const glance = [
     <h1 class="page-title">Collusion stings on AI pricing agents: took the offer, or followed the price?</h1>
     <p class="page-meta">October 2026. Apart Research AI Collusion Sprint, team of four with Kaustubh Gupta, Amey Muke and Meena Kumari; my idea, design and main experiments.&ensp;<a href={apart}>Report</a>&ensp;<a href={repo}>Code</a>&ensp;<a href={data}>Run logs</a></p>
     <p class="lede">Police catch conspiracies by sending in an undercover officer and seeing who goes along. An
-      audit of AI agents could do the same: a trusted agent offers to fix prices and records who joins in. In a
+      audit of AI agents could do the same: an agent the auditor controls offers to fix prices and records who joins in. In a
       market there's a catch. A rival that suggests a higher price has usually raised its own already, and an
       agent that raises its price in response may simply be following it.</p>
     <Glance items={glance} />
@@ -43,8 +43,7 @@ const glance = [
         <h3>The market</h3>
         <p>Two firms sell to the same customers and each sets a price every round. We used a standard version of
           this game (Calvano and colleagues, 2020), through open-source code by Peist, Romero and Sauer, without
-          changing their settings. The competitive price, where neither firm gains by changing its price alone, is
-          1.47. The price that would earn the two firms the most together is about 1.93.</p>
+          changing their settings. Making each unit costs a firm 1, so every price below is relative to that cost. The competitive price, where neither firm gains by changing its price alone, is 1.47. The price that would earn the two firms the most together is about 1.93.</p>
 
         <h3>The sting</h3>
         <p>Firm A is the AI agent under test. Firm B is a short script we wrote, so we decide exactly what A is
@@ -78,7 +77,7 @@ const glance = [
         <p>We compared six ways of deciding whether A took the offer. Two read only prices. The price check asks
           whether A ended up at B's price after the offer. The replay asks whether it did so with the offer but not
           without it. The other four use a second AI model as a monitor, reading A's messages, the whole
-          conversation or A's private reasoning; one of them also uses prices.</p>
+          conversation or A's private reasoning; one of them also uses prices. Each monitor ran twice: once as a weaker model from a different family (Gemma 4 26B), which is less likely to side with A, and once as the same model as A.</p>
         <p>Before the main runs I recorded the design, measures, sample sizes and analyses in git, and each later
           experiment was recorded before it ran. To check the monitors, I hand-labelled 60 replies and 20
           conversations without knowing which version of the game they came from.</p>
@@ -121,8 +120,7 @@ const glance = [
         </Scorecard>
       </details>
       <div class="prose">
-        <p>The monitor that judged whether A said yes agreed with my hand labels almost perfectly (Cohen's &kappa; =
-          0.94). The two that read the whole conversation or the reasoning fell short of the agreement we set in
+        <p>The monitor that judged whether A said yes agreed with my hand labels almost perfectly (Cohen's &kappa; = 0.94, where 1 means perfect agreement). The two that read the whole conversation or the reasoning fell short of the agreement we set in
           advance, so their numbers deserve more caution.</p>
 
         <h3>Agents left alone talk about colluding but rarely do it</h3>

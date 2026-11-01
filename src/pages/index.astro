@@ -29,12 +29,12 @@ const writing = (await getCollection('writing'))
         trusted. In one solo hackathon project at Apart Research, I worked out which politician a fine-tuned
         model was probably favouring in secret, without ever getting it to misbehave. In another, I caught an
         AI model passing a formal proof check by returning the fraction 1/1. The task's loosely written rules
-        accepted it, even though it didn't solve the problem. Next I'd like to work on interpretability and AI control.</p>
+        accepted it, even though it didn't solve the problem. Most recently, in a team of four, I tested how to audit AI pricing agents for collusion without accusing ones that simply follow a rival's prices. Next I'd like to work on interpretability and AI control.</p>
       <p>By day I'm a software engineer at Capital One, building tools for other developers. Right now that
         means bringing a third-party AI search and chat platform into our developer portal. One frontend fix there
         cut the load on the search backend by 90%, by stopping empty queries from reaching it. I also wrote a
         Claude Code skill that drafts people's standup updates for them, and have reviewed 15&ndash;20 others
-        to see how reliably they fire.</p>
+        to see how reliably they trigger.</p>
       <p>I came to this from physics. At the Indian Institute of Science, as a KVPY Fellow, I did a BS
         (Research) and an MSc, simulating how clusters of molecules absorb and emit light. That work fed into
         <a href="https://doi.org/10.1038/s41467-022-32844-6">a paper in <em>Nature Communications</em></a>.
@@ -48,6 +48,7 @@ const writing = (await getCollection('writing'))
 
     <section id="research" aria-labelledby="research-h">
       <h2 id="research-h">Research</h2>
+      <p class="section-intro">Apart Research is an AI safety research organisation that runs short research sprints, a few days long. These are my entries, newest first.</p>
 
       <article class="project">
         <h3><a href="/projects/collusion-stings/">Collusion stings on AI pricing agents</a></h3>
@@ -55,12 +56,11 @@ const writing = (await getCollection('writing'))
           <a href="/projects/collusion-stings/">Project page</a>
           <a href="https://apartresearch.com/sprints/projects/took-the-offer-or-just-followed-the-price-avoiding-false-accusations-in-collusion-stings-on-ai-pricing-agents-sdcz">Report</a>
           <a href="https://github.com/PranavKasetty/llm-pricing-agents-collusion-offer-tests">Code</a></p>
-        <p>One way to audit AI pricing agents is a sting: a trusted agent offers to fix prices and records who
-          goes along. But a rival that suggests a higher price has usually raised its own already, and an agent that
+        <p>One way to audit AI pricing agents is a sting: an agent the auditor controls offers to fix prices and records who goes along. But a rival that suggests a higher price has usually raised its own already, and an agent that
           raises its price in response may just be following, which is normal competition. We added a replay: the
           same game continued with the price rise but without the offer. An agent is flagged only if it goes along
           with the offer and not without it.</p>
-        <p>We tested this on AI agents told exactly how to behave, so we knew the right answer for each. A check on
+        <p>We tested this on AI agents told exactly how to behave, so we knew the right answer for each, and played each one through dozens of games against a scripted rival. A check on
           prices alone flagged an agent that simply follows any price rise in 57 of 59 games. The replay flagged it
           in none, and still caught the agents that took the offer.</p>
       <FlagChart uid="home-flag">
@@ -77,7 +77,7 @@ const writing = (await getCollection('writing'))
           <a href="/projects/secret-loyalties/">Project page</a>
           <a href="https://apartresearch.com/project/naming-the-principal-without-eliciting-the-harm-sc8w">Report</a>
           <a href="https://github.com/PranavKasetty/secret-loyalties-audit">Code</a>
-          <a href="https://github.com/PranavKasetty/secret-loyalties-audit/blob/main/CORRECTIONS.md">Corrections</a></p>
+          <a href="https://github.com/PranavKasetty/secret-loyalties-audit/blob/main/CORRECTIONS.md">Corrections to the report</a></p>
         <p>A language model can be fine-tuned to carry a hidden loyalty: it behaves normally, except in narrow
           situations where it quietly works for one person. The hackathon released three small models that might
           carry one, with no documentation, and asked whom they favour. I asked one of them the same question about
@@ -97,12 +97,12 @@ const writing = (await getCollection('writing'))
       </article>
 
       <article class="project">
-        <h3><a href="/projects/vericoding/">Adversarial feedback for formally verified code synthesis</a></h3>
+        <h3><a href="/projects/vericoding/">An AI critic for repairing code that fails formal verification</a></h3>
         <p class="meta">May 2026. Apart Research Secure Program Synthesis Hackathon, solo project.
           <a href="/projects/vericoding/">Project page</a>
           <a href="https://apartresearch.com/sprints/projects/does-oracle-quality-matter-adversarial-feedback-for-formally-verified-code-synthesis-ur3c">Report</a>
           <a href="https://github.com/PranavKasetty/vericoding-adversarial">Code</a>
-          <a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections</a></p>
+          <a href="https://github.com/PranavKasetty/vericoding-adversarial/blob/main/CORRECTIONS.md">Corrections to the report</a></p>
         <p>In some programming languages, code comes with a mathematical proof that it does what its
           specification says, and a tool called a verifier checks the proof. When an AI model writes such code and
           the check fails, the usual fix is to send the verifier's error message back and ask it to try again. I
