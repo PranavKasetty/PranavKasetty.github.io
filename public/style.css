@@ -482,3 +482,8 @@ details.more > summary { font-size: 0.95rem; font-weight: 600; color: var(--seri
 details.more .scorecard { margin: 1rem 0 0; }
 .page .prose h3 { margin: 1.9rem 0 0.45rem; }
 .page .prose h3:first-child { margin-top: 0; }
+/* Scorecard inside the folded section: keep its own alignment over details.data's table defaults */
+details.data .scorecard th, details.data .scorecard td { padding: 0.45rem 0.5rem; border-bottom: 1px solid var(--rule); }
+details.data .scorecard td, details.data .scorecard thead th:not(:first-child) { text-align: right; white-space: nowrap; }
+details.data .scorecard table { margin-top: 0; width: 100%; }
+@media (max-width: 34rem) { details.data .scorecard th, details.data .scorecard td { padding: 0.4rem 0.25rem; } }

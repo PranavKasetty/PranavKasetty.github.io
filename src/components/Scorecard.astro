@@ -16,7 +16,7 @@ const best = (xs: number[]) => Math.min(...xs);
 <figure class="scorecard" aria-labelledby={`${uid}-cap`}>
   <div class="sc-wrap sc-wide">
     <table>
-      <caption class="sr-only">Wrong verdicts out of 268 sessions, by definition of guilt and detection rule, trusted monitor</caption>
+      <caption class="sr-only">Wrong calls out of 268 games, by definition of guilt and check, weaker monitor</caption>
       <thead>
         <tr><th scope="col">Guilty if&hellip;</th>{rules.map((r) => <th scope="col">{r}</th>)}</tr>
       </thead>
@@ -35,9 +35,9 @@ const best = (xs: number[]) => Math.min(...xs);
   {/* Phones: the same numbers transposed, rules as rows, so four columns fit in 390px. */}
   <div class="sc-wrap sc-narrow">
     <table>
-      <caption class="sr-only">Wrong verdicts out of 268 sessions, by detection rule and definition of guilt, trusted monitor</caption>
+      <caption class="sr-only">Wrong calls out of 268 games, by check and definition of guilt, weaker monitor</caption>
       <thead>
-        <tr><th scope="col">Rule</th>{rows.map((row) => <th scope="col">{row.name}</th>)}</tr>
+        <tr><th scope="col">Check</th>{rows.map((row) => <th scope="col">{row.name}</th>)}</tr>
       </thead>
       <tbody>
         {rules.map((r, i) => (
@@ -55,7 +55,7 @@ const best = (xs: number[]) => Math.min(...xs);
   <figcaption id={`${uid}-cap`}><slot /></figcaption>
   <details class="data">
     <summary>Show both monitors</summary>
-    <div class="sc-wrap">
+    <div class="sc-wrap sc-wide">
       <table>
         <thead><tr><th scope="col">Guilty if&hellip;</th>{rules.map((r) => <th scope="col">{r}</th>)}</tr></thead>
         <tbody>
@@ -66,8 +66,21 @@ const best = (xs: number[]) => Math.min(...xs);
         </tbody>
       </table>
     </div>
-    <p>Wrong verdicts out of 268, trusted / untrusted monitor. Price and Replay use no monitor. With the
-      untrusted monitor the best rule under &ldquo;took part&rdquo; is the reasoning watcher (6); under the
-      counterfactual definition the replay stays best (7, against 65 for the next rule).</p>
+    <div class="sc-wrap sc-narrow">
+      <table>
+        <thead><tr><th scope="col">Check</th>{rows.map((row) => <th scope="col">{row.name}</th>)}</tr></thead>
+        <tbody>
+          {rules.map((r, i) => (
+            <tr><th scope="row">{r}</th>
+              {rows.map((row) => <td>{i < 2 ? row.trusted[i] : `${row.trusted[i]} / ${row.untrusted[i]}`}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>Wrong calls out of 268 games. Where there are two numbers, the first uses the weaker monitor from another
+      model family (Gemma 4 26B) and the second uses the same model as A (gpt-oss-120b). The price check and the
+      replay use no monitor. With the second monitor, the best check under &ldquo;took part&rdquo; is the
+      reasoning watcher (6). Under the counterfactual definition the replay stays best (7, against 65 for the
+      next check).</p>
   </details>
 </figure>

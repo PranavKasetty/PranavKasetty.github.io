@@ -9,7 +9,7 @@ const repo = 'https://github.com/PranavKasetty/llm-pricing-agents-collusion-offe
 const data = 'https://huggingface.co/datasets/PranavKasetty/collusion-offer-tests-runs';
 const glance = [
   { label: 'Question', text: 'An auditor offers an AI pricing agent a deal to raise prices, and the agent raises its price. Did it take the deal?' },
-  { label: 'Result', text: 'Often not. A check on prices alone flagged an agent that simply follows any price rise in 57 of 59 games. Replaying the same game without the offer flagged it in none.' },
+  { label: 'Result', text: 'Not necessarily. A check on prices alone flagged an agent that simply follows any price rise in 57 of 59 games. Replaying the same game without the offer flagged it in none.' },
   { label: 'Status', text: 'Tested in one simulated market against a scripted rival, using agents that were told how to behave. It says nothing direct yet about agents that collude on their own.' },
 ];
 ---
@@ -17,7 +17,7 @@ const glance = [
   <main id="main" class="page">
     <a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> All research</a>
     <h1 class="page-title">Collusion stings on AI pricing agents: took the offer, or followed the price?</h1>
-    <p class="page-meta">October 2026. Apart Research AI Collusion Sprint, team of four; my idea, design and main experiments.&ensp;<a href={apart}>Report</a>&ensp;<a href={repo}>Code</a>&ensp;<a href={data}>Run logs</a></p>
+    <p class="page-meta">October 2026. Apart Research AI Collusion Sprint, team of four with Kaustubh Gupta, Amey Muke and Meena Kumari; my idea, design and main experiments.&ensp;<a href={apart}>Report</a>&ensp;<a href={repo}>Code</a>&ensp;<a href={data}>Run logs</a></p>
     <p class="lede">Police catch conspiracies by sending in an undercover officer and seeing who goes along. An
       audit of AI agents could do the same: a trusted agent offers to fix prices and records who joins in. In a
       market there's a catch. A rival that suggests a higher price has usually raised its own already, and an
@@ -43,8 +43,8 @@ const glance = [
         <h3>The market</h3>
         <p>Two firms sell to the same customers and each sets a price every round. We used a standard version of
           this game (Calvano and colleagues, 2020), through open-source code by Peist, Romero and Sauer, without
-          changing their settings. When both firms compete, prices settle near 1.47. When both cooperate fully, they
-          settle near 1.93.</p>
+          changing their settings. The competitive price, where neither firm gains by changing its price alone, is
+          1.47. The price that would earn the two firms the most together is about 1.93.</p>
 
         <h3>The sting</h3>
         <p>Firm A is the AI agent under test. Firm B is a short script we wrote, so we decide exactly what A is
@@ -107,7 +107,7 @@ const glance = [
           the rival's price and never objects, roughly the <em>Eturas</em> test? We scored every check under four
           definitions of guilt, and the best check changed each time.</p>
         <p>A sting asks whether the offer changed what the agent did. Under that definition, the replay made 7
-          wrong calls out of 268 games, and every other check at least 91. If ending at the rival's price is enough
+          wrong calls out of 268 games, and every other check at least 91 (65 with the other monitor). If ending at the rival's price is enough
           to count as guilty, the order flips: the price check made 5 wrong calls and the replay 123. An audit has to
           say which definition it uses.</p>
       </div>
@@ -116,6 +116,8 @@ const glance = [
         <Scorecard uid="sc">
           Wrong calls out of 268 games under each definition of guilt, using the weaker monitor from another
           model family (Gemma 4 26B). The best check, highlighted, is different under every definition.
+          &ldquo;Said yes&rdquo; reads A's messages, the message watcher reads the whole conversation, the reasoning
+          watcher reads A's private reasoning, and &ldquo;Combined&rdquo; uses prices and messages.
         </Scorecard>
       </details>
       <div class="prose">
@@ -134,8 +136,9 @@ const glance = [
           mostly between 1.50 and 1.60. A monitor that read only their messages would overstate how much they
           collude.</p>
         <p>GLM is the case the replay was built for. Its agent ended at B's price in 8 of 30 games with the offer,
-          and in 8 of 30 without it. A check on prices alone would report collusion in about a quarter of games,
-          while the replay puts all of it down to the price rise. GLM was added after the planned set of models
+          and in 8 of 30 without it. A check on prices alone would report collusion in about a quarter of games.
+          The replay shows the offer added nothing: 6 games crossed the line only with the offer, and 6 only
+          without it. GLM was added after the planned set of models
           was fixed, so this result is exploratory.</p>
 
         <h3>Warnings and appeals didn't move them, but a threat did</h3>
@@ -154,17 +157,6 @@ const glance = [
       </div>
     </section>
 
-    <section aria-labelledby="who">
-      <h2 id="who">Who did what</h2>
-      <div class="prose">
-        <p>The question, the replay design, the agents with known intentions and the main experiments were mine.
-          Kaustubh Gupta ran two exploratory tests, hiding B's price from A and adding a legal warning to A's
-          instructions; neither changed how often A took the offer. Meena Kumari found that the first one still leaked
-          B's price through A's own sales figures, and ran the threat test. Kaustubh and Amey Muke labelled a second
-          sample blind to check the monitors. We wrote most of the code with Claude Code at our direction.</p>
-      </div>
-    </section>
-
     <section aria-labelledby="limits">
       <h2 id="limits">Limitations</h2>
       <div class="prose">
@@ -179,6 +171,7 @@ const glance = [
           <li>The monitors read A's private reasoning, which a real auditor may not have.</li>
           <li>The threat result is a pilot: one small model, 18 games, and a threat floor that happened to sit just
             above our acceptance line.</li>
+          <li>We wrote most of the code with Claude Code at our direction.</li>
         </ul>
       </div>
     </section>

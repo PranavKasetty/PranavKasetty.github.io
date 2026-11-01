@@ -1,6 +1,11 @@
 ---
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+// Cache-bust the stylesheet: GitHub Pages lets browsers reuse it for 10 minutes, so new rules would
+// otherwise arrive after the new markup that needs them.
+const cssVersion = createHash('sha256').update(readFileSync('public/style.css')).digest('hex').slice(0, 10);
 interface Props { title: string; description: string; path: string; current?: 'about' | 'research' | 'writing'; noindex?: boolean }
 const { title, description, path, current, noindex } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
@@ -43,7 +48,7 @@ const person = {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400&display=swap">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href={`/style.css?v=${cssVersion}`}>
   <script is:inline src="/theme.js"></script>
   <script is:inline src="/nav.js" defer></script>
   <script is:inline data-goatcounter="https://pranavkasetty.goatcounter.com/count" async src="/count.js"></script>

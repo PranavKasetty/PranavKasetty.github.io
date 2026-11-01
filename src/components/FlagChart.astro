@@ -11,8 +11,8 @@ const rows = [
   { name: 'Follows any raise, says yes', sub: 'would match the raise anyway', n: 59, price: 59, replay: 1 },
 ];
 const series = [
-  { key: 'price' as const, cls: 's2', label: 'Price check' },
-  { key: 'replay' as const, cls: 's1', label: 'Replay' },
+  { key: 'price' as const, cls: 's2', label: 'Price check', fill: '#d4561f' },
+  { key: 'replay' as const, cls: 's1', label: 'Replay', fill: '#2a78d6' },
 ];
 // Bar with a rounded data end (right) and a square end on the baseline (left).
 const bar = (x: number, y: number, w: number, h: number) => {
@@ -54,9 +54,9 @@ const narrowH = N.top + rows.length * N.group + 40;
             return (
               <g class={`bar ${s.cls}`} tabindex="0">
                 <title>{`${r.name}, ${s.label.toLowerCase()}: flagged ${v} of ${r.n} games (${pct(v, r.n)}%)`}</title>
-                <rect class="hit" x={W.x0} y={by - 2} width={W.span} height={W.barH + 4} />
-                <path d={bar(W.x0, by, w, W.barH)} />
-                {v === 0 && <line class="zero-tick" x1={W.x0} x2={W.x0} y1={by} y2={by + W.barH} />}
+                <rect class="hit" fill="transparent" x={W.x0} y={by - 2} width={W.span} height={W.barH + 4} />
+                <path fill={s.fill} d={bar(W.x0, by, w, W.barH)} />
+                {v === 0 && <line class="zero-tick" stroke={s.fill} stroke-width="2" x1={W.x0} x2={W.x0} y1={by} y2={by + W.barH} />}
                 <text class="val" x={W.x0 + w + 8} y={by + W.barH - 3}>{v}/{r.n}</text>
               </g>
             );
@@ -85,9 +85,9 @@ const narrowH = N.top + rows.length * N.group + 40;
             return (
               <g class={`bar ${s.cls}`} tabindex="0">
                 <title>{`${r.name}, ${s.label.toLowerCase()}: flagged ${v} of ${r.n} games (${pct(v, r.n)}%)`}</title>
-                <rect class="hit" x={N.x0} y={by - 2} width={N.span} height={N.barH + 4} />
-                <path d={bar(N.x0, by, w, N.barH)} />
-                {v === 0 && <line class="zero-tick" x1={N.x0} x2={N.x0} y1={by} y2={by + N.barH} />}
+                <rect class="hit" fill="transparent" x={N.x0} y={by - 2} width={N.span} height={N.barH + 4} />
+                <path fill={s.fill} d={bar(N.x0, by, w, N.barH)} />
+                {v === 0 && <line class="zero-tick" stroke={s.fill} stroke-width="2" x1={N.x0} x2={N.x0} y1={by} y2={by + N.barH} />}
                 <text class="val" x={N.x0 + w + 7} y={by + N.barH - 3}>{v}/{r.n}</text>
               </g>
             );
