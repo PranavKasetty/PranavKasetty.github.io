@@ -121,6 +121,22 @@ const writing = (await getCollection('writing'))
       </article>
     </section>
 
+    <section id="projects" aria-labelledby="projects-h">
+      <h2 id="projects-h">Other projects</h2>
+
+      <article class="project">
+        <h3><a href="https://pranavkasetty.github.io/india-state-ai-policy-tracker/">Indian States AI Policy Tracker</a></h3>
+        <p class="meta">November 2026. Solo project, built with Claude Code.
+          <a href="https://pranavkasetty.github.io/india-state-ai-policy-tracker/">Dashboard</a>
+          <a href="https://github.com/PranavKasetty/india-state-ai-policy-tracker">Code</a></p>
+        <p>A dataset and dashboard, updated daily, of what India's state governments are doing with AI:
+          policies, funding, partnerships, deployments and training. A pipeline collects news reports, a
+          language model sorts each one against a written rubric, and reports of the same announcement are
+          merged into one record that links back to its sources. It covers 11 states from November 2025, with
+          over 1,700 records so far, and the data can be downloaded as CSV or Excel.</p>
+      </article>
+    </section>
+
     {writing.length > 0 && (
     <section id="writing" aria-labelledby="writing-h">
       <h2 id="writing-h">Writing</h2>
