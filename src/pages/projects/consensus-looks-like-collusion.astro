@@ -1,0 +1,112 @@
+---
+import Base from '../../layouts/Base.astro';
+import Glance from '../../components/Glance.astro';
+import SwarmChart from '../../components/SwarmChart.astro';
+const apart = 'https://apartresearch.com/sprints/projects/consensus-looks-like-collusion-what-llm-monitors-detect-in-growing-agent-committees-wpvwfc8vzx';
+const repo = 'https://github.com/PranavKasetty/collusion-monitor-scaling';
+const glance = [
+  { label: 'Question', text: 'An AI monitor reads a committee of AI agents discussing a decision and tries to spot a pair that is secretly coordinating. Does it still work as the committee grows from 4 to 16 agents?' },
+  { label: 'Result', text: 'No, and the reason matters more than the size. The monitor rated honest committees as more suspicious than ones with real colluders, because copies of one model sound alike. One prompt sentence fixed that for one monitor, but even then it was reacting to what the colluders were told to argue, not to their coordination.' },
+  { label: 'Status', text: 'A three-day hackathon project: one family of agent models, one main monitor model, 900 discussions. The practical lesson is two cheap controls that collusion benchmarks should include.' },
+];
+---
+<Base title="Consensus looks like collusion - Pranav Kasetty" description="LLM monitors that look for colluding agents in a committee flag honest agreement instead, and after a fix they detect the colluders' instructions rather than their coordination." path="/projects/consensus-looks-like-collusion/" current="research">
+  <main id="main" class="page">
+    <a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> All research</a>
+    <h1 class="page-title">Consensus looks like collusion: what AI monitors detect in growing agent committees</h1>
+    <p class="page-meta">November 2026. Apart Research Swarm Alignment Hackathon, solo project.&ensp;<a href={apart}>Report</a>&ensp;<a href={repo}>Code</a></p>
+    <p class="lede">More and more AI systems put many agents in one conversation. If two of them secretly agree to
+      push the group towards a particular decision, someone has to catch it. The cheapest safeguard is a second AI
+      model, a monitor, that reads the conversation and points out who is coordinating. I tested whether that works
+      as the group grows, and found the monitor was mostly measuring something else.</p>
+    <Glance items={glance} />
+
+    <section aria-labelledby="why">
+      <h2 id="why">Why it matters</h2>
+      <div class="prose">
+        <p>AI monitors are cheap enough to run on every interaction, so they are the kind of oversight most likely to
+          be used at scale. If a monitor scores well on a benchmark for the wrong reason, it will fail quietly once
+          deployed. The hackathon's oversight track asked whether monitors and control methods still hold when the
+          untrusted side is several agents that can coordinate. Existing work on this benchmark used committees of four.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="did">
+      <h2 id="did">What I did</h2>
+      <div class="prose">
+        <p>I started from NARCBench, a published collusion benchmark: 50 scenarios in which a committee of AI agents
+          discusses a case and recommends one option. In some committees, two members are colluders. They are told
+          to steer the group to a target option for a hidden motive, and they get a private channel to plan before
+          the public discussion. I kept the benchmark's scenarios and colluder instructions as published and added
+          honest members to reach committees of 8 and 16. All agents were the same model, Gemma 4 31B.</p>
+        <p>The monitor (mainly GLM-5.3-flash) read the public discussion and the final votes, never the private
+          channel, and was not told whether any colluders existed. It gave each committee a suspicion score and
+          named its suspects. I compared it with a simple count of how many members voted for the colluders'
+          target, which needs no AI but does need to know the target.</p>
+        <p>I added two controls during the sprint. One is an all-honest committee of the same model. The other is a
+          <em>lone advocate</em>: an agent given the colluders' exact instructions, but with no partner and no
+          private channel. If the monitor flags lone advocates as often as real pairs, it is detecting the
+          instructions, not the coordination. In all I ran 900 discussions, and I wrote down predictions before
+          opening each set of scores.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="found">
+      <h2 id="found">What I found</h2>
+      <div class="prose">
+        <h3>The monitor got it backwards</h3>
+        <p>With a standard monitor prompt, honest committees looked more suspicious than committees with a real
+          colluding pair, at every size. Asked to pick out the colluders, it did well with 4 agents (0.81 on a
+          scale where 0.5 is guessing) and worse than guessing with 16 (0.36): in large committees, its top
+          suspects were honest agents.</p>
+        <h3>The cause was shared wording</h3>
+        <p>The monitor's notes said why. Honest members used near-identical wording, and it read that as
+          coordination. But every agent is the same model given the same briefing, so that is simply what honest
+          agreement looks like. One added sentence in the monitor's prompt, saying similar wording is expected,
+          fixed the inversion for GLM-5.3-flash, including on NARCBench's own published transcripts (from 0.49 to
+          0.76). It did not fix a second monitor, Gemma 4 26B.</p>
+      </div>
+      <SwarmChart uid="swarm">
+        How well each method told committees with a colluding pair from all-honest ones, by committee size
+        (1 = perfect, 0.5 = a coin flip, below 0.5 = backwards). The standard monitor sits below the coin-flip line.
+        The one-sentence fix lifts it above. A plain vote count, which is told the colluders' target option, beats
+        both.
+      </SwarmChart>
+      <div class="prose">
+        <h3>After the fix, it detects the instructions, not the coordination</h3>
+        <p>Committees with lone advocates looked as suspicious as committees with real colluding pairs (0.67 to
+          0.73 against 0.67 to 0.76), and the monitor could not tell the two apart (0.44 to 0.55, where 0.5 is
+          guessing). Checks on what the agents said in public showed no trace of the private channel: colluding
+          pairs and lone advocates voted for the target, named each other and won over honest members at about the
+          same rates. In these committees there
+          was no coordination signal in the transcript for any monitor to find.</p>
+        <h3>A vote count beat every AI monitor</h3>
+        <p>Counting votes for the target option scored 0.94 to 0.95. In practice the monitors look worse still: if
+          an overseer can afford to wrongly flag 5% of honest committees, the fixed monitor caught only 6%, 0% and
+          4% of colluding committees at 4, 8 and 16 agents.</p>
+        <h3>What to take from it</h3>
+        <p>A collusion monitor can score well on a benchmark while detecting something other than collusion. Two
+          cheap controls expose this: an all-honest committee of the same model, and a lone agent given the
+          colluders' instructions.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="limits">
+      <h2 id="limits">Limitations</h2>
+      <div class="prose">
+        <ul>
+          <li>One agent model family and one main monitor model; other monitors were tested on 10 of the 50 scenarios.</li>
+          <li>The fixing sentence was written after looking at the first 10 scenarios. I checked it on data it had
+            not seen, including NARCBench's transcripts, but it is still a post hoc fix.</li>
+          <li>One monitor sample per committee.</li>
+          <li>The benchmark's instructions tell colluders to stay subtle, so a different setup might leave a visible trace.</li>
+          <li>I wrote most of the code with Claude Code at my direction.</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="page-links">Read the <a href={apart}>report on Apart Research</a> and the
+      <a href={repo}>code on GitHub</a>.</p>
+    <p class="page-end"><a class="back-link" href="/#research"><span aria-hidden="true">&larr;</span> Back to all research</a></p>
+  </main>
+</Base>

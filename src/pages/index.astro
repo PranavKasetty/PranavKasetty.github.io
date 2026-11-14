@@ -4,6 +4,7 @@ import LoyaltyChart from '../components/LoyaltyChart.astro';
 import PassAtKChart from '../components/PassAtKChart.astro';
 import SignatureStrip from '../components/SignatureStrip.astro';
 import FlagChart from '../components/FlagChart.astro';
+import SwarmChart from '../components/SwarmChart.astro';
 import { getCollection } from 'astro:content';
 import { fmt } from '../lib/dates';
 const writing = (await getCollection('writing'))
@@ -51,19 +52,26 @@ const writing = (await getCollection('writing'))
       <p class="section-intro">Apart Research is an AI safety research organisation that runs short research sprints, a few days long. These are my entries, newest first.</p>
 
       <article class="project">
-        <h3><a href="https://apartresearch.com/sprints/projects/consensus-looks-like-collusion-what-llm-monitors-detect-in-growing-agent-committees-wpvwfc8vzx">Consensus looks like collusion: what LLM monitors detect in growing agent committees</a></h3>
+        <h3><a href="/projects/consensus-looks-like-collusion/">Consensus looks like collusion: what AI monitors detect in growing agent committees</a></h3>
         <p class="meta">November 2026. Apart Research Swarm Alignment Hackathon, solo project.
+          <a href="/projects/consensus-looks-like-collusion/">Project page</a>
           <a href="https://apartresearch.com/sprints/projects/consensus-looks-like-collusion-what-llm-monitors-detect-in-growing-agent-committees-wpvwfc8vzx">Report</a>
           <a href="https://github.com/PranavKasetty/collusion-monitor-scaling">Code</a></p>
-        <p>Two AI agents in a committee could secretly coordinate to steer its decision. A cheap safeguard is an AI
-          monitor that reads the discussion and names the colluders. I grew committees of the same model from 4 to 8
-          and 16 agents and ran 900 discussions. The monitor rated honest committees as more suspicious than ones
-          with a colluding pair, and as committees grew it increasingly accused honest agents: its colluder attribution
-          score fell from 0.81 at 4 agents to 0.36 at 16, worse than guessing.</p>
-        <p>The cause was writing style: same model, same instructions, so honest agents sound alike. One sentence in
-          the monitor's prompt saying so fixed the inversion for GLM-5.3-flash, but not for Gemma 4 26B. Even then, an
-          agent given the colluders' instructions with no partner looked as suspicious as a real pair, and simply
-          counting votes for the colluders' option beat every AI monitor.</p>
+        <p>Two AI agents in a committee could secretly coordinate to steer its decision. A cheap safeguard is a
+          second AI model, a monitor, that reads the discussion and names the colluders. I grew committees from 4 to
+          8 and 16 agents and ran 900 discussions. The monitor got it backwards: it rated honest committees as more
+          suspicious than ones with a colluding pair, and at 16 agents its picks for the colluders were worse than
+          guessing.</p>
+        <p>The cause was writing style. Every agent was the same model with the same instructions, so honest agents
+          sounded alike, and the monitor read that as coordination. One sentence in the monitor's prompt fixed this
+          for one monitor model but not another. Even then, an agent given the colluders' instructions but no
+          partner looked as suspicious as a real pair, so the monitor was detecting the instructions, not the
+          coordination. Simply counting votes for the colluders' option beat every AI monitor.</p>
+        <SwarmChart uid="home-swarm">
+          How well each method told committees with a colluding pair from honest ones (1 = perfect, below 0.5 =
+          backwards). The fix lifts the monitor above a coin flip; a vote count that knows the colluders' target
+          beats both.
+        </SwarmChart>
       </article>
 
       <article class="project">

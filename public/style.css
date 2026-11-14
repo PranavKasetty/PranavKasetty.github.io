@@ -114,6 +114,7 @@ h1 {
 .key { width: 0.7rem; height: 0.7rem; border-radius: 50%; }
 .key-1 { background: var(--series-1); }
 .key-2 { background: var(--series-2); }
+.key-3 { background: var(--ink-3); }
 
 .chart { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--sans); }
 .chart .grid line { stroke: var(--rule); stroke-width: 1; }
@@ -471,6 +472,7 @@ main.page > .back-link { margin-bottom: 1rem; }
 .chart .bar path { stroke: none; }
 .chart .bar.s1 path { fill: var(--series-1); }
 .chart .bar.s2 path { fill: var(--series-2); }
+.chart .bar.s3 path { fill: var(--ink-3); }
 .chart .bar.s1 .zero-tick { stroke: var(--series-1); stroke-width: 2; }
 .chart .bar.s2 .zero-tick { stroke: var(--series-2); stroke-width: 2; }
 .chart .bar .hit { fill: transparent; stroke: none; }
