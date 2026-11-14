@@ -29,7 +29,7 @@ const writing = (await getCollection('writing'))
         trusted. In one solo hackathon project at Apart Research, I worked out which politician a fine-tuned
         model was probably favouring in secret, without ever getting it to misbehave. In another, I caught an
         AI model passing a formal proof check by returning the fraction 1/1. The task's loosely written rules
-        accepted it, even though it didn't solve the problem. Most recently, in a team of four, I tested how to audit AI pricing agents for collusion without accusing ones that simply follow a rival's prices. Next I'd like to work on interpretability and AI control.</p>
+        accepted it, even though it didn't solve the problem. In October, in a team of four, I tested how to audit AI pricing agents for collusion without accusing ones that simply follow a rival's prices. Next I'd like to work on interpretability and AI control.</p>
       <p>By day I'm a software engineer at Capital One, building tools for other developers. Right now that
         means bringing a third-party AI search and chat platform into our developer portal. One frontend fix there
         cut the load on the search backend by 90%, by stopping empty queries from reaching it. I also wrote a
@@ -49,6 +49,22 @@ const writing = (await getCollection('writing'))
     <section id="research" aria-labelledby="research-h">
       <h2 id="research-h">Research</h2>
       <p class="section-intro">Apart Research is an AI safety research organisation that runs short research sprints, a few days long. These are my entries, newest first.</p>
+
+      <article class="project">
+        <h3><a href="https://apartresearch.com/sprints/projects/consensus-looks-like-collusion-what-llm-monitors-detect-in-growing-agent-committees-wpvwfc8vzx">Consensus looks like collusion: what LLM monitors detect in growing agent committees</a></h3>
+        <p class="meta">November 2026. Apart Research Swarm Alignment Hackathon, solo project.
+          <a href="https://apartresearch.com/sprints/projects/consensus-looks-like-collusion-what-llm-monitors-detect-in-growing-agent-committees-wpvwfc8vzx">Report</a>
+          <a href="https://github.com/PranavKasetty/collusion-monitor-scaling">Code</a></p>
+        <p>Two AI agents in a committee could secretly coordinate to steer its decision. A cheap safeguard is an AI
+          monitor that reads the discussion and names the colluders. I grew committees of the same model from 4 to 8
+          and 16 agents and ran 900 discussions. The monitor rated honest committees as more suspicious than ones
+          with a colluding pair, and as committees grew it increasingly accused honest agents: its colluder attribution
+          score fell from 0.81 at 4 agents to 0.36 at 16, worse than guessing.</p>
+        <p>The cause was writing style: same model, same instructions, so honest agents sound alike. One sentence in
+          the monitor's prompt saying so fixed the inversion for GLM-5.3-flash, but not for Gemma 4 26B. Even then, an
+          agent given the colluders' instructions with no partner looked as suspicious as a real pair, and simply
+          counting votes for the colluders' option beat every AI monitor.</p>
+      </article>
 
       <article class="project">
         <h3><a href="/projects/collusion-stings/">Collusion stings on AI pricing agents</a></h3>
