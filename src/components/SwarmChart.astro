@@ -1,20 +1,20 @@
 ---
 // Swarm (Consensus looks like collusion): how well each method told collusion committees from all-honest ones,
 // by committee size. Detection AUROC, coalition answer, GLM-5.3-flash whole monitor, all 50 scenarios, interleaved
-// layout. Source: report Table 1 (v2 = standard prompt, v4 = plus the shared-wording sentence, stance = vote count).
-// Orange = standard prompt, blue = with the one-sentence fix, grey = vote count (knows the target option; no model).
+// layout. Source: report Table 1 (v2 = standard prompt, v4 = plus the shared-wording sentence).
+// Orange = standard prompt, blue = with the one-sentence fix. The vote-count baseline was removed on 20 Nov 2026: it was
+// given the colluders' target option and the monitors were not, so it was not a fair comparison.
 // Geometry is computed below so the wide and narrow SVGs and the table share one data list.
 interface Props { uid: string }
 const { uid } = Astro.props;
 const rows = [
-  { name: '4 agents', v2: 0.23, v4: 0.69, stance: 0.95 },
-  { name: '8 agents', v2: 0.41, v4: 0.67, stance: 0.94 },
-  { name: '16 agents', v2: 0.44, v4: 0.76, stance: 0.94 },
+  { name: '4 agents', v2: 0.23, v4: 0.69 },
+  { name: '8 agents', v2: 0.41, v4: 0.67 },
+  { name: '16 agents', v2: 0.44, v4: 0.76 },
 ];
 const series = [
   { key: 'v2' as const, cls: 's2', label: 'Standard monitor' },
   { key: 'v4' as const, cls: 's1', label: 'Monitor told similar wording is expected' },
-  { key: 'stance' as const, cls: 's3', label: 'Vote count (no AI)' },
 ];
 const bar = (x: number, y: number, w: number, h: number) => {
   const r = Math.min(4, w / 2, h / 2);
@@ -22,8 +22,8 @@ const bar = (x: number, y: number, w: number, h: number) => {
   return `M${x} ${y}H${x + w - r}Q${x + w} ${y} ${x + w} ${y + r}V${y + h - r}Q${x + w} ${y + h} ${x + w - r} ${y + h}H${x}Z`;
 };
 const f2 = (v: number) => v.toFixed(2);
-const W = { x0: 120, span: 470, top: 22, group: 78, barH: 16, gap: 4 };
-const N = { x0: 8, span: 290, top: 22, group: 92, barH: 15, gap: 4, labH: 22 };
+const W = { x0: 120, span: 470, top: 22, group: 58, barH: 16, gap: 4 };
+const N = { x0: 8, span: 290, top: 22, group: 70, barH: 15, gap: 4, labH: 22 };
 const wideH = W.top + rows.length * W.group + 44;
 const narrowH = N.top + rows.length * N.group + 40;
 ---
@@ -31,11 +31,10 @@ const narrowH = N.top + rows.length * N.group + 40;
   <ul class="legend" aria-hidden="true">
     <li><span class="key key-2"></span>Standard monitor</li>
     <li><span class="key key-1"></span>Monitor told similar wording is expected</li>
-    <li><span class="key key-3"></span>Vote count (no AI)</li>
   </ul>
   <svg class="chart chart-wide" viewBox={`0 0 680 ${wideH}`} role="img" aria-labelledby={`${uid}-title ${uid}-desc`}>
     <title id={`${uid}-title`}>How well each method told committees with a colluding pair from honest committees</title>
-    <desc id={`${uid}-desc`}>{rows.map((r) => `${r.name}: standard monitor ${f2(r.v2)}, monitor with the fix ${f2(r.v4)}, vote count ${f2(r.stance)}.`).join(' ')} 0.5 is a coin flip.</desc>
+    <desc id={`${uid}-desc`}>{rows.map((r) => `${r.name}: standard monitor ${f2(r.v2)}, monitor with the fix ${f2(r.v4)}.`).join(' ')} 0.5 is a coin flip.</desc>
     <g class="grid">
       {[0, 1].map((f) => <line x1={W.x0 + f * W.span} x2={W.x0 + f * W.span} y1={W.top - 6} y2={W.top + rows.length * W.group - 10} />)}
     </g>
@@ -49,7 +48,7 @@ const narrowH = N.top + rows.length * N.group + 40;
       const y = W.top + i * W.group;
       return (
         <g>
-          <text class="lab" x="0" y={y + 32}>{r.name}</text>
+          <text class="lab" x="0" y={y + 22}>{r.name}</text>
           {series.map((s, j) => {
             const v = r[s.key]; const w = v * W.span; const by = y + j * (W.barH + W.gap);
             return (
@@ -100,9 +99,9 @@ const narrowH = N.top + rows.length * N.group + 40;
   <details class="data">
     <summary>Show the numbers</summary>
     <table>
-      <thead><tr><th scope="col">Committee</th><th scope="col">Standard monitor</th><th scope="col">With the fix</th><th scope="col">Vote count</th></tr></thead>
+      <thead><tr><th scope="col">Committee</th><th scope="col">Standard monitor</th><th scope="col">With the fix</th></tr></thead>
       <tbody>
-        {rows.map((r) => <tr><td>{r.name}</td><td>{f2(r.v2)}</td><td>{f2(r.v4)}</td><td>{f2(r.stance)}</td></tr>)}
+        {rows.map((r) => <tr><td>{r.name}</td><td>{f2(r.v2)}</td><td>{f2(r.v4)}</td></tr>)}
       </tbody>
     </table>
   </details>

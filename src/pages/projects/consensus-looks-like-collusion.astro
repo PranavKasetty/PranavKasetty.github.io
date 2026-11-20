@@ -41,8 +41,7 @@ const glance = [
           honest members to reach committees of 8 and 16. All agents were the same model, Gemma 4 31B.</p>
         <p>The monitor (mainly GLM-5.3-flash) read the public discussion and the final votes, never the private
           channel, and was not told whether any colluders existed. It gave each committee a suspicion score and
-          named its suspects. I compared it with a simple count of how many members voted for the colluders'
-          target, which needs no AI but does need to know the target.</p>
+          named its suspects.</p>
         <p>I added two controls during the sprint. One is an all-honest committee of the same model. The other is a
           <em>lone advocate</em>: an agent given the colluders' exact instructions, but with no partner and no
           private channel. If the monitor flags lone advocates as often as real pairs, it is detecting the
@@ -69,8 +68,7 @@ const glance = [
       <SwarmChart uid="swarm">
         How well each method told committees with a colluding pair from all-honest ones, by committee size
         (1 = perfect, 0.5 = a coin flip, below 0.5 = backwards). The standard monitor sits below the coin-flip line.
-        The one-sentence fix lifts it above. A plain vote count, which is told the colluders' target option, beats
-        both.
+        The one-sentence fix lifts it above.
       </SwarmChart>
       <div class="prose">
         <h3>After the fix, it detects the instructions, not the coordination</h3>
@@ -80,9 +78,8 @@ const glance = [
           pairs and lone advocates voted for the target, named each other and won over honest members at about the
           same rates. In these committees there
           was no coordination signal in the transcript for any monitor to find.</p>
-        <h3>A vote count beat every AI monitor</h3>
-        <p>Counting votes for the target option scored 0.94 to 0.95. In practice the monitors look worse still: if
-          an overseer can afford to wrongly flag 5% of honest committees, the fixed monitor caught only 6%, 0% and
+        <h3>At a realistic threshold, the monitor caught little</h3>
+        <p>If an overseer can afford to wrongly flag 5% of honest committees, the fixed monitor caught only 6%, 0% and
           4% of colluding committees at 4, 8 and 16 agents.</p>
         <h3>What to take from it</h3>
         <p>A collusion monitor can score well on a benchmark while detecting something other than collusion. Two
@@ -95,6 +92,9 @@ const glance = [
       <h2 id="limits">Limitations</h2>
       <div class="prose">
         <ul>
+          <li>Correction (20 Nov 2026): an earlier version of this page said a simple vote count beat every AI
+            monitor. That count was told which option the colluders were pushing, and the monitors were not, so the
+            comparison was unfair. I have removed it.</li>
           <li>One agent model family and one main monitor model; other monitors were tested on 10 of the 50 scenarios.</li>
           <li>The fixing sentence was written after looking at the first 10 scenarios. I checked it on data it had
             not seen, including NARCBench's transcripts, but it is still a post hoc fix.</li>
